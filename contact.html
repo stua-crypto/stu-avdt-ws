@@ -200,6 +200,10 @@
     const status = document.getElementById('formStatus');
     status.textContent = 'Opening your email app — send the message from there to reach info@avdt.co.uk.';
     status.classList.add('visible');
+
+    setTimeout(function () {
+      window.location.href = 'thank-you.html';
+    }, 600);
   });
 </script>
 
