@@ -251,7 +251,7 @@
             email: "info@avdt.co.uk",
             // Paste your Formspree (or similar) endpoint here to receive leads by email,
             // e.g. "https://formspree.io/f/abcdwxyz". Leave "" and leads won't be sent anywhere.
-            formEndpoint: "",
+            formEndpoint: "https://formspree.io/f/xqpavrwz",
             privacyUrl: "privacy.html"   // link to your privacy policy page
           };
           /* ======================================================= */
@@ -370,7 +370,7 @@
             if (CONFIG.formEndpoint) {
               var btn = root.querySelector("#avdt-submit"); btn.disabled = true; btn.textContent = "Sending…";
               fetch(CONFIG.formEndpoint, {method:"POST", headers:{"Content-Type":"application/json","Accept":"application/json"},
-                body: JSON.stringify(Object.assign({_subject:"New D1 readiness lead: " + name}, answers))})
+                body: JSON.stringify({_subject:"New D1 minibus check: " + name, name:answers.name, email:answers.email, phone:answers.phone, driverType:answers.driverType || "Not given", passedCarTest:(answers.licence==="pre"?"Before 1997":"1997 or later"), paperwork:{sorted:"D4 and provisional sorted",none:"Not started",grandfather:"Says pre-1997 grandfather rights"}[answers.paperwork], experience:{regular:"Regular large vehicle experience",some:"Some, nervous reversing/tight spaces",car:"Car only"}[answers.experience], recommendedRoute:{A:"Assessment & Refresher",B:"Full D1 Course & Paperwork Support",C:"Accelerated D1 Course"}[answers.path]})})
                 .catch(function(){}).finally(function(){ btn.disabled = false; btn.textContent = "Show my results"; finish(); });
             } else { finish(); }
 

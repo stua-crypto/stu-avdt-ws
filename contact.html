@@ -119,6 +119,7 @@
               <option value="Counterbalance forklift (B1)">Counterbalance forklift (B1)</option>
               <option value="Rough terrain telehandler (J3)">Rough terrain telehandler (J3)</option>
               <option value="LGV practical training (day rate)">LGV practical training (day rate)</option>
+              <option value="D1 minibus training">D1 minibus training</option>
               <option value="Not sure yet">Not sure yet</option>
             </select>
           </div>
@@ -129,7 +130,7 @@
           </div>
 
           <button type="submit" class="btn btn-primary">Send message</button>
-          <p class="form-note">This opens your email app with your message ready to send to info@avdt.co.uk.</p>
+          <p class="form-note">Your message comes straight to info@avdt.co.uk. I'll reply as soon as I can.</p>
           <p class="form-status" id="formStatus" role="status"></p>
         </form>
       </div>
@@ -195,16 +196,33 @@
       message
     ].filter(Boolean);
 
-    const mailto = `mailto:info@avdt.co.uk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
-    window.location.href = mailto;
-
     const status = document.getElementById('formStatus');
-    status.textContent = 'Opening your email app — send the message from there to reach info@avdt.co.uk.';
-    status.classList.add('visible');
+    if (!name || !email || !message) {
+      status.textContent = 'Please fill in your name, email and message.';
+      status.classList.add('visible');
+      return;
+    }
+    const button = this.querySelector('button[type="submit"]');
+    button.disabled = true;
+    button.textContent = 'Sending…';
 
-    setTimeout(function () {
+    fetch('https://formspree.io/f/moevogyd', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ _subject: subject, name, company, email, phone, course, message })
+    }).then(function (res) {
+      if (!res.ok) throw new Error('Send failed');
+      if (window.gtag) gtag('event', 'contact_form_sent', { course: course });
       window.location.href = 'thank-you.html';
-    }, 600);
+    }).catch(function () {
+      // Fallback: open the visitor's email app so the enquiry isn't lost
+      const mailto = `mailto:info@avdt.co.uk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
+      status.textContent = 'Sorry, that didn\'t send. Your email app will open so you can send it from there instead.';
+      status.classList.add('visible');
+      button.disabled = false;
+      button.textContent = 'Send message';
+      window.location.href = mailto;
+    });
   });
 </script>
 
