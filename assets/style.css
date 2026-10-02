@@ -429,6 +429,9 @@ textarea:focus-visible {
 }
 .course-body h3 { font-size: 1.5rem; color: var(--navy-950); margin-bottom: 8px; }
 .course-body p { color: var(--ink-soft); }
+.fork-list { margin: 0 0 18px; padding: 0; list-style: none; color: var(--ink-soft); display: grid; gap: 8px; }
+.fork-list li { position: relative; padding-left: 22px; }
+.fork-list li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 10px; height: 10px; background: var(--gold-500); }
 .course-tags {
   display: flex;
   gap: 10px;
