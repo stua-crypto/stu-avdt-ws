@@ -6,6 +6,14 @@
 <title>On-Site Telehandler Training | Abbott's Vocational Driver Training</title>
 <meta name="description" content="Rough terrain telehandler operator training delivered at your site, on your own equipment. Novice, experienced worker and conversion courses with Stuart Abbott, AVDT.">
 <link rel="canonical" href="https://avdt.co.uk/telehandler-training.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AVDT – Abbott's Vocational Driver Training">
+<meta property="og:title" content="On-Site Telehandler Training | Abbott's Vocational Driver Training">
+<meta property="og:description" content="Rough terrain telehandler operator training delivered at your site, on your own equipment. Novice, experienced worker and conversion courses with Stuart Abbott, AVDT.">
+<meta property="og:url" content="https://avdt.co.uk/telehandler-training.html">
+<meta property="og:image" content="https://avdt.co.uk/assets/hero-banner.jpg">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -29,7 +37,14 @@
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('consent', 'default', { 'analytics_storage': 'denied' });
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied',
+    'wait_for_update': 500
+  });
+  gtag('set', 'ads_data_redaction', true);
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18394247641"></script>
 <script>
@@ -51,8 +66,10 @@
         <span class="brand-sub">Abbott's Vocational Driver Training</span>
       </span>
     </a>
-    <ul class="nav-links">
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu"><span class="nav-toggle-bars" aria-hidden="true"></span>Menu</button>
+    <ul class="nav-links" id="primary-menu">
       <li><a href="index.html#courses">MHE Courses</a></li>
+      <li><a href="telehandler-training.html" aria-current="page">Telehandler</a></li>
       <li><a href="lgv-training.html">LGV Training</a></li>
       <li><a href="d1-minibus-training.html">D1 Minibus</a></li>
       <li><a href="index.html#about">About</a></li>
@@ -78,7 +95,7 @@
           <div class="row"><dt>Course code</dt><dd>J3 — Rough terrain telehandler</dd></div>
           <div class="row"><dt>Candidate types</dt><dd>Novice · Experienced worker · Conversion</dd></div>
           <div class="row"><dt>Location</dt><dd>Delivered at your site</dd></div>
-          <div class="row"><dt>Equipment</dt><dd>Your own customer-owned machine</dd></div>
+          <div class="row"><dt>Equipment</dt><dd>Your own machine</dd></div>
           <div class="row"><dt>ICO registration</dt><dd>ZC212008</dd></div>
         </dl>
       </div>
@@ -101,7 +118,7 @@
       <div class="section-head">
         <div class="section-label">The course</div>
         <h2>Novice, experienced worker, or conversion — on your machine</h2>
-        <p>Telescopic handler training for rough terrain and yard use, delivered on-site using your customer-owned equipment. Includes a joint pre-use equipment check before any training begins.</p>
+        <p>Telescopic handler training for rough terrain and yard use, delivered on-site using your own equipment. Includes a joint pre-use equipment check before any training begins.</p>
         <p class="fee-note">Course fees depend on candidate numbers and site travel — <a href="contact.html">get in touch for a tailored quote</a>.</p>
       </div>
       <div class="course-row">
@@ -197,6 +214,7 @@
       <div class="footer-col">
         <h4>Site</h4>
         <a href="index.html#courses">MHE Courses</a>
+        <a href="telehandler-training.html">Telehandler Training</a>
         <a href="lgv-training.html">LGV Training</a>
         <a href="d1-minibus-training.html">D1 Minibus Training</a>
         <a href="index.html#about">About</a>
@@ -220,5 +238,6 @@
   document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 
+<script src="assets/nav.js" defer></script>
 </body>
 </html>
