@@ -73,6 +73,7 @@
         <div class="hero-ctas">
           <a class="btn btn-primary" href="#check">Take the 2-minute check</a>
           <a class="btn btn-outline" href="tel:07807395913">Call 07807 395913</a>
+          <a class="btn btn-outline" href="https://wa.me/447807395913?text=Hi%20Stuart%2C%20I%27d%20like%20to%20ask%20about%20D1%20minibus%20training" target="_blank" rel="noopener">WhatsApp</a>
         </div>
       </div>
       <div class="about-panel" style="border-top:6px solid var(--gold-500);">
@@ -87,6 +88,15 @@
   </section>
 
   <div class="hazard-stripe" role="presentation"></div>
+
+  <section class="credentials" aria-label="D1 minibus training credentials">
+    <div class="container credentials-grid">
+      <div class="credential-item"><span class="credential-dot"></span><span><strong>Former DVSA Vocational Examiner</strong>, 3 years</span></div>
+      <div class="credential-item"><span class="credential-dot"></span><span><strong>Devon &amp; Cornwall</strong> coverage</span></div>
+      <div class="credential-item"><span class="credential-dot"></span><span><strong>ICO registered</strong>, ZC212008</span></div>
+      <div class="credential-item"><span class="credential-dot"></span><span><strong>Fully insured</strong>, public liability &amp; professional indemnity</span></div>
+    </div>
+  </section>
 
   <section class="section" id="check" style="scroll-margin-top:20px;">
     <div class="container">
@@ -107,7 +117,7 @@
             color:var(--avdt-text); max-width:760px; margin:0 auto; padding:0; box-sizing:border-box; line-height:1.55;
           }
           .avdt *{box-sizing:border-box}
-          .avdt-card{background:var(--avdt-bg); border:1px solid var(--avdt-line); border-radius:6px; overflow:hidden; box-shadow:0 8px 28px rgba(18,48,79,.10)}
+          .avdt-card{background:var(--avdt-bg); border:1px solid var(--avdt-line); border-radius:0; overflow:hidden; border-top:6px solid var(--avdt-amber)}
           .avdt-head{background:radial-gradient(ellipse 140% 100% at 50% 0%,var(--royal-400,#4d84cf) 0%,var(--royal-600,#24519c) 40%,var(--royal-800,#16305c) 75%,var(--navy-950,#0d1b2c) 100%); color:#fff; padding:24px 24px 20px; border-bottom:3px solid var(--avdt-amber)}
           .avdt-head h2,.avdt-q,.avdt-result h3,.avdt-result-tag{font-family:var(--font-display,"Arial Narrow",sans-serif); letter-spacing:.2px}
           .avdt-q{font-size:1.45rem !important; line-height:1.15}
@@ -116,7 +126,7 @@
           .avdt p{max-width:none}
           .avdt-head h2{margin:0 0 4px; font-size:1.45rem; line-height:1.25; color:#fff}
           .avdt-head p{margin:0; opacity:.85; font-size:.95rem}
-          .avdt-progress{height:6px; background:rgba(255,255,255,.2); border-radius:6px; margin-top:16px; overflow:hidden}
+          .avdt-progress{height:6px; background:rgba(255,255,255,.2); border-radius:0; margin-top:16px; overflow:hidden}
           .avdt-progress span{display:block; height:100%; width:0; background:var(--avdt-amber); transition:width .35s ease}
           .avdt-steplabel{font-size:.8rem; margin-top:8px; opacity:.8; letter-spacing:.03em; text-transform:uppercase}
           .avdt-body{padding:24px}
@@ -124,7 +134,7 @@
           .avdt-step.is-active{display:block}
           @keyframes avdtIn{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
           .avdt-q{font-size:1.15rem; font-weight:700; margin:0 0 16px; color:var(--avdt-navy)}
-          .avdt-opt{display:block; width:100%; text-align:left; background:var(--avdt-soft); border:2px solid transparent; border-radius:4px;
+          .avdt-opt{display:block; width:100%; text-align:left; background:var(--avdt-soft); border:2px solid transparent; border-radius:3px;
             padding:14px 16px; margin:0 0 10px; font:inherit; font-size:1rem; color:var(--avdt-text); cursor:pointer; transition:border-color .15s, background .15s}
           .avdt-opt:hover{border-color:var(--avdt-line); background:#eef2f7}
           .avdt-opt:focus-visible{outline:3px solid var(--avdt-amber); outline-offset:2px}
@@ -139,20 +149,20 @@
           .avdt-btn:disabled{opacity:.5; cursor:not-allowed}
           .avdt-field{margin-bottom:14px}
           .avdt-field label{display:block; font-weight:600; font-size:.95rem; margin-bottom:5px}
-          .avdt-field input,.avdt-field select{width:100%; padding:12px 14px; border:1.5px solid var(--avdt-line); border-radius:10px; font:inherit; font-size:1rem; background:#fff; color:var(--avdt-text)}
+          .avdt-field input,.avdt-field select{width:100%; padding:12px 14px; border:1px solid var(--avdt-line); border-radius:3px; font:inherit; font-size:1rem; background:#fff; color:var(--avdt-text)}
           .avdt-field input:focus,.avdt-field select:focus{outline:none; border-color:var(--avdt-navy-2); box-shadow:0 0 0 3px rgba(29,74,117,.15)}
           .avdt-row{display:grid; grid-template-columns:1fr 1fr; gap:12px}
           .avdt-consent{display:flex; gap:10px; align-items:flex-start; font-size:.88rem; color:var(--avdt-muted); margin:6px 0 4px}
           .avdt-consent input{margin-top:4px; width:18px; height:18px; flex:0 0 auto}
           .avdt-consent a{color:var(--avdt-navy-2)}
           .avdt-error{color:#b3261e; font-size:.9rem; margin:6px 0 0; min-height:1.2em}
-          .avdt-result-tag{display:inline-block; background:var(--avdt-amber); color:var(--avdt-navy); font-weight:700; font-size:.78rem; letter-spacing:.05em; text-transform:uppercase; padding:4px 10px; border-radius:20px; margin-bottom:10px}
+          .avdt-result-tag{display:inline-block; background:var(--avdt-amber); color:var(--avdt-navy); font-weight:700; font-size:.78rem; letter-spacing:.05em; text-transform:uppercase; padding:6px 12px; border-radius:3px; margin-bottom:10px}
           .avdt-result h3{margin:0 0 8px; font-size:1.35rem; color:var(--avdt-navy)}
           .avdt-result p{margin:0 0 12px}
           .avdt-steps{list-style:none; padding:0; margin:14px 0 16px; counter-reset:s}
           .avdt-steps li{counter-increment:s; position:relative; padding:0 0 12px 44px; min-height:32px}
           .avdt-steps li::before{content:counter(s); position:absolute; left:0; top:0; width:30px; height:30px; border-radius:50%; background:var(--avdt-navy); color:#fff; font-weight:700; display:flex; align-items:center; justify-content:center; font-size:.9rem}
-          .avdt-note{border-radius:10px; padding:12px 14px; font-size:.92rem; margin:0 0 12px}
+          .avdt-note{border-radius:0; padding:12px 14px; font-size:.92rem; margin:0 0 12px}
           .avdt-note-warn{background:var(--avdt-warn-bg); border-left:4px solid var(--avdt-amber)}
           .avdt-note-info{background:var(--avdt-info-bg); border-left:4px solid var(--avdt-navy-2)}
           .avdt-note a{color:var(--avdt-navy-2)}
@@ -161,8 +171,8 @@
           .avdt-btn-outline{background:#fff; color:var(--avdt-navy); border:2px solid var(--avdt-navy)}
           .avdt-btn-outline:hover{background:var(--avdt-soft)}
           .avdt-small{font-size:.82rem; color:var(--avdt-muted); margin-top:14px}
-          .avdt-banner{margin-top:18px; background:var(--avdt-soft); border:1px dashed var(--avdt-line); border-radius:12px; padding:16px 18px; display:flex; gap:14px; align-items:flex-start}
-          .avdt-banner-icon{flex:0 0 40px; height:40px; border-radius:10px; background:var(--avdt-navy); color:var(--avdt-amber); display:flex; align-items:center; justify-content:center; font-weight:800}
+          .avdt-banner{margin-top:18px; background:var(--avdt-soft); border:1px solid var(--avdt-line); border-radius:0; padding:16px 18px; display:flex; gap:14px; align-items:flex-start}
+          .avdt-banner-icon{flex:0 0 40px; height:40px; border-radius:3px; background:var(--avdt-navy); color:var(--avdt-amber); display:flex; align-items:center; justify-content:center; font-weight:800}
           .avdt-banner p{margin:0; font-size:.93rem}
           .avdt-banner a{color:var(--avdt-navy-2); font-weight:600}
           @media (max-width:560px){
@@ -431,6 +441,37 @@
     </div>
   </section>
 
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label">FAQ</div>
+        <h2>Common questions</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Can I drive a minibus on my car licence?</summary>
+          <p>It depends when you passed your car test. If it was before 1 January 1997, your licence will normally show D1 with code 101, which lets you drive a minibus with up to 16 passenger seats as long as it's not for hire or reward. If you passed on or after that date, you can only drive one on a car licence in limited volunteer situations; otherwise you need to pass the D1 test. <a href="#check">The 2-minute check</a> will tell you which applies to you.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What does code 101 on my licence mean?</summary>
+          <p>Code 101 means "not for hire or reward". You can drive a minibus, but not where passengers pay to be carried or where you're paid to drive them commercially. To remove the restriction you need to pass the full D1 test.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What's involved in getting a full D1 licence?</summary>
+          <p>You'll need a D4 medical completed by a doctor, then send it to DVLA with a D2 application to get provisional D1 entitlement. After that come the theory and hazard perception tests, practical training in a minibus, and the D1 driving test. You usually need to be 21 or over. I'll explain each step so nothing holds you up.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do I need Driver CPC as well?</summary>
+          <p>If you'll be driving a minibus as part of a paid job, you'll usually need Driver CPC too. Some types of driving are exempt, so tell me what the driving involves and I'll help you check.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How do I book?</summary>
+          <p>Take the <a href="#check">2-minute check</a>, use the <a href="contact.html">contact form</a> or call <a href="tel:07807395913">07807 395913</a>, and I'll come back to you with availability.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
   <section class="cta-band">
     <div class="container cta-band-inner">
       <div>
@@ -440,6 +481,7 @@
       <div class="cta-band-ctas">
         <a class="btn btn-primary" href="contact.html">Get in touch</a>
         <a class="btn btn-outline" href="tel:07807395913">Call 07807 395913</a>
+        <a class="btn btn-outline" href="https://wa.me/447807395913?text=Hi%20Stuart%2C%20I%27d%20like%20to%20ask%20about%20D1%20minibus%20training" target="_blank" rel="noopener">WhatsApp</a>
       </div>
     </div>
   </section>
@@ -454,7 +496,7 @@
           <picture><source srcset="assets/logo-112.webp" type="image/webp"><img class="brand-logo" src="assets/logo-112.png" alt="AVDT logo" width="56" height="56"></picture>
           <span class="brand-mark">AVDT</span>
         </a>
-        <p style="max-width:36ch; color:var(--steel-300);">Stuart Abbott, trading as Abbott's Vocational Driver Training. MHE operator training and LGV practical driving training.</p>
+        <p style="max-width:36ch; color:var(--steel-300);">Stuart Abbott, trading as Abbott's Vocational Driver Training. On-site forklift and telehandler operator training, LGV driver training and D1 minibus training across Devon and Cornwall.</p>
       </div>
       <div class="footer-col">
         <h4>Site</h4>
