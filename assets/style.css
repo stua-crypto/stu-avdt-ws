@@ -270,11 +270,84 @@ textarea:focus-visible {
   line-height: 0;
   background: var(--royal-800);
 }
-.masthead img {
-  width: 100%;
+.masthead-art {
+  position: relative;
   max-width: 1920px;
-  height: auto;
   margin: 0 auto;
+  overflow: hidden;
+  isolation: isolate;
+}
+.masthead-base {
+  width: 100%;
+  height: auto;
+}
+/* Shield logo cut-out, sitting exactly over its place in the banner */
+.masthead-logo {
+  position: absolute;
+  left: 35.84%;
+  top: 5.03%;
+  width: 24.48%;
+  height: auto;
+  z-index: 3;
+  pointer-events: none;
+}
+/* Animated light rays behind the shield */
+.masthead-rays,
+.masthead-glow {
+  position: absolute;
+  left: 48.04%;
+  top: 47.7%;
+  width: 80%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  transform: translate(-50%, -50%);
+  will-change: transform, opacity;
+}
+.masthead-rays {
+  z-index: 2;
+  background: repeating-conic-gradient(
+    from 0deg,
+    rgba(200, 232, 255, 0) 0deg 4deg,
+    rgba(214, 238, 255, 0.55) 6deg,
+    rgba(200, 232, 255, 0) 8deg 12deg
+  );
+  -webkit-mask-image: radial-gradient(closest-side, #000 0%, rgba(0,0,0,0.75) 14%, rgba(0,0,0,0.25) 30%, transparent 42%);
+          mask-image: radial-gradient(closest-side, #000 0%, rgba(0,0,0,0.75) 14%, rgba(0,0,0,0.25) 30%, transparent 42%);
+  animation: avdt-rays-spin 60s linear infinite;
+}
+.masthead-rays--slow {
+  background: repeating-conic-gradient(
+    from 3deg,
+    rgba(255, 255, 255, 0) 0deg 9deg,
+    rgba(255, 255, 255, 0.35) 11.5deg,
+    rgba(255, 255, 255, 0) 14deg 18deg
+  );
+  animation: avdt-rays-spin-back 90s linear infinite, avdt-rays-pulse 6s ease-in-out infinite;
+}
+.masthead-glow {
+  z-index: 1;
+  width: 40%;
+  background: radial-gradient(closest-side, rgba(225, 242, 255, 0.9), rgba(120, 190, 255, 0.35) 45%, transparent 75%);
+  animation: avdt-glow-pulse 6s ease-in-out infinite;
+}
+@keyframes avdt-rays-spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+@keyframes avdt-rays-spin-back {
+  to { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+@keyframes avdt-rays-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+@keyframes avdt-glow-pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.8; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .masthead-rays, .masthead-glow { animation: none; }
 }
 
 /* ---------- Hero ---------- */
