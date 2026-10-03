@@ -5,10 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AVDT — On-Site Forklift &amp; Telehandler Operator Training | Abbott's Vocational Driver Training</title>
 <meta name="description" content="On-site MHE operator training delivered at your site. Counterbalance forklift (B1) and rough terrain telehandler (J3) courses with Stuart Abbott, AVDT.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preload" href="assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/style.css">
 <link rel="canonical" href="https://avdt.co.uk/">
 <meta property="og:type" content="website">
@@ -142,7 +141,7 @@
 <header class="site-header">
   <nav class="nav" aria-label="Primary">
     <a class="brand" href="index.html">
-      <img class="brand-logo" src="assets/logo.png" alt="AVDT logo">
+      <picture><source srcset="assets/logo-112.webp" type="image/webp"><img class="brand-logo" src="assets/logo-112.png" alt="AVDT logo" width="56" height="56"></picture>
       <span class="brand-text">
         <span class="brand-mark">AVDT</span>
         <span class="brand-sub">Abbott's Vocational Driver Training</span>
@@ -164,7 +163,7 @@
 
   <section class="masthead">
     <div class="masthead-art">
-      <img class="masthead-base" src="assets/hero-banner.jpg" alt="AVDT — MHE &amp; LGV Training. Logistics training specialists. Get certified, enroll now." width="1250" height="398" loading="eager">
+      <picture><source srcset="assets/hero-banner.webp" type="image/webp"><img class="masthead-base" src="assets/hero-banner.jpg" alt="AVDT — MHE &amp; LGV Training. Logistics training specialists. Get certified, enroll now." width="1250" height="398" fetchpriority="high"></picture>
       <div class="masthead-glow" aria-hidden="true"></div>
       <div class="masthead-rays" aria-hidden="true"></div>
       <div class="masthead-rays masthead-rays--slow" aria-hidden="true"></div>
@@ -184,9 +183,7 @@
         </div>
       </div>
       <div class="hero-video-frame">
-        <video id="heroVideo" poster="assets/video-poster.jpg" muted loop playsinline autoplay>
-          <source src="assets/avdt-training-video.mp4" type="video/mp4">
-        </video>
+        <video id="heroVideo" poster="assets/video-poster.webp" muted loop playsinline preload="none" width="1280" height="720" data-src="assets/avdt-training-video.mp4"></video>
         <button class="video-toggle" id="videoToggle" type="button" aria-pressed="true">
           <span id="videoToggleLabel">Pause video</span>
         </button>
@@ -345,7 +342,7 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a class="brand" href="index.html" style="margin-bottom:14px;">
-          <img class="brand-logo" src="assets/logo.png" alt="AVDT logo">
+          <picture><source srcset="assets/logo-112.webp" type="image/webp"><img class="brand-logo" src="assets/logo-112.png" alt="AVDT logo" width="56" height="56"></picture>
           <span class="brand-mark">AVDT</span>
         </a>
         <p style="max-width:36ch; color:var(--steel-300);">Stuart Abbott, trading as Abbott's Vocational Driver Training. On-site MHE operator training delivered at customer sites — no fixed training centre.</p>
@@ -381,13 +378,26 @@
   const toggleLabel = document.getElementById('videoToggleLabel');
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReducedMotion) {
-    video.pause();
+  const saveData = navigator.connection && navigator.connection.saveData;
+
+  // Load the video only after the rest of the page has finished loading,
+  // so it never slows down the first view of the page.
+  function loadVideo(autoplay) {
+    if (!video.dataset.src) return;
+    video.src = video.dataset.src;
+    delete video.dataset.src;
+    if (autoplay) video.play().catch(() => {});
+  }
+  if (prefersReducedMotion || saveData) {
     toggleLabel.textContent = 'Play video';
     toggleBtn.setAttribute('aria-pressed', 'false');
+  } else {
+    const start = () => setTimeout(() => loadVideo(true), 300);
+    if (document.readyState === 'complete') start(); else window.addEventListener('load', start);
   }
 
   toggleBtn.addEventListener('click', () => {
+    loadVideo(false);
     if (video.paused) {
       video.play();
       toggleLabel.textContent = 'Pause video';

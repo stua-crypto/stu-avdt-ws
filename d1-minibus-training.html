@@ -15,9 +15,8 @@
 <meta property="og:image" content="https://avdt.co.uk/assets/hero-banner.jpg">
 <meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/style.css">
 <!-- Google tag (gtag.js) - Google Ads AW-18394247641 -->
 <script>
@@ -46,7 +45,7 @@
 <header class="site-header">
   <nav class="nav" aria-label="Primary">
     <a class="brand" href="index.html">
-      <img class="brand-logo" src="assets/logo.png" alt="AVDT logo">
+      <picture><source srcset="assets/logo-112.webp" type="image/webp"><img class="brand-logo" src="assets/logo-112.png" alt="AVDT logo" width="56" height="56"></picture>
       <span class="brand-text">
         <span class="brand-mark">AVDT</span>
         <span class="brand-sub">Abbott's Vocational Driver Training</span>
@@ -66,7 +65,7 @@
 
 <main id="main">
 
-  <section class="hero">
+  <section class="hero hero--rays">
     <div class="container hero-grid">
       <div class="hero-copy">
         <h1>D1 minibus driver training</h1>
@@ -452,7 +451,7 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a class="brand" href="index.html" style="margin-bottom:14px;">
-          <img class="brand-logo" src="assets/logo.png" alt="AVDT logo">
+          <picture><source srcset="assets/logo-112.webp" type="image/webp"><img class="brand-logo" src="assets/logo-112.png" alt="AVDT logo" width="56" height="56"></picture>
           <span class="brand-mark">AVDT</span>
         </a>
         <p style="max-width:36ch; color:var(--steel-300);">Stuart Abbott, trading as Abbott's Vocational Driver Training. MHE operator training and LGV practical driving training.</p>

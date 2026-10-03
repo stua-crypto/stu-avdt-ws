@@ -1,3 +1,11 @@
+/* ---------- Fonts (self-hosted, SIL Open Font License — see assets/fonts) ---------- */
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/inter-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 500; font-display: swap; src: url("fonts/inter-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 600; font-display: swap; src: url("fonts/inter-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 700; font-display: swap; src: url("fonts/inter-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 600; font-display: swap; src: url("fonts/barlow-condensed-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 700; font-display: swap; src: url("fonts/barlow-condensed-latin-700-normal.woff2") format("woff2"); }
+
 /* ===========================================================
    AVDT — Abbott's Vocational Driver Training
    Shared styles
@@ -172,6 +180,7 @@ textarea:focus-visible {
   letter-spacing: 0.4px;
 }
 .footer-brand .brand-logo { width: 56px; height: 56px; min-width: 56px; }
+.brand picture { display: block; line-height: 0; }
 .nav-links {
   display: flex;
   align-items: center;
@@ -277,6 +286,7 @@ textarea:focus-visible {
   overflow: hidden;
   isolation: isolate;
 }
+.masthead-art picture { display: block; }
 .masthead-base {
   width: 100%;
   height: auto;
@@ -346,8 +356,31 @@ textarea:focus-visible {
   0%, 100% { opacity: 0.35; }
   50% { opacity: 0.8; }
 }
+/* Faint slow light rays in the header of the service pages */
+.hero--rays::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1600px;
+  height: 1600px;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background: repeating-conic-gradient(
+    from 0deg,
+    rgba(190, 225, 255, 0) 0deg 5deg,
+    rgba(190, 225, 255, 0.16) 7deg,
+    rgba(190, 225, 255, 0) 9deg 14deg
+  );
+  -webkit-mask-image: radial-gradient(closest-side, #000 0%, rgba(0,0,0,0.5) 22%, transparent 48%);
+          mask-image: radial-gradient(closest-side, #000 0%, rgba(0,0,0,0.5) 22%, transparent 48%);
+  transform: translate(-50%, -50%);
+  animation: avdt-rays-spin 120s linear infinite;
+  will-change: transform;
+}
 @media (prefers-reduced-motion: reduce) {
-  .masthead-rays, .masthead-glow { animation: none; }
+  .masthead-rays, .masthead-glow, .hero--rays::after { animation: none; }
 }
 
 /* ---------- Hero ---------- */
@@ -694,7 +727,6 @@ textarea:focus-visible {
 /* ---------- Contact page ---------- */
 .page-header {
   background:
-    url("assets/hero-texture.svg") -20px -20px / 480px auto no-repeat,
     radial-gradient(ellipse 140% 100% at 50% 0%, var(--royal-400) 0%, var(--royal-600) 32%, var(--royal-800) 62%, var(--navy-950) 100%);
   color: #fff;
   padding: 56px 0 48px;
