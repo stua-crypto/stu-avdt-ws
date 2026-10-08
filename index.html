@@ -36,7 +36,7 @@
     "postalCode": "TQ13 0PR",
     "addressCountry": "GB"
   },
-  "areaServed": "Devon and Cornwall",
+  "areaServed": ["Devon", "Cornwall"],
   "description": "On-site MHE operator training (counterbalance forklift and rough terrain telehandler), LGV and PCV practical driving training (including D1 minibus) across Devon and Cornwall, from a single dedicated instructor.",
   "founder": {
     "@type": "Person",
@@ -93,23 +93,51 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Do we need to provide the truck, or do you bring one?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Training is carried out on your own equipment, at your own site. A joint pre-use equipment check is done with your team before any candidate gets on the truck." }
+      "name": "What areas do you cover?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I'm based in Chudleigh, near Newton Abbot, and cover Devon and Cornwall, including Exeter, Plymouth, Torbay and Newton Abbot."
+      }
     },
     {
       "@type": "Question",
-      "name": "What's the difference between novice, experienced worker, and conversion training?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Novice is for candidates with no prior operating experience. Experienced worker is for those who've operated the truck type before but hold no formal certificate. Conversion is for certificated operators moving from one truck type or attachment to another." }
+      "name": "Do I need to provide the vehicle or equipment?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For forklift and telehandler training, yes: training runs on your own equipment at your own site. LGV and PCV training days use the driving school's vehicle. For C1, I can arrange hire of a vehicle that meets DVSA's test rules (hire cost extra), or use your own if it's suitable. For D1, tell me what you have and I'll explain the options."
+      }
     },
     {
       "@type": "Question",
       "name": "How much does training cost?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Course fees depend on candidate numbers, course type, and travel to site. Contact AVDT with site location and candidate numbers for a tailored quote." }
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every booking is quoted individually, based on the type of training, experience, numbers and travel. Get in touch with what you need and I'll come back with a clear quote."
+      }
     },
     {
       "@type": "Question",
-      "name": "How do we book a course?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Use the contact form or call 07807 395913 with site details, the equipment to be covered, and preferred dates." }
+      "name": "Do you offer Driver CPC?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not at the moment. Driver CPC has to be done on an approved course, so see Driver CPC explained for how to find one."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if conditions aren't safe on the day?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A risk assessment is carried out before and during every course. If conditions aren't safe because of weather, ground or site activity, training pauses or stops until they are, or we reschedule."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I book?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the contact form, call 07807 395913 or send a WhatsApp message with what you need and a few dates that work, and I'll confirm availability."
+      }
     }
   ]
 }
@@ -155,7 +183,7 @@
       <li><a href="lgv-training.html#c1-d1">C1 Ambulance</a></li>
       <li><a href="d1-minibus-training.html">D1 Minibus</a></li>
       <li><a href="driver-cpc.html">Driver CPC</a></li>
-      <li><a href="#about">About</a></li>
+      <li><a href="about.html">About</a></li>
       <li><a href="contact.html" class="nav-cta">Contact</a></li>
     </ul>
   </nav>
@@ -176,10 +204,10 @@
   <section class="hero">
     <div class="container hero-grid">
       <div class="hero-copy">
-        <h1>On-site forklift and telehandler training that comes to you</h1>
-        <p class="hero-lede">MHE instruction for counterbalance forklifts and rough terrain telehandlers, to AITT/ABA course standards — delivered at your premises, on your schedule, by one dedicated instructor.</p>
+        <h1>Driver and operator training across Devon and Cornwall</h1>
+        <p class="hero-lede">On-site forklift and telehandler training at your premises, lorry and bus (LGV and PCV) driver training, C1 for ambulance crews and D1 minibus training, all from one instructor: Stuart Abbott, a former DVSA examiner.</p>
         <div class="hero-ctas">
-          <a class="btn btn-primary" href="contact.html">Book training</a>
+          <a class="btn btn-primary" href="#services">See what I offer</a>
           <a class="btn btn-outline" href="tel:07807395913">Call 07807 395913</a>
           <a class="btn btn-outline" href="https://wa.me/447807395913?text=Hi%20Stuart%2C%20I%27d%20like%20to%20book%20training" target="_blank" rel="noopener">WhatsApp</a>
         </div>
@@ -199,47 +227,57 @@
     <div class="container credentials-grid">
       <div class="credential-item"><span class="credential-dot"></span><span><strong>AITT member</strong>, No. 1:55312</span></div>
       <div class="credential-item"><span class="credential-dot"></span><span><strong>NPORS</strong> registered on telehandler</span></div>
-      <div class="credential-item"><span class="credential-dot"></span><span><strong>ICO registered</strong>, ZC212008</span></div>
+      <div class="credential-item"><span class="credential-dot"></span><span><strong>Former DVSA examiner</strong>, cars, lorries &amp; buses</span></div>
       <div class="credential-item"><span class="credential-dot"></span><span><strong>Fully insured</strong>, public liability &amp; professional indemnity</span></div>
     </div>
   </section>
 
-  <section class="section" id="courses">
+  <section class="section" id="services" style="scroll-margin-top:80px;">
     <div class="container">
-      <div class="section-head">
-        <div class="section-label">Courses</div>
-        <h2>Two categories, one instructor</h2>
-        <p>Training covers novice, experienced and conversion candidates. Every course is planned around your site, your equipment and your team's availability.</p>
-        <p class="fee-note">Course fees depend on candidate numbers, course type and site travel — <a href="contact.html">get in touch for a tailored quote</a>.</p>
+      <div class="section-head" id="courses">
+        <div class="section-label">What I do</div>
+        <h2>Training for drivers and operators</h2>
+        <p>From forklifts on your yard to lorries, buses and minibuses on the road, every course is planned around you and delivered by me. Prices are tailored to what you need, so <a href="contact.html" style="color:var(--royal-600); font-weight:600;">get in touch for a quote</a>.</p>
       </div>
-
-      <div class="course-row">
-        <div class="course-code">B1</div>
-        <div class="course-body">
-          <h3>Counterbalance forklift</h3>
-          <p>MHE counterbalance operator training to AITT/ABA standard, run on your own truck at your own site. Covers theory, practical operation and a formal test, with a certificate issued on completion.</p>
-          <div class="course-tags">
-            <span class="tag">Novice</span>
-            <span class="tag">Experienced worker</span>
-            <span class="tag">Conversion</span>
-          </div>
-          <p style="margin-top:14px;"><a href="forklift-training.html" style="color:var(--royal-600); font-weight:600;">More on forklift training &rarr;</a></p>
-        </div>
+      <div class="services-grid">
+        <a class="service-card" href="forklift-training.html">
+          <span class="service-code">B1</span>
+          <h3>Forklift training</h3>
+          <p>Counterbalance forklift training on your own truck, at your site. Novice, experienced worker and conversion.</p>
+          <span class="service-link">Forklift training &rarr;</span>
+        </a>
+        <a class="service-card" href="telehandler-training.html">
+          <span class="service-code">J3</span>
+          <h3>Telehandler training</h3>
+          <p>Rough terrain telehandler training on your own machine, planned around your working day.</p>
+          <span class="service-link">Telehandler training &rarr;</span>
+        </a>
+        <a class="service-card" href="lgv-training.html">
+          <span class="service-code">C · D</span>
+          <h3>LGV &amp; PCV driver training</h3>
+          <p>Lorry (C1, C, C+E) and bus (D1, D, D+E) training days for driving schools.</p>
+          <span class="service-link">LGV &amp; PCV training &rarr;</span>
+        </a>
+        <a class="service-card" href="lgv-training.html#c1-d1">
+          <span class="service-code">C1</span>
+          <h3>C1 for ambulance crews</h3>
+          <p>For trainee paramedics and ambulance technicians, from provisional licence to test day in a hired test vehicle.</p>
+          <span class="service-link">C1 ambulance training &rarr;</span>
+        </a>
+        <a class="service-card" href="d1-minibus-training.html">
+          <span class="service-code">D1</span>
+          <h3>D1 minibus training</h3>
+          <p>For schools, charities and drivers. Take the free 2-minute licence check to see what you need.</p>
+          <span class="service-link">D1 minibus training &rarr;</span>
+        </a>
+        <a class="service-card" href="water/">
+          <span class="service-code">Water</span>
+          <h3>Event water safety cover</h3>
+          <p>Safety boat cover for triathlon swims, open water events and rowing, with STCW and RYA qualifications.</p>
+          <span class="service-link">Water safety cover &rarr;</span>
+        </a>
       </div>
-
-      <div class="course-row">
-        <div class="course-code">J3</div>
-        <div class="course-body">
-          <h3>Rough terrain telehandler</h3>
-          <p>Telescopic handler training for rough terrain and yard use, delivered on-site using your own equipment. Includes a joint pre-use equipment check before any training begins.</p>
-          <div class="course-tags">
-            <span class="tag">Novice</span>
-            <span class="tag">Experienced worker</span>
-            <span class="tag">Conversion</span>
-          </div>
-          <p style="margin-top:14px;"><a href="telehandler-training.html" style="color:var(--royal-600); font-weight:600;">More on telehandler training &rarr;</a></p>
-        </div>
-      </div>
+      <p class="fee-note" style="margin-top:28px;">Looking for Driver CPC? I don't deliver it, but <a href="driver-cpc.html">here's where to find approved courses</a>. Free guides and checklists are on the <a href="resources.html">Resources page</a>.</p>
     </div>
   </section>
 
@@ -247,20 +285,20 @@
     <div class="container">
       <div class="section-head" style="margin-bottom:40px;">
         <div class="section-label">Why AVDT</div>
-        <h2>Built around your operation, not a training centre</h2>
+        <h2>Built around you, not a training centre</h2>
       </div>
       <div class="why-grid">
         <div class="why-item">
-          <h3>Trains where your trucks are</h3>
-          <p>No fixed training centre and no travel for your team. Every course is planned around your site, your equipment and your working hours.</p>
+          <h3>An examiner's eye</h3>
+          <p>As a former DVSA examiner for cars, lorries and buses, I know what a test looks for and where people lose marks, and I train with that in mind.</p>
         </div>
         <div class="why-item">
-          <h3>Site risk-assessed first</h3>
-          <p>A site-specific risk assessment is completed before training starts, and equipment is checked jointly with your team before candidates get on it.</p>
+          <h3>Training that comes to you</h3>
+          <p>Forklift and telehandler courses run on your own site and equipment, risk-assessed first. Driver training is planned around your test date and vehicle.</p>
         </div>
         <div class="why-item">
           <h3>One instructor, direct contact</h3>
-          <p>You deal with Stuart Abbott from first enquiry to certificate — no call centre, no account managers, no handover.</p>
+          <p>You deal with me from first enquiry to the end of training. No call centre, no account managers, no handover.</p>
         </div>
       </div>
     </div>
@@ -271,17 +309,20 @@
       <div class="about-body">
         <div class="section-label">About your instructor</div>
         <h2>Stuart Abbott</h2>
-        <p>Stuart trades as Abbott's Vocational Driver Training (AVDT), a sole-trader instructor business based in Chudleigh, near Newton Abbot, delivering MHE training to AITT/ABA course standards across counterbalance forklifts and rough terrain telehandlers.</p>
-        <p>Training is planned and delivered in line with the HSE Approved Code of Practice L117 and AITT/ABA standards: a dynamic risk assessment before every course, a joint equipment check on arrival, and training that stops the moment conditions aren't safe.</p>
-        <p>Because AVDT is a one-instructor business, you're never passed between contacts — the person who quotes your course is the person who delivers it.</p>
+        <p>I'm a former DVSA driving examiner for cars, lorries and buses, with over 30 years of driving experience. I run Abbott's Vocational Driver Training (AVDT) from Chudleigh, near Newton Abbot.</p>
+        <p>Forklift and telehandler training is planned and delivered in line with the HSE Approved Code of Practice L117 and AITT/ABA standards: a risk assessment before every course, a joint equipment check on arrival, and training that stops the moment conditions aren't safe.</p>
+        <p>Because AVDT is a one-instructor business, the person who quotes your training is the person who delivers it.</p>
+        <p><a href="about.html" style="color:var(--royal-600); font-weight:600;">More about me &rarr;</a></p>
       </div>
       <div class="about-panel">
         <dl>
           <div class="row"><dt>Trading as</dt><dd>Abbott's Vocational Driver Training</dd></div>
           <div class="row"><dt>AITT membership</dt><dd>1:55312</dd></div>
-          <div class="row"><dt>Categories</dt><dd>Counterbalance · Telehandler</dd></div>
+          <div class="row"><dt>Background</dt><dd>Former DVSA examiner</dd></div>
+          <div class="row"><dt>MHE</dt><dd>Counterbalance · Telehandler</dd></div>
+          <div class="row"><dt>Driving</dt><dd>LGV · PCV · C1 · D1</dd></div>
           <div class="row"><dt>Business type</dt><dd>Sole trader</dd></div>
-          <div class="row"><dt>Training location</dt><dd>Delivered at your site</dd></div>
+          <div class="row"><dt>Area</dt><dd>Devon &amp; Cornwall</dd></div>
           <div class="row"><dt>ICO registration</dt><dd>ZC212008</dd></div>
         </dl>
       </div>
@@ -296,28 +337,28 @@
       </div>
       <div class="faq-list">
         <details class="faq-item">
-          <summary>Do we need to provide the truck, or do you bring one?</summary>
-          <p>Training is carried out on your own equipment, at your own site — there's no fixed training centre and nothing for you to transport. A joint pre-use equipment check is done with your team before any candidate gets on the truck.</p>
+          <summary>What areas do you cover?</summary>
+          <p>I'm based in Chudleigh, near Newton Abbot, and cover Devon and Cornwall, including Exeter, Plymouth, Torbay and Newton Abbot.</p>
         </details>
         <details class="faq-item">
-          <summary>What's the difference between novice, experienced worker, and conversion training?</summary>
-          <p><strong>Novice</strong> is for candidates with no prior operating experience. <strong>Experienced worker</strong> is for those who've operated the truck type before but hold no formal certificate. <strong>Conversion</strong> is for certificated operators moving from one truck type or attachment to another. Course length varies between these — get in touch with your candidates' backgrounds and I'll confirm timings.</p>
-        </details>
-        <details class="faq-item">
-          <summary>How many candidates can go on one course?</summary>
-          <p>Group sizes are kept small so every candidate gets enough seat time and direct instruction. Tell me candidate numbers when you enquire and I'll confirm what that means for course length and days on site.</p>
-        </details>
-        <details class="faq-item">
-          <summary>What happens if the weather or site conditions aren't safe on the day?</summary>
-          <p>A dynamic risk assessment is carried out before and during every course. If conditions aren't safe — weather, ground, site activity — training pauses or stops until they are, or we reschedule.</p>
+          <summary>Do I need to provide the vehicle or equipment?</summary>
+          <p>For forklift and telehandler training, yes: training runs on your own equipment at your own site. LGV and PCV training days use the driving school's vehicle. For C1, I can arrange hire of a vehicle that meets DVSA's test rules (hire cost extra), or use your own if it's suitable. For D1, tell me what you have and I'll explain the options.</p>
         </details>
         <details class="faq-item">
           <summary>How much does training cost?</summary>
-          <p>Course fees depend on candidate numbers, course type, and travel to your site. Get in touch with your site location and candidate numbers and I'll come back with a tailored quote.</p>
+          <p>Every booking is quoted individually, based on the type of training, experience, numbers and travel. Get in touch with what you need and I'll come back with a clear quote.</p>
         </details>
         <details class="faq-item">
-          <summary>How do we book a course?</summary>
-          <p>Use the <a href="contact.html">contact form</a> or call <a href="tel:07807395913">07807 395913</a> with your site details, the equipment you need covered, and a few dates that work — I'll confirm availability from there.</p>
+          <summary>Do you offer Driver CPC?</summary>
+          <p>Not at the moment. Driver CPC has to be done on an approved course, so see <a href="driver-cpc.html">Driver CPC explained</a> for how to find one.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What happens if conditions aren't safe on the day?</summary>
+          <p>A risk assessment is carried out before and during every course. If conditions aren't safe because of weather, ground or site activity, training pauses or stops until they are, or we reschedule.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How do I book?</summary>
+          <p>Use the <a href="contact.html">contact form</a>, call <a href="tel:07807395913">07807 395913</a> or send a WhatsApp message with what you need and a few dates that work, and I'll confirm availability.</p>
         </details>
       </div>
     </div>
@@ -326,8 +367,8 @@
   <section class="cta-band">
     <div class="container cta-band-inner">
       <div>
-        <h2>Ready to book training for your team?</h2>
-        <p>Get in touch with your site details and a suitable date — I'll take it from there.</p>
+        <h2>Ready to book training?</h2>
+        <p>Tell me what you need and a few dates that work, and I'll take it from there. I cover Exeter, Plymouth, Torbay, Newton Abbot and the rest of Devon and Cornwall.</p>
       </div>
       <div class="cta-band-ctas">
         <a class="btn btn-primary" href="contact.html">Get in touch</a>
@@ -347,7 +388,7 @@
           <picture><source srcset="assets/logo-112.webp" type="image/webp"><img class="brand-logo" src="assets/logo-112.png" alt="AVDT logo" width="56" height="56"></picture>
           <span class="brand-mark">AVDT</span>
         </a>
-        <p style="max-width:36ch; color:var(--steel-300);">Stuart Abbott, trading as Abbott's Vocational Driver Training. On-site forklift and telehandler operator training, LGV (lorry) and PCV (bus and minibus) driver training across Devon and Cornwall.</p>
+        <p style="max-width:36ch; color:var(--steel-300);">Stuart Abbott, trading as Abbott's Vocational Driver Training. On-site forklift and telehandler operator training, LGV (lorry) and PCV (bus and minibus) driver training, and event water safety cover across Devon and Cornwall.</p>
       </div>
       <div class="footer-col">
         <h4>Site</h4>
@@ -357,7 +398,8 @@
         <a href="lgv-training.html#c1-d1">C1 Ambulance Training</a>
         <a href="d1-minibus-training.html">D1 Minibus Training</a>
         <a href="driver-cpc.html">Driver CPC</a>
-        <a href="index.html#about">About</a>
+        <a href="water/">Water Safety Cover</a>
+        <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
         <a href="resources.html">Resources</a>
         <a href="privacy.html">Privacy notice</a>
