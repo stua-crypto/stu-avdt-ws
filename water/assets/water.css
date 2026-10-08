@@ -75,7 +75,8 @@ section { padding: 80px 0; }
 .facts dl { margin: 0; }
 .facts .r { display: flex; justify-content: space-between; gap: 18px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.14); }
 .facts .r:last-child { border-bottom: 0; }
-.facts dt { color: #a9c3d6; } .facts dd { margin: 0; font-weight: 600; text-align: right; }
+.facts dt { color: #a9c3d6; } .facts dd { margin: 0; font-weight: 600; text-align: right; white-space: nowrap; }
+@media (max-width: 480px) { .facts .r { flex-direction: column; gap: 2px; } .facts dd { text-align: left; white-space: normal; } }
 
 /* contact */
 .contact { background: linear-gradient(180deg, var(--sea) 0%, var(--deep) 100%); color: #fff; }
