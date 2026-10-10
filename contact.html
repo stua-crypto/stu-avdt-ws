@@ -119,6 +119,7 @@
 
       <div>
         <form id="contactForm" novalidate>
+          <div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;"><label for="cf-website">Leave this field empty</label><input type="text" id="cf-website" name="website" tabindex="-1" autocomplete="off"></div>
           <div class="form-group">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" required autocomplete="name">
@@ -208,6 +209,7 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
+  const pageLoaded = Date.now();
   document.getElementById('contactForm').addEventListener('submit', function (e) {
     e.preventDefault();
     const name = document.getElementById('name').value.trim();
@@ -229,6 +231,8 @@
     ].filter(Boolean);
 
     const status = document.getElementById('formStatus');
+    // Spam trap: bots fill the hidden field or submit within seconds of the page loading. Pretend it worked and send nothing.
+    if (document.getElementById('cf-website').value || Date.now() - pageLoaded < 3000) { window.location.href = 'thank-you.html'; return; }
     if (!name || !email || !message) {
       status.textContent = 'Please fill in your name, email and message.';
       status.classList.add('visible');

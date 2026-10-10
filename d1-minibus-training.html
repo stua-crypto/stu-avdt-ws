@@ -278,6 +278,7 @@
             <div class="avdt-step" data-step="4">
               <p class="avdt-q">Nearly there. Where should we send your results?</p>
               <form id="avdt-form" novalidate>
+                <div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;"><label for="avdt-website">Leave this field empty</label><input type="text" id="avdt-website" name="website" tabindex="-1" autocomplete="off"></div>
                 <div class="avdt-field"><label for="avdt-name">Name</label><input id="avdt-name" name="name" autocomplete="name" required></div>
                 <div class="avdt-row">
                   <div class="avdt-field"><label for="avdt-email">Email</label><input id="avdt-email" name="email" type="email" autocomplete="email" required></div>
@@ -441,6 +442,9 @@
             err.textContent = "";
             answers.name = name; answers.email = email; answers.phone = phone; answers.driverType = form.driverType.value;
             answers.path = decidePath(answers);
+
+            // Spam trap: bots fill the hidden field or submit within seconds of the page loading. Show results and send nothing.
+            if (root.querySelector("#avdt-website").value) { finish(); return; }
 
             if (CONFIG.formEndpoint) {
               var btn = root.querySelector("#avdt-submit"); btn.disabled = true; btn.textContent = "Sending…";

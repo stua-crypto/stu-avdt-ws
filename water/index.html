@@ -195,6 +195,7 @@
         </div>
       </div>
       <form class="form" id="waterForm" novalidate>
+        <div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;"><label for="w-website">Leave this field empty</label><input type="text" id="w-website" name="website" tabindex="-1" autocomplete="off"></div>
         <div class="row2">
           <div><label for="w-name">Name</label><input id="w-name" name="name" autocomplete="name" required></div>
           <div><label for="w-org">Organisation (optional)</label><input id="w-org" name="organisation" autocomplete="organization"></div>
@@ -226,9 +227,12 @@
 </footer>
 
 <script>
+  var pageLoaded = Date.now();
   document.getElementById('waterForm').addEventListener('submit', function (e) {
     e.preventDefault();
     var f = this, status = document.getElementById('w-status');
+    // Spam trap: bots fill the hidden field or submit within seconds of the page loading. Pretend it worked and send nothing.
+    if (f.website.value || Date.now() - pageLoaded < 3000) { f.reset(); status.textContent = "Thanks, your enquiry has been sent. I'll be in touch soon."; return; }
     var name = f.name.value.trim(), email = f.email.value.trim(), msg = f.message.value.trim();
     if (!name || !email || !msg) { status.textContent = 'Please fill in your name, email and a few details about your event.'; return; }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { status.textContent = 'Please check your email address.'; return; }
