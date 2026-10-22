@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Freelance Instructors | Apply to Work With AVDT</title>
+<meta name="description" content="Apply to work with AVDT as a freelance instructor. UK-wide. Current accreditation required, with supporting evidence.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="canonical" href="https://avdt.co.uk/freelance-instructors.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AVDT – Abbott's Vocational Driver Training">
+<meta property="og:title" content="Freelance Instructors | Apply to Work With AVDT">
+<meta property="og:description" content="Apply to work with AVDT as a freelance instructor. UK-wide. Current accreditation required, with supporting evidence.">
+<meta property="og:url" content="https://avdt.co.uk/freelance-instructors.html">
+<meta property="og:image" content="https://avdt.co.uk/assets/hero-banner.jpg">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied',
+    'wait_for_update': 500
+  });
+  gtag('set', 'ads_data_redaction', true);
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18394247641"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'AW-18394247641');
+</script>
+<script src="assets/cookie-consent.js" defer></script>
+<style>
+/* Freelance application page. Uses the site tokens from assets/style.css. */
+.fa-side { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+.fa-card-quiet { border-top-color: var(--steel-300); }
+.fa-card-quiet p { font-size: 0.95rem; color: var(--ink-soft); }
+.fa-card-quiet a, .fa-done a { color: var(--royal-600); font-weight: 600; }
+.fa-list { list-style: none; margin: 0; padding: 0; }
+.fa-list li { padding: 12px 0; border-bottom: 1px solid var(--steel-200); color: var(--ink-soft); font-size: 0.97rem; }
+.fa-list li:last-child { border-bottom: none; }
+.fa-list strong { display: block; color: var(--navy-950); }
+form#applyForm { min-width: 0; }
+.fa-set { border: 0; border-top: 3px solid var(--gold-500); margin: 0 0 32px; padding: 14px 0 0; min-width: 0; }
+.fa-set legend { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; color: var(--navy-950); padding: 0 12px 0 0; }
+.fa-lead { margin: 0 0 16px; }
+.form-group select {
+  width: 100%; border: 1px solid var(--steel-300); border-radius: 3px; padding: 12px 14px;
+  font-family: var(--font-body); font-size: 1rem; background: #fff; color: var(--ink);
+}
+.form-group select:focus-visible { outline: 3px solid var(--gold-500); outline-offset: 2px; }
+.form-group input[type="date"] { min-height: 49px; }
+.field-error { color: #a1261b; font-size: 0.88rem; margin: 6px 0 0; min-height: 0; }
+.field-error:empty { display: none; }
+.form-group.has-error input, .form-group.has-error select, .form-group.has-error textarea { border-color: #a1261b; }
+.form-status { border-left: 4px solid #a1261b; background: #fff; padding: 12px 14px; color: #7d1b13; margin: 0 0 24px; }
+.fa-acc { background: var(--paper-raised); border: 1px solid var(--steel-300); padding: 18px; margin-bottom: 16px; min-width: 0; }
+.fa-acc-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; }
+.fa-acc-head h4 { margin: 0; font-size: 1.15rem; color: var(--navy-950); }
+.fa-remove { background: none; border: 0; color: var(--royal-600); font: inherit; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 8px 0; min-height: 44px; }
+.fa-acc .form-group:last-child { margin-bottom: 0; }
+.fa-warn { color: #6b4a00; background: #fff6df; border-left: 4px solid var(--gold-500); padding: 8px 12px; font-size: 0.9rem; margin: 8px 0 0; }
+.fa-warn:empty { display: none; }
+.fa-add, .fa-pick { cursor: pointer; }
+.fa-checks { display: grid; gap: 4px; margin-bottom: 20px; }
+.fa-check { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; font-size: 1rem; color: var(--ink); cursor: pointer; }
+.fa-check input { width: 22px; height: 22px; margin: 1px 0 0; flex: none; accent-color: var(--navy-800); }
+.fa-check input:focus-visible { outline: 3px solid var(--gold-500); outline-offset: 2px; }
+.fa-check a { color: var(--royal-600); font-weight: 600; }
+.fa-declare { margin-top: 8px; }
+.fa-file-input { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; }
+.fa-file-input:focus-visible + .fa-pick { outline: 3px solid var(--gold-500); outline-offset: 2px; }
+.fa-files { list-style: none; margin: 16px 0 0; padding: 0; }
+.fa-files li { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--steel-200); font-size: 0.95rem; }
+.fa-files .fname { min-width: 0; overflow-wrap: anywhere; }
+.fa-files .fsize { color: var(--steel-500); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.fa-done { background: var(--paper-raised); border: 1px solid var(--steel-300); border-top: 6px solid var(--gold-500); padding: 28px; }
+.fa-done h3 { color: var(--navy-950); }
+.fa-done:focus { outline: none; }
+#applyForm button[disabled] { opacity: 0.6; cursor: wait; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Primary">
+    <a class="brand" href="index.html">
+      <picture><source srcset="assets/logo-112.webp" type="image/webp"><img class="brand-logo" src="assets/logo-112.png" alt="AVDT logo" width="56" height="56"></picture>
+      <span class="brand-text">
+        <span class="brand-mark">AVDT</span>
+        <span class="brand-sub">Abbott's Vocational Driver Training</span>
+      </span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu"><span class="nav-toggle-bars" aria-hidden="true"></span>Menu</button>
+    <ul class="nav-links" id="primary-menu">
+      <li><a href="forklift-training.html">Forklift</a></li>
+      <li><a href="telehandler-training.html">Telehandler</a></li>
+      <li><a href="lgv-training.html">LGV &amp; PCV</a></li>
+      <li><a href="lgv-training.html#c1-d1">C1 Ambulance</a></li>
+      <li><a href="d1-minibus-training.html">D1 Minibus</a></li>
+      <li><a href="driver-cpc.html">Driver CPC</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="page-header hero--rays">
+    <div class="container">
+      <div class="section-label" style="color:var(--gold-500);">Freelance instructors</div>
+      <h1>Apply to work with AVDT</h1>
+      <p>AVDT is building a UK-wide network of freelance instructors. If you hold current accreditation for the courses you teach, we'd like to hear from you.</p>
+    </div>
+  </section>
+
+  <div class="hazard-stripe" role="presentation"></div>
+
+  <section class="section">
+    <div class="container contact-grid">
+
+      <div class="fa-side">
+        <div class="contact-card">
+          <h3>Before you apply</h3>
+          <ul class="fa-list">
+            <li><strong>Accredited and in date.</strong> Every course you want to deliver needs current accreditation. We can't consider an expired or lapsed registration. Renew it first, then apply.</li>
+            <li><strong>Evidence.</strong> Upload your certificate or registration letter as PDF, JPG or PNG. Up to 5 files, 10&nbsp;MB each.</li>
+            <li><strong>Freelance.</strong> You would work as a self-employed instructor, not an employee, and have the right to work in the UK.</li>
+            <li><strong>Insurance.</strong> We'll ask about your public liability and professional indemnity cover.</li>
+            <li><strong>Driving licence.</strong> If you would teach LGV, PCV, C1 or D1, you need the licence entitlement for those categories.</li>
+          </ul>
+        </div>
+        <div class="contact-card fa-card-quiet">
+          <h3>Please don't upload</h3>
+          <p>Your passport, a photo of your driving licence, your DBS certificate or any bank details. We don't need them to assess you.</p>
+          <p>For your licence, give us a DVLA check code instead. You can create one on <a href="https://www.gov.uk/view-driving-licence" target="_blank" rel="noopener">GOV.UK</a>, and it works for 21 days.</p>
+        </div>
+      </div>
+
+      <div>
+        <form id="applyForm" novalidate>
+          <div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;"><label for="fa-website">Leave this field empty</label><input type="text" id="fa-website" name="website" tabindex="-1" autocomplete="off"></div>
+
+          <p class="form-status" id="formStatus" role="alert" tabindex="-1"></p>
+
+          <fieldset class="fa-set">
+            <legend>About you</legend>
+            <div class="form-group">
+              <label for="fa-name">Full name</label>
+              <input type="text" id="fa-name" autocomplete="name" maxlength="100">
+              <p class="field-error" id="err-name"></p>
+            </div>
+            <div class="form-group">
+              <label for="fa-email">Email</label>
+              <input type="email" id="fa-email" autocomplete="email" maxlength="120">
+              <p class="field-error" id="err-email"></p>
+            </div>
+            <div class="form-group">
+              <label for="fa-phone">Phone</label>
+              <input type="tel" id="fa-phone" autocomplete="tel" inputmode="tel" maxlength="20">
+              <p class="field-error" id="err-phone"></p>
+            </div>
+          </fieldset>
+
+          <fieldset class="fa-set">
+            <legend>Your accreditation</legend>
+            <p class="form-note fa-lead">Add each accreditation you hold for the courses you would deliver. All of them must be in date.</p>
+            <div id="accList"></div>
+            <p class="field-error" id="err-acc"></p>
+            <button type="button" class="btn btn-outline-dark fa-add" id="addAcc">Add another accreditation</button>
+          </fieldset>
+
+          <fieldset class="fa-set" aria-describedby="err-courses">
+            <legend>What you would deliver</legend>
+            <div class="fa-checks" id="courses">
+              <label class="fa-check"><input type="checkbox" name="course" value="Counterbalance forklift"> <span>Counterbalance forklift</span></label>
+              <label class="fa-check"><input type="checkbox" name="course" value="Rough terrain telehandler"> <span>Rough terrain telehandler</span></label>
+              <label class="fa-check"><input type="checkbox" name="course" value="LGV (C1, C, C+E)"> <span>LGV (C1, C, C+E)</span></label>
+              <label class="fa-check"><input type="checkbox" name="course" value="PCV (D1, D, D+E)"> <span>PCV (D1, D, D+E)</span></label>
+              <label class="fa-check"><input type="checkbox" name="course" value="Other"> <span>Other (tell us below)</span></label>
+            </div>
+            <p class="field-error" id="err-courses"></p>
+            <div class="form-group">
+              <label for="fa-years">Years of instructing experience</label>
+              <select id="fa-years">
+                <option value="">Choose one</option>
+                <option>Under 2 years</option>
+                <option>2 to 5 years</option>
+                <option>5 to 10 years</option>
+                <option>Over 10 years</option>
+              </select>
+              <p class="field-error" id="err-years"></p>
+            </div>
+          </fieldset>
+
+          <fieldset class="fa-set">
+            <legend>Where you can work</legend>
+            <div class="form-group">
+              <label for="fa-nation">Where are you based?</label>
+              <select id="fa-nation">
+                <option value="">Choose one</option>
+                <option>England</option>
+                <option>Scotland</option>
+                <option>Wales</option>
+                <option>Northern Ireland</option>
+              </select>
+              <p class="field-error" id="err-nation"></p>
+            </div>
+            <div class="form-group">
+              <label for="fa-area">Counties, towns or postcode areas you can cover</label>
+              <input type="text" id="fa-area" maxlength="200" placeholder="For example: Greater Manchester, WA and CH postcodes">
+              <p class="field-error" id="err-area"></p>
+            </div>
+            <div class="form-group">
+              <label for="fa-travel">How far will you travel?</label>
+              <select id="fa-travel">
+                <option value="">Choose one</option>
+                <option>Up to 25 miles</option>
+                <option>Up to 50 miles</option>
+                <option>Up to 100 miles</option>
+                <option>Anywhere, including overnight stays</option>
+              </select>
+              <p class="field-error" id="err-travel"></p>
+            </div>
+          </fieldset>
+
+          <fieldset class="fa-set">
+            <legend>Insurance and checks</legend>
+            <div class="form-group">
+              <label for="fa-pl">Public liability insurance in force?</label>
+              <select id="fa-pl">
+                <option value="">Choose one</option>
+                <option>Yes</option>
+                <option>No, I would arrange it before starting</option>
+              </select>
+              <p class="field-error" id="err-pl"></p>
+            </div>
+            <div class="form-group">
+              <label for="fa-pi">Professional indemnity insurance in force?</label>
+              <select id="fa-pi">
+                <option value="">Choose one</option>
+                <option>Yes</option>
+                <option>No, I would arrange it before starting</option>
+              </select>
+              <p class="field-error" id="err-pi"></p>
+            </div>
+            <div class="form-group">
+              <label for="fa-dbs">Do you hold a current enhanced DBS check?</label>
+              <select id="fa-dbs">
+                <option value="">Choose one</option>
+                <option>Yes</option>
+                <option>No</option>
+                <option>In progress</option>
+                <option>Not applicable (Scotland or Northern Ireland check)</option>
+              </select>
+              <p class="field-error" id="err-dbs"></p>
+            </div>
+            <div class="form-group">
+              <label for="fa-dvla">DVLA check code (optional)</label>
+              <input type="text" id="fa-dvla" maxlength="20" autocomplete="off" spellcheck="false">
+              <p class="form-note">If you hold a Northern Ireland licence, leave this blank and say so in your notes.</p>
+            </div>
+          </fieldset>
+
+          <fieldset class="fa-set">
+            <legend>Supporting evidence</legend>
+            <p class="form-note fa-lead">Upload a certificate or registration letter for each accreditation above. PDF, JPG or PNG, up to 5 files of 10&nbsp;MB each.</p>
+            <input type="file" id="fa-files" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" multiple class="fa-file-input">
+            <label for="fa-files" class="btn btn-outline-dark fa-pick">Choose files</label>
+            <ul class="fa-files" id="fileList" aria-live="polite"></ul>
+            <p class="field-error" id="err-files"></p>
+          </fieldset>
+
+          <div class="form-group">
+            <label for="fa-notes">Anything else we should know? (optional)</label>
+            <textarea id="fa-notes" maxlength="1500"></textarea>
+          </div>
+
+          <div class="fa-checks fa-declare">
+            <label class="fa-check"><input type="checkbox" id="fa-rtw"> <span>I have the right to work in the UK and would work as a self-employed freelancer.</span></label>
+            <p class="field-error" id="err-rtw"></p>
+            <label class="fa-check"><input type="checkbox" id="fa-confirm"> <span>I confirm my accreditation details are accurate and in date.</span></label>
+            <p class="field-error" id="err-confirm"></p>
+            <label class="fa-check"><input type="checkbox" id="fa-consent"> <span>I agree to AVDT using these details to assess my application. <a href="privacy.html" target="_blank" rel="noopener">Privacy notice</a></span></label>
+            <p class="field-error" id="err-consent"></p>
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="submitBtn">Send application</button>
+          <p class="form-note">We use your details only to assess your application and, if you join, to set up your work with AVDT. Your form and files are handled by Formspree, our form provider, and kept only as long as we need them.</p>
+        </form>
+
+        <div class="fa-done" id="done" role="status" tabindex="-1" hidden>
+          <h3>Application received</h3>
+          <p>Thank you. We'll check your accreditation and evidence and reply by email. If something is missing or out of date, we'll tell you what we need.</p>
+          <p>Questions? Email <a href="mailto:info@avdt.co.uk">info@avdt.co.uk</a> or call <a href="tel:07807395913">07807 395913</a>.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" style="margin-bottom:14px;">
+          <picture><source srcset="assets/logo-112.webp" type="image/webp"><img class="brand-logo" src="assets/logo-112.png" alt="AVDT logo" width="56" height="56"></picture>
+          <span class="brand-mark">AVDT</span>
+        </a>
+        <p style="max-width:36ch; color:var(--steel-300);">Stuart Abbott, trading as Abbott's Vocational Driver Training. On-site forklift and telehandler operator training, LGV (lorry) and PCV (bus and minibus) driver training, and event water safety cover across Devon and Cornwall.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="forklift-training.html">Forklift Training</a>
+        <a href="telehandler-training.html">Telehandler Training</a>
+        <a href="lgv-training.html">LGV &amp; PCV Training</a>
+        <a href="lgv-training.html#c1-d1">C1 Ambulance Training</a>
+        <a href="d1-minibus-training.html">D1 Minibus Training</a>
+        <a href="driver-cpc.html">Driver CPC</a>
+        <a href="https://water.avdt.co.uk/">Water Safety Cover</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="resources.html">Resources</a>
+        <a href="privacy.html">Privacy notice</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:info@avdt.co.uk">info@avdt.co.uk</a>
+        <a href="tel:07807395913">07807 395913</a>
+        <a href="https://g.page/r/CQ6pZFvB53g9EBM/review" target="_blank" rel="noopener">Leave a Google review</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> Abbott's Vocational Driver Training. All rights reserved.</span>
+      <span>ICO registered — ZC212008</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+//#logic-start
+var FA = {
+  MAX_FILES: 5,
+  MAX_BYTES: 10 * 1024 * 1024,
+  EXT: ['pdf', 'jpg', 'jpeg', 'png'],
+  MAX_ACC: 4,
+  WARN_DAYS: 60
+};
+function pad2(n) { return String(n).padStart(2, '0'); }
+function todayKey(d) { d = d || new Date(); return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }
+function parseDay(k) {
+  var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(k || '');
+  if (!m) return null;
+  var dt = new Date(+m[1], +m[2] - 1, +m[3]);
+  return (dt.getFullYear() === +m[1] && dt.getMonth() === +m[2] - 1 && dt.getDate() === +m[3]) ? dt : null;
+}
+// Returns {ok, level, message}. level: 'error' blocks the form, 'warn' only informs.
+function checkExpiry(value, today) {
+  var d = parseDay(value), t = parseDay(todayKey(today));
+  if (!value) return { ok: false, level: 'error', message: 'Enter the expiry date.' };
+  if (!d) return { ok: false, level: 'error', message: 'Enter a valid date.' };
+  if (d.getFullYear() > t.getFullYear() + 15) return { ok: false, level: 'error', message: 'Check the year. That date is too far ahead.' };
+  if (d < t) return { ok: false, level: 'error', message: 'This accreditation has expired. We can only consider accreditation that is in date. Renew it, then apply.' };
+  var days = Math.round((d - t) / 86400000);
+  if (days <= FA.WARN_DAYS) return { ok: true, level: 'warn', message: 'This expires in ' + days + ' day' + (days === 1 ? '' : 's') + '. We will ask for proof of renewal.' };
+  return { ok: true, level: 'none', message: '' };
+}
+function extOf(name) { var i = String(name).lastIndexOf('.'); return i < 0 ? '' : String(name).slice(i + 1).toLowerCase(); }
+function fmtSize(b) { return b >= 1048576 ? (b / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(b / 1024)) + ' KB'; }
+// existing: [{name,size}], incoming: [{name,size}]. Returns {accepted, problems}.
+function checkFiles(existing, incoming) {
+  var accepted = existing.slice(), problems = [];
+  incoming.forEach(function (f) {
+    if (FA.EXT.indexOf(extOf(f.name)) === -1) { problems.push(f.name + ' is not a PDF, JPG or PNG.'); return; }
+    if (f.size > FA.MAX_BYTES) { problems.push(f.name + ' is ' + fmtSize(f.size) + '. The limit is 10 MB.'); return; }
+    if (f.size === 0) { problems.push(f.name + ' is empty.'); return; }
+    if (accepted.some(function (a) { return a.name === f.name && a.size === f.size; })) return;
+    if (accepted.length >= FA.MAX_FILES) { problems.push('You can add up to ' + FA.MAX_FILES + ' files. ' + f.name + ' was not added.'); return; }
+    accepted.push(f);
+  });
+  return { accepted: accepted, problems: problems };
+}
+function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) && v.length <= 120; }
+function validPhone(v) { return /^\d{10,13}$/.test(String(v).replace(/[\s()\-+]/g, '')); }
+function accSummary(rows) {
+  return rows.map(function (r, i) { return (i + 1) + '. ' + r.body + ' | No. ' + r.number + ' | expires ' + r.expiry; }).join('\n');
+}
+//#logic-end
+
+(function () {
+  var ENDPOINT = 'https://formspree.io/f/REPLACE_WITH_FORM_ID';
+  var pageLoaded = Date.now();
+  var $ = function (id) { return document.getElementById(id); };
+  var BODIES = ['AITT', 'ITSSAR', 'RTITB', 'NPORS', 'Other recognised body'];
+  var accCount = 0;
+  var files = [];
+
+  function mk(tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
+  function setErr(id, msg) {
+    var e = $('err-' + id); if (!e) return;
+    e.textContent = msg || '';
+    var inp = $('fa-' + id);
+    if (inp && inp.closest('.form-group')) inp.closest('.form-group').classList.toggle('has-error', !!msg);
+  }
+
+  // ---- accreditation rows ----
+  function addAcc() {
+    var list = $('accList');
+    if (list.children.length >= FA.MAX_ACC) return;
+    var n = ++accCount, row = mk('div', 'fa-acc'); row.setAttribute('data-n', n);
+    var head = mk('div', 'fa-acc-head'); head.appendChild(mk('h4', null, 'Accreditation'));
+    var rm = mk('button', 'fa-remove', 'Remove'); rm.type = 'button';
+    rm.addEventListener('click', function () { row.remove(); relabel(); toggleAdd(); });
+    head.appendChild(rm); row.appendChild(head);
+
+    function group(labelText, control, idSuffix) {
+      var g = mk('div', 'form-group'), l = mk('label', null, labelText);
+      control.id = 'acc-' + idSuffix + '-' + n; l.setAttribute('for', control.id);
+      g.appendChild(l); g.appendChild(control);
+      var err = mk('p', 'field-error'); err.id = 'accerr-' + idSuffix + '-' + n; g.appendChild(err);
+      return g;
+    }
+    var sel = document.createElement('select');
+    sel.appendChild(new Option('Choose one', ''));
+    BODIES.forEach(function (b) { sel.appendChild(new Option(b, b)); });
+    var other = document.createElement('input'); other.type = 'text'; other.maxLength = 80;
+    var num = document.createElement('input'); num.type = 'text'; num.maxLength = 40; num.autocomplete = 'off';
+    var exp = document.createElement('input'); exp.type = 'date';
+    var gSel = group('Accrediting body', sel, 'body'), gOther = group('Name of the body', other, 'other'),
+        gNum = group('Registration or membership number', num, 'number'), gExp = group('Expiry date', exp, 'expiry');
+    gOther.hidden = true;
+    sel.addEventListener('change', function () { gOther.hidden = sel.value !== 'Other recognised body'; });
+    var warn = mk('p', 'fa-warn'); warn.id = 'accwarn-' + n; warn.setAttribute('aria-live', 'polite'); gExp.appendChild(warn);
+    exp.addEventListener('change', function () {
+      var r = checkExpiry(exp.value);
+      var e = $('accerr-expiry-' + n);
+      e.textContent = r.level === 'error' ? r.message : ''; gExp.classList.toggle('has-error', r.level === 'error');
+      warn.textContent = r.level === 'warn' ? r.message : '';
+    });
+    [gSel, gOther, gNum, gExp].forEach(function (g) { row.appendChild(g); });
+    list.appendChild(row); relabel(); toggleAdd();
+  }
+  function relabel() {
+    var rows = $('accList').children;
+    for (var i = 0; i < rows.length; i++) {
+      rows[i].querySelector('h4').textContent = 'Accreditation ' + (i + 1);
+      rows[i].querySelector('.fa-remove').hidden = rows.length === 1;
+    }
+  }
+  function toggleAdd() { $('addAcc').hidden = $('accList').children.length >= FA.MAX_ACC; }
+  $('addAcc').addEventListener('click', addAcc);
+  addAcc();
+
+  // ---- files ----
+  function renderFiles() {
+    var ul = $('fileList'); ul.textContent = '';
+    files.forEach(function (f, i) {
+      var li = mk('li'), n = mk('span', 'fname', f.name), s = mk('span', 'fsize', fmtSize(f.size));
+      var rm = mk('button', 'fa-remove', 'Remove'); rm.type = 'button';
+      rm.setAttribute('aria-label', 'Remove ' + f.name);
+      rm.addEventListener('click', function () { files.splice(i, 1); renderFiles(); });
+      var right = mk('span'); right.style.display = 'flex'; right.style.gap = '16px'; right.style.alignItems = 'center';
+      right.appendChild(s); right.appendChild(rm);
+      li.appendChild(n); li.appendChild(right); ul.appendChild(li);
+    });
+  }
+  $('fa-files').addEventListener('change', function () {
+    var incoming = Array.prototype.slice.call(this.files);
+    var r = checkFiles(files, incoming);
+    files = r.accepted; renderFiles();
+    $('err-files').textContent = r.problems.join(' ');
+    this.value = '';
+  });
+
+  // ---- submit ----
+  function showStatus(msg) { var s = $('formStatus'); s.textContent = msg; s.classList.add('visible'); s.focus(); }
+  $('applyForm').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var status = $('formStatus'); status.classList.remove('visible'); status.textContent = '';
+    var errors = 0, firstEl = null;
+    function bad(id, msg, el) { setErr(id, msg); errors++; if (!firstEl) firstEl = el || $('fa-' + id); }
+    ['name', 'email', 'phone', 'years', 'nation', 'area', 'travel', 'pl', 'pi', 'dbs', 'rtw', 'confirm', 'consent', 'courses', 'acc', 'files'].forEach(function (k) { var e = $('err-' + k); if (e) e.textContent = ''; });
+    document.querySelectorAll('.has-error').forEach(function (g) { g.classList.remove('has-error'); });
+
+    var v = function (id) { return $(id).value.trim(); };
+    if (v('fa-name').length < 2) bad('name', 'Enter your full name.');
+    if (!validEmail(v('fa-email'))) bad('email', 'Enter an email address we can reply to.');
+    if (!validPhone(v('fa-phone'))) bad('phone', 'Enter a phone number we can reach you on.');
+
+    var rows = [], rowEls = $('accList').children;
+    for (var i = 0; i < rowEls.length; i++) {
+      var n = rowEls[i].getAttribute('data-n'), g = function (s) { return $('acc-' + s + '-' + n); }, ge = function (s, m) { $('accerr-' + s + '-' + n).textContent = m; g(s).closest('.form-group').classList.add('has-error'); errors++; if (!firstEl) firstEl = g(s); };
+      ['body', 'other', 'number', 'expiry'].forEach(function (s) { $('accerr-' + s + '-' + n).textContent = ''; });
+      var body = g('body').value, other = g('other').value.trim(), number = g('number').value.trim(), expiry = g('expiry').value;
+      if (!body) ge('body', 'Choose the accrediting body.');
+      if (body === 'Other recognised body' && other.length < 2) ge('other', 'Enter the name of the body.');
+      if (number.length < 2) ge('number', 'Enter your registration or membership number.');
+      var c = checkExpiry(expiry); if (c.level === 'error') ge('expiry', c.message);
+      rows.push({ body: body === 'Other recognised body' ? 'Other: ' + other : body, number: number, expiry: expiry });
+    }
+
+    var courses = Array.prototype.map.call(document.querySelectorAll('input[name="course"]:checked'), function (x) { return x.value; });
+    if (!courses.length) bad('courses', 'Choose at least one course.', document.querySelector('input[name="course"]'));
+    ['years', 'nation', 'travel', 'pl', 'pi', 'dbs'].forEach(function (k) { if (!$('fa-' + k).value) bad(k, 'Choose an option.'); });
+    if (v('fa-area').length < 2) bad('area', 'Tell us where you can work.');
+    if (!files.length) bad('files', 'Upload at least one certificate or registration letter.', $('fa-files'));
+    if (!$('fa-rtw').checked) bad('rtw', 'Tick to confirm your right to work and freelance status.');
+    if (!$('fa-confirm').checked) bad('confirm', 'Tick to confirm your accreditation is accurate and in date.');
+    if (!$('fa-consent').checked) bad('consent', 'Tick so we can use your details to assess your application.');
+
+    if (errors) {
+      showStatus('Please fix the ' + errors + ' item' + (errors === 1 ? '' : 's') + ' marked below.');
+      if (firstEl && firstEl.scrollIntoView) { try { firstEl.scrollIntoView({ block: 'center' }); } catch (x) {} }
+      return;
+    }
+    if ($('fa-website').value || Date.now() - pageLoaded < 3000) { $('applyForm').hidden = true; $('done').hidden = false; $('done').focus(); return; }
+    if (ENDPOINT.indexOf('REPLACE') !== -1) { showStatus('Applications are not open yet. Please email info@avdt.co.uk.'); return; }
+
+    var fd = new FormData();
+    fd.append('_subject', 'Freelance instructor application: ' + v('fa-name'));
+    fd.append('name', v('fa-name')); fd.append('email', v('fa-email')); fd.append('phone', v('fa-phone'));
+    fd.append('accreditations', accSummary(rows));
+    fd.append('courses', courses.join(', '));
+    fd.append('years_instructing', $('fa-years').value);
+    fd.append('based_in', $('fa-nation').value); fd.append('areas', v('fa-area')); fd.append('travel', $('fa-travel').value);
+    fd.append('public_liability', $('fa-pl').value); fd.append('professional_indemnity', $('fa-pi').value);
+    fd.append('dbs', $('fa-dbs').value); fd.append('dvla_check_code', v('fa-dvla'));
+    fd.append('notes', v('fa-notes'));
+    fd.append('right_to_work_and_freelance', 'Confirmed'); fd.append('accreditation_in_date', 'Confirmed'); fd.append('consent', 'Confirmed');
+    files.forEach(function (f) { fd.append('evidence', f, f.name); });
+
+    var btn = $('submitBtn'); btn.disabled = true; btn.textContent = 'Uploading…';
+    var ctl = ('AbortController' in window) ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctl) ctl.abort(); }, 60000);
+    fetch(ENDPOINT, { method: 'POST', headers: { 'Accept': 'application/json' }, body: fd, signal: ctl ? ctl.signal : undefined })
+      .then(function (res) { if (!res.ok) throw new Error('send'); $('applyForm').hidden = true; $('done').hidden = false; $('done').focus(); try { $('done').scrollIntoView({ block: 'start' }); } catch (x) {} })
+      .catch(function () {
+        showStatus('That did not send. Try fewer or smaller files, or email your evidence to info@avdt.co.uk.');
+        btn.disabled = false; btn.textContent = 'Send application';
+      })
+      .then(function () { clearTimeout(timer); });
+  });
+})();
+</script>
+
+<script src="assets/nav.js" defer></script>
+</body>
+</html>
