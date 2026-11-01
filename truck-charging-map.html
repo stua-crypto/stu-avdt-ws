@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Electric Truck Charging Map UK | AVDT</title>
+<meta name="description" content="Free map of UK charging points for electric lorries, with lorry parking, food, toilets, showers and vegetarian options at each site. Checked by hand, updated regularly.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="canonical" href="https://avdt.co.uk/truck-charging-map.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AVDT – Abbott's Vocational Driver Training">
+<meta property="og:title" content="Electric Truck Charging Map UK | AVDT">
+<meta property="og:description" content="Free map of UK charging points for electric lorries, with lorry parking, food, toilets, showers and vegetarian options at each site. Checked by hand, updated regularly.">
+<meta property="og:url" content="https://avdt.co.uk/truck-charging-map.html">
+<meta property="og:image" content="https://avdt.co.uk/assets/hero-banner.jpg">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/leaflet/leaflet.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","name":"Electric truck charging map","description":"Free map of UK charging points for electric lorries, with lorry parking, food, toilets, showers and vegetarian options at each site. Checked by hand, updated regularly.","url":"https://avdt.co.uk/truck-charging-map.html"}
+</script>
+<!-- Google tag (gtag.js) - Google Ads AW-18394247641 -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied',
+    'wait_for_update': 500
+  });
+  gtag('set', 'ads_data_redaction', true);
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18394247641"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'AW-18394247641');
+</script>
+<script src="assets/cookie-consent.js" defer></script>
+<style>
+/* Truck charging map: page styles using the site's colours and fonts */
+.tcm { display: grid; gap: 20px; }
+.tcm p { margin: 0 0 10px; }
+.tcm h2 { color: var(--navy-950); }
+.tcm a:not(.btn) { color: var(--royal-600); font-weight: 600; }
+.tcm .btn-primary { color: var(--navy-950); text-decoration: none; }
+.tcm-checked { background: var(--paper-raised); border: 1px solid var(--steel-300); border-left: 6px solid var(--gold-500); padding: 14px 18px; }
+.tcm-checked p { margin: 0; max-width: none; }
+.tcm-controls { display: grid; gap: 12px; background: var(--paper-raised); border: 1px solid var(--steel-300); padding: 16px 18px; }
+.tcm-status, .tcm-needs { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; }
+.tcm-controls label { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; font-weight: 600; font-size: 0.95rem; color: var(--navy-950); cursor: pointer; }
+.tcm-controls input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--royal-700); }
+.tcm-needs-label { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--steel-500); }
+.tcm-near { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+.tcm-near-note { font-size: 0.85rem; color: var(--steel-500); }
+.dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(13,27,44,.4); }
+.dot-open { background: var(--gold-500); }
+.dot-shared { background: var(--royal-500); }
+.dot-soon { background: var(--steel-500); }
+.tcm-map { height: min(62vh, 560px); min-height: 340px; border: 1px solid var(--steel-300); z-index: 0; }
+.tcm-pin-note { font-size: 0.85rem; color: var(--steel-500); margin-top: -10px !important; }
+.tcm-pin { width: 22px; height: 22px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 1px 4px rgba(13,27,44,.5); }
+.tcm-pin.open { background: var(--gold-500); }
+.tcm-pin.shared { background: var(--royal-500); }
+.tcm-pin.soon { background: var(--steel-500); }
+.tcm-pin.me { background: #d93a2b; }
+.tcm-count { font-size: 1.5rem; margin: 6px 0 0; }
+.tcm-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); gap: 16px; }
+.tcm-card { background: var(--paper-raised); border: 1px solid var(--steel-300); border-top: 5px solid var(--gold-500); padding: 16px 18px; display: grid; gap: 8px; align-content: start; }
+.tcm-card.shared { border-top-color: var(--royal-500); }
+.tcm-card.soon { border-top-color: var(--steel-500); }
+.tcm-card h3 { font-size: 1.35rem; color: var(--navy-950); margin: 0; }
+.tcm-card .where { font-size: 0.9rem; color: var(--ink-soft); margin: 0; }
+.tcm-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+.tcm-badge { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; background: var(--steel-200); color: var(--navy-950); }
+.tcm-badge.open { background: var(--gold-500); }
+.tcm-badge.shared { background: var(--royal-500); color: #fff; }
+.tcm-badge.soon { background: var(--steel-500); color: #fff; }
+.tcm-badge.dist { background: var(--navy-900); color: #fff; }
+.tcm-card dl { margin: 0; display: grid; gap: 6px; }
+.tcm-card dl div { display: grid; grid-template-columns: 6.5rem 1fr; gap: 8px; font-size: 0.93rem; }
+.tcm-card dt { font-weight: 700; color: var(--navy-950); }
+.tcm-card dd { margin: 0; color: var(--ink-soft); }
+.tcm-card .veg { color: #2f6b2f; font-weight: 600; }
+.tcm-card .links { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 0.9rem; }
+.tcm-card .src { font-size: 0.8rem; color: var(--steel-500); }
+.tcm-card .src a { font-weight: 500; }
+.tcm-empty { padding: 18px; background: var(--paper-raised); border: 1px dashed var(--steel-300); }
+.tcm-panel { background: var(--paper-raised); border: 1px solid var(--steel-300); border-top: 5px solid var(--gold-500); padding: 20px; }
+.tcm-panel h2 { font-size: 1.7rem; }
+.tcm-history figure { margin: 0 0 14px; }
+.tcm-history img { width: 100%; max-width: 520px; height: auto; border: 1px solid var(--steel-300); }
+.tcm-history figcaption { font-size: 0.85rem; color: var(--steel-500); margin-top: 6px; }
+.tcm-sources { font-size: 0.85rem; color: var(--steel-500); }
+.tcm-foot { font-size: 0.85rem; color: var(--steel-500); max-width: none; }
+.leaflet-popup-content { font-family: var(--font-body); font-size: 0.92rem; margin: 12px 14px; }
+.leaflet-popup-content strong { font-family: var(--font-display); font-size: 1.15rem; color: var(--navy-950); }
+@media (max-width: 560px) { .tcm-card dl div { grid-template-columns: 5.6rem 1fr; gap: 6px; font-size: 0.9rem; } }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Primary">
+    <a class="brand" href="index.html">
+      <picture><source srcset="assets/logo-112.webp" type="image/webp"><img class="brand-logo" src="assets/logo-112.png" alt="AVDT logo" width="56" height="56"></picture>
+      <span class="brand-text">
+        <span class="brand-mark">AVDT</span>
+        <span class="brand-sub">Abbott's Vocational Driver Training</span>
+      </span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu"><span class="nav-toggle-bars" aria-hidden="true"></span>Menu</button>
+    <ul class="nav-links" id="primary-menu">
+      <li><a href="forklift-training.html">Forklift</a></li>
+      <li><a href="telehandler-training.html">Telehandler</a></li>
+      <li><a href="lgv-training.html">LGV &amp; PCV</a></li>
+      <li><a href="lgv-training.html#c1-d1">C1 Ambulance</a></li>
+      <li><a href="d1-minibus-training.html">D1 Minibus</a></li>
+      <li><a href="driver-cpc.html">Driver CPC</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="page-header hero--rays">
+    <div class="container">
+      <div class="section-label" style="color:var(--gold-500);">Free map</div>
+      <h1>Electric truck charging map</h1>
+      <p>Public and shared charging for electric lorries across the UK, with what each stop has for drivers: lorry parking, food, toilets, showers and vegetarian options.</p>
+    </div>
+  </section>
+
+  <div class="hazard-stripe" role="presentation"></div>
+
+  <section class="section section-tight">
+    <div class="container tcm">
+
+      <div class="tcm-checked">
+        <p><strong>Last checked: 1 November 2026.</strong> Every site is checked by hand. Things change quickly, so check the operator's app for live availability and prices before you set off.</p>
+      </div>
+
+      <div class="tcm-controls" role="group" aria-label="Filter the sites">
+        <div class="tcm-status">
+          <label><input type="checkbox" id="fOpen" checked> <span class="dot dot-open"></span>Open</label>
+          <label><input type="checkbox" id="fShared" checked> <span class="dot dot-shared"></span>Shared (arrange first)</label>
+          <label><input type="checkbox" id="fSoon"> <span class="dot dot-soon"></span>Coming soon</label>
+        </div>
+        <div class="tcm-needs">
+          <span class="tcm-needs-label">Must have:</span>
+          <label><input type="checkbox" id="fPark"> Overnight lorry parking</label>
+          <label><input type="checkbox" id="fFood"> Hot food</label>
+          <label><input type="checkbox" id="fVeg"> Vegetarian options</label>
+          <label><input type="checkbox" id="fShower"> Showers</label>
+        </div>
+        <div class="tcm-near">
+          <button type="button" class="btn btn-primary" id="nearBtn">Show nearest to me</button>
+          <span class="tcm-near-note" id="nearNote">Uses your phone's location on this page only. Nothing is sent to me.</span>
+        </div>
+      </div>
+
+      <div id="map" class="tcm-map" role="region" aria-label="Map of electric truck charging sites"></div>
+      <p class="tcm-pin-note">Pins show the rough location. Use <strong>Directions</strong> for the exact site.</p>
+
+      <h2 class="tcm-count" id="count" aria-live="polite"></h2>
+      <div id="list" class="tcm-list"></div>
+
+      <div class="tcm-panel">
+        <h2>Know a site I've missed?</h2>
+        <p>If you've charged a lorry somewhere that isn't on the map, or something here has changed, send me a quick WhatsApp and I'll check it and add it.</p>
+        <a class="btn btn-primary" href="https://wa.me/447807395913?text=Hi%20Stuart%2C%20a%20truck%20charging%20site%20for%20your%20map%3A%20" target="_blank" rel="noopener">Tell me on WhatsApp</a>
+      </div>
+
+      <div class="tcm-panel tcm-history">
+        <h2>Electric isn't new</h2>
+        <!--HISTORY_IMAGE-->
+        <p>In <strong>1884</strong>, Thomas Parker, an engineer from Wolverhampton, built one of the first practical electric cars. By the end of the 1880s he was driving it to work.</p>
+        <p>Around <strong>1900</strong>, electric cars were a common sight in American cities. The Pope Manufacturing Company of Hartford, Connecticut, sold them under the <strong>Columbia</strong> name from 1899. They were quiet, clean and easy to start, with no starting handle. Petrol cars won in the end because they went further, and there was nowhere to charge out in the country.</p>
+        <p>In <strong>1914</strong>, <strong>Henry Ford</strong> announced an electric Model T using <strong>Thomas Edison's</strong> nickel-iron batteries. Ford even bought his wife Clara an electric car. The batteries were slow to charge and expensive, and Ford dropped the project after reportedly spending about $1.5 million.</p>
+        <p>More than <strong>100 years</strong> later, we've come back to electric, and the same three questions are back with it: how far will it go, where can I charge, and what does it cost? That's what this map is for.</p>
+        <p class="tcm-sources">Sources: <a href="https://www.erih.net/how-it-started/stories-about-people-biographies/biography/parker" target="_blank" rel="noopener">ERIH: Thomas Parker</a> · <a href="https://www.louwmanmuseum.nl/en/car/columbia-electric-landaulet/" target="_blank" rel="noopener">Louwman Museum: Columbia Electric</a> · <a href="https://macsmotorcitygarage.com/henry-fords-electric-model-t/" target="_blank" rel="noopener">Mac's Motor City Garage: Ford's electric Model T</a></p>
+      </div>
+
+      <p class="tcm-foot">Information comes from operators, industry news and Motorway Services Online, checked by hand. Food lists show what's on site. Vegetarian picks are based on each chain's usual menu, and choice varies by site. Map data &copy; OpenStreetMap contributors.</p>
+
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container cta-band-inner">
+      <div>
+        <h2>Moving your drivers to electric?</h2>
+        <p>Smooth, planned driving stretches an electric lorry's range just as it saves diesel. I build those skills into all my driver training.</p>
+      </div>
+      <div class="cta-band-ctas">
+        <a class="btn btn-primary" href="contact.html">Get in touch</a>
+        <a class="btn btn-outline" href="fleet-fuel-saver.html">Fleet Fuel Saver</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" style="margin-bottom:14px;">
+          <picture><source srcset="assets/logo-112.webp" type="image/webp"><img class="brand-logo" src="assets/logo-112.png" alt="AVDT logo" width="56" height="56"></picture>
+          <span class="brand-mark">AVDT</span>
+        </a>
+        <p style="max-width:36ch; color:var(--steel-300);">Stuart Abbott, trading as Abbott's Vocational Driver Training. On-site forklift and telehandler operator training, LGV (lorry) and PCV (bus and minibus) driver training, and event water safety cover across Devon and Cornwall.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="forklift-training.html">Forklift Training</a>
+        <a href="telehandler-training.html">Telehandler Training</a>
+        <a href="lgv-training.html">LGV &amp; PCV Training</a>
+        <a href="lgv-training.html#c1-d1">C1 Ambulance Training</a>
+        <a href="d1-minibus-training.html">D1 Minibus Training</a>
+        <a href="driver-cpc.html">Driver CPC</a>
+        <a href="https://water.avdt.co.uk/">Water Safety Cover</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="resources.html">Resources</a>
+        <a href="privacy.html">Privacy notice</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:info@avdt.co.uk">info@avdt.co.uk</a>
+        <a href="tel:07807395913">07807 395913</a>
+        <a href="https://g.page/r/CQ6pZFvB53g9EBM/review" target="_blank" rel="noopener">Leave a Google review</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> Abbott's Vocational Driver Training. All rights reserved.</span>
+      <span>ICO registered — ZC212008</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+<script src="assets/nav.js" defer></script>
+<script src="assets/leaflet/leaflet.js"></script>
+<script>
+(function () {
+  var SITES = [{"id": "exeter", "name": "Moto Exeter services", "operator": "GRIDSERVE Electric Freightway", "road": "M5 J30", "place": "Exeter, Devon", "postcode": "EX2 7HF", "lat": 50.7097, "lon": -3.4685, "status": "open", "access": "Public", "drive": true, "charging": "4 drive-through eHGV bays in the lorry park (opened January 2026)", "price": "", "parking": "Lorry park. First 2 hours free, then £32 (or £35 with a £10 food voucher)", "overnight": true, "food": ["Burger King", "Chow", "Costa", "Greggs", "KFC", "Pret", "Krispy Kreme", "M&S Food", "WHSmith"], "veg": ["Greggs", "Pret", "M&S Food", "Burger King"], "toilets": true, "showers": "Yes", "extra": "Travelodge on site", "sources": [["GRIDSERVE", "https://www.gridserve.com/pressroom/gridserve-electric-freightway-begins-as-first-public-ehgv-hubs-launch-to-lay-foundations-for-zero-emission-freight/"], ["Motorway Services Online", "https://motorwayservices.uk/Exeter"]]}, {"id": "baldock", "name": "Extra Baldock services", "operator": "GRIDSERVE Electric Freightway", "road": "A1(M) J10", "place": "Baldock, Hertfordshire", "postcode": "SG7 5TR", "lat": 52.0094, "lon": -0.2125, "status": "open", "access": "Public", "drive": true, "charging": "6 drive-through eHGV bays in the lorry park (opened January 2026)", "price": "", "parking": "Lorry park. First 3 hours free, then pay on site or by SNAP (code 5189)", "overnight": true, "food": ["Chopstix", "El Mexicana", "German Doner Kebab", "Greggs", "Harry Ramsden's", "KFC", "McDonald's", "Starbucks", "M&S Food", "WHSmith"], "veg": ["Greggs", "M&S Food", "Chopstix", "McDonald's"], "toilets": true, "showers": "Yes", "extra": "Days Inn on site", "sources": [["GRIDSERVE", "https://www.gridserve.com/pressroom/gridserve-electric-freightway-begins-as-first-public-ehgv-hubs-launch-to-lay-foundations-for-zero-emission-freight/"], ["Motorway Services Online", "https://motorwayservices.uk/Baldock"]]}, {"id": "tamworth", "name": "Moto Tamworth services", "operator": "GRIDSERVE Electric Freightway", "road": "M42 J10 / A5", "place": "Tamworth, Staffordshire", "postcode": "B77 5PS", "lat": 52.6037, "lon": -1.6306, "status": "open", "access": "Public", "drive": true, "charging": "eHGV bays added June 2026, 350kW (reported as up to 18 bays: check the number on arrival)", "price": "", "parking": "About 38 lorry spaces. First 2 hours free, then £36 (or £39 with a £10 food voucher)", "overnight": true, "food": ["Burger King", "Costa", "Greggs", "KFC", "Pret", "Krispy Kreme", "M&S Food", "WHSmith"], "veg": ["Greggs", "Pret", "M&S Food", "Burger King"], "toilets": true, "showers": "Yes", "extra": "Travelodge on site", "sources": [["Motorway Services Online", "https://motorwayservices.uk/Tamworth"], ["electrive", "https://www.electrive.com/2026/09/21/gridserve-and-voltloader-expand-public-ehgv-charging-network/"]]}, {"id": "rivington", "name": "Rivington services (southbound)", "operator": "EV On The Move", "road": "M61 between J6 and J8", "place": "Bolton, Lancashire", "postcode": "BL6 5UZ", "lat": 53.622, "lon": -2.565, "status": "open", "access": "Public", "drive": null, "charging": "2 × 360kW CCS eHGV chargers, southbound side", "price": "81p/kWh (Zapmap, October 2026)", "parking": "First 2 hours free, then £25 (or £28 with a £10 meal voucher)", "overnight": true, "food": ["Burger King", "Greggs", "Starbucks", "Subway", "Carrs Pasties", "SPAR"], "veg": ["Greggs", "Subway", "Burger King"], "toilets": true, "showers": "Listed (side not confirmed)", "extra": "Toilets are reached through the SPAR shop", "sources": [["Zapmap", "https://www.zapmap.com/charge-points/bolton/msuf08r"], ["Motorway Services Online", "https://motorwayservices.uk/Rivington"]]}, {"id": "stevenage", "name": "Stevenage Electric Forecourt", "operator": "GRIDSERVE Electric Freightway", "road": "A1(M) J7, Knebworth Park", "place": "Stevenage, Hertfordshire", "postcode": "SG1 2AX", "lat": 51.8795, "lon": -0.2085, "status": "open", "access": "Public", "drive": null, "charging": "eHGV-only charging: 3 chargers, 6 connectors, up to 400kW", "price": "85p/kWh (Zapmap, October 2026)", "parking": "No lorry parking: charging bays only", "overnight": false, "food": ["Costa", "Little Fresh shop"], "veg": ["Costa", "Little Fresh shop"], "toilets": true, "showers": "Yes", "extra": "Driver lounge. Newly listed: check it's live before you travel", "sources": [["Zapmap", "https://www.zapmap.com/charge-points/stevenage/8C0B80D"], ["Motorway Services Online", "https://motorwayservices.uk/Stevenage"]]}, {"id": "immingham", "name": "Milence Immingham Charging Hub", "operator": "Milence", "road": "Rosper Road, off the A160/A180", "place": "Immingham, North Lincolnshire", "postcode": "DN40 3DZ", "lat": 53.6487, "lon": -0.2405, "status": "open", "access": "Public: electric trucks only (intercom at the gate)", "drive": true, "charging": "8 bays, 4 × 400kW CCS chargers", "price": "39.9p/kWh + VAT when it opened (2025)", "parking": "Secure gated parking while charging", "overnight": false, "food": ["Vending: drinks, coffee and snacks", "Picnic area"], "veg": [], "toilets": true, "showers": "Yes", "extra": "Free Wi-Fi. Pay by contactless, Milence card or partner card/app", "sources": [["Milence", "https://milence.com/location/immingham"], ["Commercial Motor", "https://www.commercialmotor.com/news/article/milence-electric-charging-hub-in-immingham-now-open-for-business"]]}, {"id": "magna", "name": "Electroway, Magna Park", "operator": "Keoma Energy", "road": "Near M1 J20 / M6 / M69", "place": "Lutterworth, Leicestershire", "postcode": "", "lat": 52.459, "lon": -1.235, "status": "open", "access": "Public: book through Bosch, Travis or SNAP", "drive": false, "charging": "32 bookable bays, 150–400kW (opened 14 October 2026)", "price": "", "parking": "180 secure lorry spaces, bookable (TAPA Level 2)", "overnight": true, "food": ["Food in the driver lounge"], "veg": [], "toilets": true, "showers": "Yes", "extra": "Driver lounge and laundry, open 24/7", "sources": [["DM News", "https://dmnews.co.uk/electroway-opens-electric-hgv-charging-and-secure-parking-hub-at-magna-park/"], ["Green Fleet", "https://greenfleet.net/news/30102026/major-hgv-charging-hub-opens-leicestershire-logistics-park"]]}, {"id": "markhammoor", "name": "Shell Markham Moor Truck Stop", "operator": "Shell Recharge", "road": "A1 / A57", "place": "Retford, Nottinghamshire", "postcode": "DN22 0QU", "lat": 53.2867, "lon": -0.9147, "status": "open", "access": "Public: book a slot through Shell's reservation system", "drive": null, "charging": "1 × 400kW charger with 2 connectors for lorries and coaches", "price": "", "parking": "About 75 paid, lit lorry spaces with CCTV", "overnight": true, "food": ["Truck stop café (home-style food)", "KFC and Waitrose (northbound services)", "McDonald's (southbound services)"], "veg": ["Waitrose (northbound)"], "toilets": true, "showers": "Yes (drivers have reported a small charge)", "extra": "", "sources": [["Fleet News", "https://www.fleetnews.co.uk/news/shell-opens-first-charger-in-the-uk-for-electric-trucks"], ["Truckfly", "https://www.truckfly.com/fr/poi-details/markham-moor-truck-stop-dn22-0qu/28795/"], ["Motorway Services Online", "https://motorwayservices.uk/Markham_Moor"]]}, {"id": "checkley", "name": "Checkley Wood", "operator": "AW Energy", "road": "A5 Watling Street", "place": "Near Leighton Buzzard, Bedfordshire", "postcode": "LU7 9RG", "lat": 51.9567, "lon": -0.6305, "status": "open", "access": "Public: lorry access not confirmed", "drive": null, "charging": "18 × 100kW CCS charge points", "price": "Listed at 79p/kWh (not recently verified)", "parking": "Not confirmed", "overnight": false, "food": [], "veg": [], "toilets": null, "showers": "Not confirmed", "extra": "Listed in industry summaries of shared heavy-vehicle charging. Phone ahead to check a lorry fits", "sources": [["Open Charge Map", "https://www.openchargemap.org/poi/details/297881"], ["Zenobe", "https://www.zenobe.com/?p=17484"]]}, {"id": "tilbury", "name": "Fleete hub, Port of Tilbury", "operator": "Fleete", "road": "A13 corridor", "place": "Tilbury, Essex", "postcode": "", "lat": 51.459, "lon": 0.359, "status": "shared", "access": "Shared hub: pay with a Paua account", "drive": null, "charging": "16 lorry bays, up to 360kW, 24-hour access for fleets", "price": "", "parking": "Inside the port: arrange access first", "overnight": false, "food": [], "veg": [], "toilets": null, "showers": "Not confirmed", "extra": "Set up through your operator before you go", "sources": [["IOTA", "https://www.iota.org.uk/blog/tilbury-hgv-charging-hub-added-to-paua-network"], ["Fleet News", "https://www.fleetnews.co.uk/news/dedicated-commercial-vehicle-electric-charging-hub-opened"]]}, {"id": "knutsford", "name": "Moto Knutsford (northbound)", "operator": "GRIDSERVE Electric Freightway", "road": "M6 J18–19", "place": "Knutsford, Cheshire", "postcode": "WA16 0TL", "lat": 53.3001, "lon": -2.4021, "status": "soon", "access": "Public when open", "drive": null, "charging": "eHGV bays being built in the northbound lorry park (work started 2026)", "price": "", "parking": "First 2 hours free, then £33 (or £36 with a £10 food voucher). Lorry parking is limited", "overnight": true, "food": ["Burger King", "Costa", "Greggs", "KFC", "Pret", "Krispy Kreme", "M&S Food", "WHSmith"], "veg": ["Greggs", "Pret", "M&S Food", "Burger King"], "toilets": true, "showers": "Yes", "extra": "", "sources": [["Green Fleet", "https://greenfleet.net/news/16032026/four-more-electric-freightway-ehgv-charging-hubs-confirmed"], ["Motorway Services Online", "https://motorwayservices.uk/Knutsford"]]}, {"id": "medway", "name": "Moto Medway (eastbound)", "operator": "GRIDSERVE Electric Freightway", "road": "M2 J4–5", "place": "Gillingham, Kent", "postcode": "ME8 8PQ", "lat": 51.3406, "lon": 0.6073, "status": "soon", "access": "Public when open", "drive": null, "charging": "eHGV bays being built in the eastbound lorry park (work started 2026)", "price": "", "parking": "First 2 hours free, then £37 (or £40 with a £10 food voucher)", "overnight": true, "food": ["Burger King", "Costa", "Greggs", "KFC", "Krispy Kreme", "M&S Food", "WHSmith"], "veg": ["Greggs", "M&S Food", "Burger King"], "toilets": true, "showers": "Yes (eastbound)", "extra": "Travelodge on site", "sources": [["Green Fleet", "https://greenfleet.net/news/16032026/four-more-electric-freightway-ehgv-charging-hubs-confirmed"], ["Motorway Services Online", "https://motorwayservices.uk/Medway"]]}, {"id": "markhamvale", "name": "Markham Vale Electric Forecourt", "operator": "GRIDSERVE Electric Freightway", "road": "M1 J29A", "place": "Chesterfield, Derbyshire", "postcode": "S44 5HS", "lat": 53.247, "lon": -1.353, "status": "soon", "access": "Public when open", "drive": null, "charging": "3 lorry chargers planned", "price": "", "parking": "No dedicated lorry park. Commercial vehicles pay £14.99 after 2 hours", "overnight": false, "food": ["Chesters", "KFC", "McDonald's", "Starbucks", "Greggs", "Subway", "Marston's pub", "ASDA Express"], "veg": ["Greggs", "Subway", "McDonald's"], "toilets": null, "showers": "Not listed", "extra": "", "sources": [["Green Fleet", "https://greenfleet.net/news/16032026/four-more-electric-freightway-ehgv-charging-hubs-confirmed"], ["Motorway Services Online", "https://motorwayservices.uk/Markham_Vale"]]}, {"id": "aylesford", "name": "Milence Kent Charging Hub", "operator": "Milence", "road": "Near M20 J4–5, Panattoni Park", "place": "Aylesford, Kent", "postcode": "ME20 7WT", "lat": 51.303, "lon": 0.465, "status": "soon", "access": "Electric trucks only when open", "drive": null, "charging": "4 bays, 4 × 500kW CCS planned", "price": "", "parking": "Not yet confirmed", "overnight": false, "food": [], "veg": [], "toilets": null, "showers": "Not yet confirmed", "extra": "", "sources": [["Milence", "https://milence.com/location/kent/"]]}];
+  var $ = function (id) { return document.getElementById(id); };
+  var me = null, meMarker = null;
+  var STATUS = { open: 'Open', shared: 'Shared: arrange first', soon: 'Coming soon' };
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function hasHotFood(s) { return s.food.some(function (f) { return !/vending|picnic/i.test(f); }); }
+  function hasShower(s) { return /^yes|listed/i.test(s.showers || ''); }
+  function miles(a, b, c, d) {
+    var R = 3958.8, r = Math.PI / 180, dLat = (c - a) * r, dLon = (d - b) * r;
+    var x = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(a * r) * Math.cos(c * r) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    return 2 * R * Math.asin(Math.sqrt(x));
+  }
+  function directions(s) {
+    var q = s.postcode ? s.name + ', ' + s.postcode : s.lat + ',' + s.lon;
+    return 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(q);
+  }
+
+  var map = L.map('map', { scrollWheelZoom: false }).setView([52.6, -1.8], 6);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  var markers = {};
+  SITES.forEach(function (s) {
+    var icon = L.divIcon({ className: '', html: '<div class="tcm-pin ' + s.status + '"></div>', iconSize: [22, 22], iconAnchor: [11, 11], popupAnchor: [0, -10] });
+    var m = L.marker([s.lat, s.lon], { icon: icon, title: s.name, alt: s.name });
+    m.bindPopup('<strong>' + esc(s.name) + '</strong><br>' + esc(s.road) + '<br>' + esc(STATUS[s.status]) + '<br>' + esc(s.charging) +
+      '<br><a href="#site-' + s.id + '">Facilities and details</a> · <a href="' + directions(s) + '" target="_blank" rel="noopener">Directions</a>');
+    markers[s.id] = m;
+  });
+
+  function visible(s) {
+    if (s.status === 'open' && !$('fOpen').checked) return false;
+    if (s.status === 'shared' && !$('fShared').checked) return false;
+    if (s.status === 'soon' && !$('fSoon').checked) return false;
+    if ($('fPark').checked && !s.overnight) return false;
+    if ($('fFood').checked && !hasHotFood(s)) return false;
+    if ($('fVeg').checked && !s.veg.length) return false;
+    if ($('fShower').checked && !hasShower(s)) return false;
+    return true;
+  }
+
+  function card(s) {
+    var d = me ? miles(me[0], me[1], s.lat, s.lon) : null;
+    var rows = [
+      ['Charging', s.charging + (s.drive === true && !/drive-through/i.test(s.charging) ? ' · drive-through' : '')],
+      ['Price', s.price || 'Check the operator app'],
+      ['Access', s.access],
+      ['Parking', s.parking],
+      ['Food', s.food.length ? s.food.join(', ') : 'None confirmed'],
+      ['Vegetarian', s.veg.length ? '<span class="veg">' + esc(s.veg.join(', ')) + '</span>' : 'None confirmed', true],
+      ['Toilets', s.toilets === true ? 'Yes' : (s.toilets === false ? 'No' : 'Not confirmed')],
+      ['Showers', s.showers || 'Not confirmed']
+    ];
+    if (s.extra) rows.push(['Also', s.extra]);
+    var unknown = [];
+    rows = rows.filter(function (r) {
+      if (/^(None|Not) confirmed$/.test(r[1])) { unknown.push(r[0].toLowerCase()); return false; }
+      return true;
+    });
+    if (unknown.length) rows.push(['Not confirmed', unknown.join(', ')]);
+    return '<article class="tcm-card ' + s.status + '" id="site-' + s.id + '">' +
+      '<div class="tcm-badges"><span class="tcm-badge ' + s.status + '">' + esc(STATUS[s.status]) + '</span>' +
+      (s.overnight ? '<span class="tcm-badge">Overnight parking</span>' : '') +
+      (d !== null ? '<span class="tcm-badge dist">' + Math.round(d) + ' miles away</span>' : '') + '</div>' +
+      '<h3>' + esc(s.name) + '</h3>' +
+      '<p class="where">' + esc(s.road) + ' · ' + esc(s.place) + (s.postcode ? ' · ' + esc(s.postcode) : '') + '<br>' + esc(s.operator) + '</p>' +
+      '<dl>' + rows.map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + (r[2] ? r[1] : esc(r[1])) + '</dd></div>'; }).join('') + '</dl>' +
+      '<div class="links"><a href="' + directions(s) + '" target="_blank" rel="noopener">Directions</a><a href="#map" data-show="' + s.id + '">Show on map</a></div>' +
+      '<p class="src">Checked 1 Nov 2026 from: ' + s.sources.map(function (x) { return '<a href="' + x[1] + '" target="_blank" rel="noopener">' + esc(x[0]) + '</a>'; }).join(', ') + '</p>' +
+      '</article>';
+  }
+
+  function render() {
+    var list = SITES.filter(visible);
+    if (me) list.sort(function (a, b) { return miles(me[0], me[1], a.lat, a.lon) - miles(me[0], me[1], b.lat, b.lon); });
+    else list.sort(function (a, b) { return a.name.localeCompare(b.name); });
+    SITES.forEach(function (s) { if (visible(s)) markers[s.id].addTo(map); else map.removeLayer(markers[s.id]); });
+    $('count').textContent = list.length + (list.length === 1 ? ' site' : ' sites') + (me ? ', nearest first' : '');
+    $('list').innerHTML = list.length ? list.map(card).join('') : '<p class="tcm-empty">No sites match those filters. Try unticking one.</p>';
+  }
+
+  ['fOpen', 'fShared', 'fSoon', 'fPark', 'fFood', 'fVeg', 'fShower'].forEach(function (id) { $(id).addEventListener('change', render); });
+
+  $('list').addEventListener('click', function (e) {
+    var a = e.target.closest('[data-show]');
+    if (!a) return;
+    var m = markers[a.getAttribute('data-show')];
+    if (m) { map.setView(m.getLatLng(), 11); m.openPopup(); }
+  });
+
+  $('nearBtn').addEventListener('click', function () {
+    if (!navigator.geolocation) { $('nearNote').textContent = "Your browser can't share your location. Zoom the map instead."; return; }
+    $('nearNote').textContent = 'Finding you…';
+    navigator.geolocation.getCurrentPosition(function (p) {
+      me = [p.coords.latitude, p.coords.longitude];
+      if (meMarker) map.removeLayer(meMarker);
+      meMarker = L.marker(me, { icon: L.divIcon({ className: '', html: '<div class="tcm-pin me"></div>', iconSize: [22, 22], iconAnchor: [11, 11] }), title: 'You are here' }).addTo(map);
+      render();
+      var near = SITES.filter(visible).slice().sort(function (a, b) { return miles(me[0], me[1], a.lat, a.lon) - miles(me[0], me[1], b.lat, b.lon); })[0];
+      if (near) map.fitBounds(L.latLngBounds([me, [near.lat, near.lon]]).pad(0.3));
+      $('nearNote').textContent = 'Sorted nearest first. Your location stays on your phone.';
+    }, function () {
+      $('nearNote').textContent = "Location wasn't shared. You can still zoom the map or use the list.";
+    }, { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 });
+  });
+
+  render();
+})();
+
+</script>
+</body>
+</html>
