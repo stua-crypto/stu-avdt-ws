@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fleet Fuel Saving Calculator | AVDT</title>
+<meta name="description" content="Free fleet fuel saving calculator. Estimate how much diesel and money fuel-efficient driver training could save your lorries, buses or vans each year.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="canonical" href="https://avdt.co.uk/fleet-fuel-saver.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AVDT – Abbott's Vocational Driver Training">
+<meta property="og:title" content="Fleet Fuel Saving Calculator | AVDT">
+<meta property="og:description" content="Free fleet fuel saving calculator. Estimate how much diesel and money fuel-efficient driver training could save your lorries, buses or vans each year.">
+<meta property="og:url" content="https://avdt.co.uk/fleet-fuel-saver.html">
+<meta property="og:image" content="https://avdt.co.uk/assets/hero-banner.jpg">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Fleet Fuel Saver",
+  "description": "Free fleet fuel saving calculator. Estimate how much diesel and money fuel-efficient driver training could save your lorries, buses or vans each year.",
+  "url": "https://avdt.co.uk/fleet-fuel-saver.html"
+}
+</script>
+<!-- Google tag (gtag.js) - Google Ads AW-18394247641 -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied',
+    'wait_for_update': 500
+  });
+  gtag('set', 'ads_data_redaction', true);
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18394247641"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'AW-18394247641');
+</script>
+<script src="assets/cookie-consent.js" defer></script>
+<style>
+/* Fleet Fuel Saver: calculator styles, scoped to this page and using the site's colours and fonts */
+.ffs { --line: var(--steel-300); --muted: var(--ink-soft); --accent: var(--royal-700); --mark: var(--gold-500); --mark-ink: var(--navy-950);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  max-width: 46rem; display: grid; gap: 28px; }
+.ffs h2 { margin: 0 0 10px; font-size: 1.6rem; color: var(--navy-950); }
+.ffs p { margin: 0 0 12px; }
+.ffs a { color: var(--royal-600); font-weight: 600; text-underline-offset: 2px; }
+.ffs :focus-visible { outline: 3px solid var(--gold-500); outline-offset: 2px; }
+.ffs .panel { background: var(--paper-raised); border: 1px solid var(--line); border-top: 5px solid var(--gold-500); padding: 20px; }
+.ffs .group { display: grid; gap: 14px; }
+.ffs .group + .group { margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--line); }
+.ffs .group-title { margin: 0; font-size: 1.05rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.ffs .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: 14px; }
+.ffs .field { display: grid; gap: 6px; min-width: 0; align-content: start; }
+.ffs label { font-size: 0.92rem; font-weight: 600; color: var(--navy-950); }
+.ffs .hint { margin: 0; font-size: 0.85rem; color: var(--steel-500); }
+.ffs input, .ffs select { width: 100%; min-width: 0; min-height: 46px; padding: 10px 14px; font: inherit; color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 3px; }
+.ffs input[type="range"] { min-height: 32px; padding: 0; border: 0; background: transparent; accent-color: var(--accent); }
+.ffs .range-row { display: flex; align-items: center; gap: 14px; }
+.ffs .range-row output { flex: none; min-width: 3.2rem; font: 700 1.6rem var(--font-display); color: var(--navy-950); text-align: right; font-variant-numeric: tabular-nums; }
+.ffs .slip { background: var(--paper-raised); border: 1px solid var(--line); overflow: hidden; }
+.ffs .slip-head { padding: 10px 20px; background: var(--royal-800); color: #fff; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; }
+.ffs .slip-body { display: grid; gap: 14px; padding: 20px; }
+.ffs .slip-figure { justify-self: start; max-width: 100%; margin: 0; padding: 2px 14px 4px; background: var(--mark); color: var(--mark-ink); border-radius: 3px; font: 700 clamp(3rem, 15vw, 5rem)/1 var(--font-display); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.ffs .slip-sub { margin: 0; color: var(--muted); font-size: 0.95rem; max-width: none; }
+.ffs .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: 14px; margin: 0; }
+.ffs .stats dt { font-size: 0.76rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--steel-500); }
+.ffs .stats dd { margin: 2px 0 0; font: 700 1.6rem/1.1 var(--font-display); color: var(--navy-950); font-variant-numeric: tabular-nums; }
+.ffs .table-scroll { overflow-x: auto; }
+.ffs table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.ffs th, .ffs td { padding: 10px 8px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.ffs th:first-child, .ffs td:first-child { text-align: left; white-space: normal; padding-left: 0; }
+.ffs th { font-size: 0.76rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--steel-500); }
+.ffs tbody tr:last-child td { border-bottom: 0; }
+.ffs .rows { display: grid; margin: 0; }
+.ffs .rows div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 16px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+.ffs .rows div:last-child { border-bottom: 0; }
+.ffs .rows dt { color: var(--muted); }
+.ffs .rows dd { margin: 0; font: 500 0.95rem var(--font-mono); font-variant-numeric: tabular-nums; }
+.ffs .sources { margin: 0; padding-left: 1.1rem; font-size: 0.92rem; display: grid; gap: 4px; }
+.ffs .cta { display: grid; gap: 14px; }
+.ffs .btn { justify-content: center; }
+.ffs a.btn-primary { color: var(--navy-950); text-decoration: none; }
+.ffs .btn-wide { justify-self: start; }
+.ffs .btn-quiet { padding: 6px 14px; font-size: 0.9rem; }
+.ffs .contact { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.ffs .contact li { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.ffs .contact .label { min-width: 4.5rem; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--steel-500); }
+.ffs .contact .value { font: 500 1rem var(--font-mono); user-select: all; overflow-wrap: anywhere; }
+.ffs .flash { font-size: 0.85rem; color: var(--steel-500); }
+.ffs .foot { margin: 0; font-size: 0.85rem; color: var(--steel-500); }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Primary">
+    <a class="brand" href="index.html">
+      <picture><source srcset="assets/logo-112.webp" type="image/webp"><img class="brand-logo" src="assets/logo-112.png" alt="AVDT logo" width="56" height="56"></picture>
+      <span class="brand-text">
+        <span class="brand-mark">AVDT</span>
+        <span class="brand-sub">Abbott's Vocational Driver Training</span>
+      </span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu"><span class="nav-toggle-bars" aria-hidden="true"></span>Menu</button>
+    <ul class="nav-links" id="primary-menu">
+      <li><a href="forklift-training.html">Forklift</a></li>
+      <li><a href="telehandler-training.html">Telehandler</a></li>
+      <li><a href="lgv-training.html">LGV &amp; PCV</a></li>
+      <li><a href="lgv-training.html#c1-d1">C1 Ambulance</a></li>
+      <li><a href="d1-minibus-training.html">D1 Minibus</a></li>
+      <li><a href="driver-cpc.html">Driver CPC</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="page-header hero--rays">
+    <div class="container">
+      <div class="section-label" style="color:var(--gold-500);">Free calculator</div>
+      <h1>Fleet Fuel Saver</h1>
+      <p>See what fuel-efficient driver training could save your fleet in a year. The figures below are an example fleet. Change any of them to match yours.</p>
+    </div>
+  </section>
+
+  <div class="hazard-stripe" role="presentation"></div>
+
+  <section class="section section-tight">
+    <div class="container">
+      <div class="ffs">
+
+  <form id="calc" class="panel" novalidate onsubmit="return false">
+    <div class="group" role="group" aria-labelledby="g-fleet">
+      <h2 class="group-title" id="g-fleet">Your fleet</h2>
+      <div class="field">
+        <label for="preset">Vehicle type</label>
+        <select id="preset">
+          <option value="artic" selected>44 tonne artic</option>
+          <option value="rigid">18 tonne rigid</option>
+          <option value="van">3.5 tonne van</option>
+          <option value="coach">Coach or bus</option>
+          <option value="custom">Own figures</option>
+        </select>
+        <p class="hint">Picks starting figures for miles and mpg. Overwrite them with your own.</p>
+      </div>
+      <div class="fields">
+        <div class="field">
+          <label for="vehicles">Vehicles</label>
+          <input id="vehicles" type="number" inputmode="numeric" min="1" step="1" value="6">
+        </div>
+        <div class="field">
+          <label for="miles">Miles per vehicle each year</label>
+          <input id="miles" type="number" inputmode="numeric" min="0" step="500" value="73000">
+        </div>
+        <div class="field">
+          <label for="mpg">Miles per gallon</label>
+          <input id="mpg" type="number" inputmode="decimal" min="0" step="0.1" value="8">
+        </div>
+        <div class="field">
+          <label for="price">Diesel price, pence per litre</label>
+          <input id="price" type="number" inputmode="decimal" min="0" step="0.5" value="140">
+          <p class="hint">What you pay, excluding VAT.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="group" role="group" aria-labelledby="g-train">
+      <h2 class="group-title" id="g-train">Training</h2>
+      <div class="fields">
+        <div class="field">
+          <label for="drivers">Drivers to train</label>
+          <input id="drivers" type="number" inputmode="numeric" min="0" step="1" value="6">
+        </div>
+        <div class="field">
+          <label for="cost">Training cost per driver, £</label>
+          <input id="cost" type="number" inputmode="decimal" min="0" step="10" placeholder="Optional">
+          <p class="hint">Add a quote to see the payback time.</p>
+        </div>
+      </div>
+      <div class="field">
+        <label for="pct">Fuel saved by trained drivers</label>
+        <div class="range-row">
+          <input id="pct" type="range" min="2" max="15" step="1" value="5">
+          <output id="pctOut" for="pct">5%</output>
+        </div>
+        <p class="hint">Starts low on purpose. See how far to trust it, below.</p>
+      </div>
+    </div>
+  </form>
+
+  <section class="slip" aria-labelledby="slip-title">
+    <div class="slip-head" id="slip-title">Estimated saving each year</div>
+    <div class="slip-body" aria-live="polite">
+      <p class="slip-figure" id="saving">£0</p>
+      <p class="slip-sub" id="savingSub"></p>
+      <dl class="stats">
+        <div><dt>Diesel saved</dt><dd id="stLitres">0 L</dd></div>
+        <div><dt>CO₂ avoided</dt><dd id="stCo2">0 t</dd></div>
+        <div><dt>Of your fuel bill</dt><dd id="stShare">0%</dd></div>
+        <div><dt>Training pays back in</dt><dd id="stPayback">Add a cost</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="h-scen">
+    <h2 id="h-scen">If the saving is lower or higher</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Saving rate</th><th>Each year</th><th>Diesel</th></tr></thead>
+        <tbody id="scenarios"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="h-work">
+    <h2 id="h-work">The working</h2>
+    <dl class="rows">
+      <div><dt>Cost per mile</dt><dd id="wPpm">0p</dd></div>
+      <div><dt>Diesel per vehicle each year</dt><dd id="wLitres">0 L</dd></div>
+      <div><dt>Fuel cost per vehicle each year</dt><dd id="wVeh">£0</dd></div>
+      <div><dt>Fuel cost for the whole fleet</dt><dd id="wFleet">£0</dd></div>
+      <div><dt>Share of fleet driven by trained drivers</dt><dd id="wCover">100%</dd></div>
+    </dl>
+  </section>
+
+  <section class="panel" aria-labelledby="h-trust">
+    <h2 id="h-trust">How far to trust it</h2>
+    <p>Treat this as an estimate, not a promise. Published results for fuel-efficient driver training programmes have quoted average savings of about 10% for truck drivers, and some council road safety pages quote 10 to 15%. A New Zealand course reported 6.8%. That is why the slider starts at 5%.</p>
+    <p>Many of those figures were measured on or soon after the training day. Savings last only while drivers keep the habits, so compare your fuel use before and after.</p>
+    <p>Gallons are UK gallons (4.546 litres) and the CO₂ figure uses about 2.6 kg per litre of diesel. The 44 tonne artic starting figures, about 8 mpg and 73,000 miles a year, come from Road Haulage Association figures. Check them against your own fuel cards.</p>
+    <ul class="sources">
+      <li><a href="https://archive.commercialmotor.com/article/19th-march-2009/49/safed-training" target="_blank" rel="noopener">Commercial Motor: fuel-efficient driver training results</a></li>
+      <li><a href="https://www.hartlepool.gov.uk/road-safety/safe-fuel-efficient-driving-safed" target="_blank" rel="noopener">Hartlepool Council: fuel-efficient driving training</a></li>
+      <li><a href="https://www.hwr.co.nz/our-communities/driving-safely-and-efficiently" target="_blank" rel="noopener">HWR: New Zealand driver training results</a></li>
+      <li><a href="https://www.transportengineer.org.uk/content/news/duty-calls-rha-urges-chancellor-to-reduce-fuel-costs" target="_blank" rel="noopener">Transport Engineer: RHA fuel cost figures</a></li>
+      <li><a href="https://www.rightfuelcard.co.uk/news/what-is-mpg" target="_blank" rel="noopener">RightFuelCard: typical mpg by vehicle</a></li>
+    </ul>
+  </section>
+
+  <section class="panel cta" aria-labelledby="h-quote">
+    <h2 id="h-quote">Want a quote?</h2>
+    <p>Fuel-efficient driving skills are part of all my driver training. Tell me about your fleet and I will come back with a clear quote. I cover Exeter, Plymouth, Torbay, Newton Abbot and the rest of Devon and Cornwall.</p>
+    <a class="btn btn-primary btn-wide" id="wa" href="https://wa.me/447807395913" target="_blank" rel="noopener">Message Stuart on WhatsApp</a>
+    <ul class="contact">
+      <li><span class="label">Phone</span><span class="value" id="ph">07807 395913</span><button type="button" class="btn btn-outline-dark btn-quiet" data-copy="ph">Copy</button></li>
+      <li><span class="label">Email</span><span class="value" id="em">info@avdt.co.uk</span><button type="button" class="btn btn-outline-dark btn-quiet" data-copy="em">Copy</button></li>
+    </ul>
+    <span class="flash" id="flash" role="status"></span>
+  </section>
+
+  <p class="foot">Stuart Abbott, trading as Abbott's Vocational Driver Training, Chudleigh, near Newton Abbot. Estimates only. They do not guarantee a saving.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" style="margin-bottom:14px;">
+          <picture><source srcset="assets/logo-112.webp" type="image/webp"><img class="brand-logo" src="assets/logo-112.png" alt="AVDT logo" width="56" height="56"></picture>
+          <span class="brand-mark">AVDT</span>
+        </a>
+        <p style="max-width:36ch; color:var(--steel-300);">Stuart Abbott, trading as Abbott's Vocational Driver Training. On-site forklift and telehandler operator training, LGV (lorry) and PCV (bus and minibus) driver training, and event water safety cover across Devon and Cornwall.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="forklift-training.html">Forklift Training</a>
+        <a href="telehandler-training.html">Telehandler Training</a>
+        <a href="lgv-training.html">LGV &amp; PCV Training</a>
+        <a href="lgv-training.html#c1-d1">C1 Ambulance Training</a>
+        <a href="d1-minibus-training.html">D1 Minibus Training</a>
+        <a href="driver-cpc.html">Driver CPC</a>
+        <a href="https://water.avdt.co.uk/">Water Safety Cover</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="resources.html">Resources</a>
+        <a href="privacy.html">Privacy notice</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:info@avdt.co.uk">info@avdt.co.uk</a>
+        <a href="tel:07807395913">07807 395913</a>
+        <a href="https://g.page/r/CQ6pZFvB53g9EBM/review" target="_blank" rel="noopener">Leave a Google review</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> Abbott's Vocational Driver Training. All rights reserved.</span>
+      <span>ICO registered — ZC212008</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+<script src="assets/nav.js" defer></script>
+<script>
+/* compute:start */
+function compute(i) {
+  var LITRES_PER_GALLON = 4.546, CO2_PER_LITRE = 2.6;
+  var litresPerVehicle = i.mpg > 0 ? i.miles / i.mpg * LITRES_PER_GALLON : 0;
+  var costPerVehicle = litresPerVehicle * i.price / 100;
+  var fleetLitres = litresPerVehicle * i.vehicles;
+  var fleetCost = costPerVehicle * i.vehicles;
+  var coverage = i.vehicles > 0 ? Math.min(1, i.drivers / i.vehicles) : 0;
+  function at(p) { return { pounds: fleetCost * p * coverage, litres: fleetLitres * p * coverage }; }
+  var s = at(i.pct / 100);
+  var training = i.drivers * i.cost;
+  var monthly = s.pounds / 12;
+  return {
+    litresPerVehicle: litresPerVehicle,
+    costPerVehicle: costPerVehicle,
+    fleetLitres: fleetLitres,
+    fleetCost: fleetCost,
+    coverage: coverage,
+    pencePerMile: i.mpg > 0 ? i.price * LITRES_PER_GALLON / i.mpg : 0,
+    saving: s.pounds,
+    litresSaved: s.litres,
+    co2Tonnes: s.litres * CO2_PER_LITRE / 1000,
+    shareOfBill: i.pct / 100 * coverage,
+    training: training,
+    paybackMonths: (training > 0 && monthly > 0) ? training / monthly : null,
+    at: at
+  };
+}
+/* compute:end */
+
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var PRESETS = { artic: { mpg: 8, miles: 73000 }, rigid: { mpg: 13, miles: 50000 }, van: { mpg: 26, miles: 25000 }, coach: { mpg: 8, miles: 40000 } };
+  var gbp = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 });
+  var n0 = new Intl.NumberFormat('en-GB', { maximumFractionDigits: 0 });
+  var n1 = new Intl.NumberFormat('en-GB', { maximumFractionDigits: 1 });
+  var driversTouched = false;
+
+  function val(id) { var v = parseFloat($(id).value); return isFinite(v) && v > 0 ? v : 0; }
+
+  function render() {
+    var i = {
+      vehicles: Math.floor(val('vehicles')), miles: val('miles'), mpg: val('mpg'), price: val('price'),
+      drivers: Math.floor(val('drivers')), cost: val('cost'), pct: val('pct')
+    };
+    var r = compute(i);
+    $('pctOut').textContent = i.pct + '%';
+    $('saving').textContent = gbp.format(r.saving);
+    $('stLitres').textContent = n0.format(r.litresSaved) + ' L';
+    $('stCo2').textContent = n1.format(r.co2Tonnes) + ' t';
+    $('stShare').textContent = n1.format(r.shareOfBill * 100) + '%';
+    if (r.paybackMonths === null) {
+      $('stPayback').textContent = 'Add a cost';
+    } else if (r.paybackMonths < 1) {
+      $('stPayback').textContent = 'Under a month';
+    } else {
+      $('stPayback').textContent = n1.format(r.paybackMonths) + ' months';
+    }
+    $('savingSub').textContent = i.vehicles > 0 && i.mpg > 0
+      ? i.vehicles + ' vehicle' + (i.vehicles === 1 ? '' : 's') + ', ' + n0.format(i.miles) + ' miles each, ' + n1.format(i.mpg) + ' mpg, diesel at ' + n1.format(i.price) + 'p a litre. Your fuel bill is about ' + gbp.format(r.fleetCost) + ' a year and the saving is ' + i.pct + '% of the fuel used by trained drivers.'
+      : 'Enter at least one vehicle and its mpg to see a saving.';
+
+    var rows = [['Cautious', 5], ['Typical published', 10], ['Upper end', 15]].map(function (s) {
+      var a = r.at(s[1] / 100);
+      return '<tr><td>' + s[0] + ' · ' + s[1] + '%</td><td>' + gbp.format(a.pounds) + '</td><td>' + n0.format(a.litres) + ' L</td></tr>';
+    });
+    $('scenarios').innerHTML = rows.join('');
+
+    $('wPpm').textContent = n1.format(r.pencePerMile) + 'p';
+    $('wLitres').textContent = n0.format(r.litresPerVehicle) + ' L';
+    $('wVeh').textContent = gbp.format(r.costPerVehicle);
+    $('wFleet').textContent = gbp.format(r.fleetCost);
+    $('wCover').textContent = n0.format(r.coverage * 100) + '%';
+
+    var msg = 'Hi Stuart, I used the Fleet Fuel Saver. We run ' + i.vehicles + ' vehicle' + (i.vehicles === 1 ? '' : 's') +
+      ' and spend about ' + gbp.format(r.fleetCost) + ' a year on diesel. Could you quote for fuel-efficient driver training for ' + i.drivers + ' driver' + (i.drivers === 1 ? '' : 's') + '?';
+    $('wa').href = 'https://wa.me/447807395913?text=' + encodeURIComponent(msg);
+  }
+
+  $('preset').addEventListener('change', function () {
+    var p = PRESETS[this.value];
+    if (p) { $('mpg').value = p.mpg; $('miles').value = p.miles; }
+    render();
+  });
+  ['miles', 'mpg'].forEach(function (id) {
+    $(id).addEventListener('input', function () { $('preset').value = 'custom'; render(); });
+  });
+  $('vehicles').addEventListener('input', function () {
+    if (!driversTouched) $('drivers').value = this.value;
+    render();
+  });
+  $('drivers').addEventListener('input', function () { driversTouched = true; render(); });
+  ['price', 'cost', 'pct'].forEach(function (id) { $(id).addEventListener('input', render); });
+
+  function flash(text) {
+    var f = $('flash'); f.textContent = text;
+    setTimeout(function () { f.textContent = ''; }, 2500);
+  }
+  function selectText(el) {
+    var range = document.createRange(); range.selectNodeContents(el);
+    var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+  }
+  document.querySelectorAll('[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var el = $(btn.getAttribute('data-copy'));
+      var fallback = function () { selectText(el); flash('Selected. Press copy on your keyboard or menu.'); };
+      try {
+        navigator.clipboard.writeText(el.textContent).then(function () { flash('Copied ' + el.textContent); }, fallback);
+      } catch (e) { fallback(); }
+    });
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
