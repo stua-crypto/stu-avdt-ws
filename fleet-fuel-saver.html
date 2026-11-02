@@ -97,6 +97,12 @@
 .ffs .contact .label { min-width: 4.5rem; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--steel-500); }
 .ffs .contact .value { font: 500 1rem var(--font-mono); user-select: all; overflow-wrap: anywhere; }
 .ffs .flash { font-size: 0.85rem; color: var(--steel-500); }
+.ffs .fuel-toggle { display: inline-flex; border: 1px solid var(--line); border-radius: 3px; overflow: hidden; }
+.ffs .fuel-toggle label { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; cursor: pointer; font-weight: 600; min-height: 46px; background: #fff; }
+.ffs .fuel-toggle label + label { border-left: 1px solid var(--line); }
+.ffs .fuel-toggle input { width: 18px; height: 18px; min-height: 0; accent-color: var(--royal-700); }
+.ffs .fuel-toggle label:has(input:checked) { background: var(--royal-800); color: #fff; }
+.ffs .label-like { font-size: 0.92rem; font-weight: 600; color: var(--navy-950); }
 .ffs .foot { margin: 0; font-size: 0.85rem; color: var(--steel-500); }
 </style>
 </head>
@@ -147,6 +153,13 @@
     <div class="group" role="group" aria-labelledby="g-fleet">
       <h2 class="group-title" id="g-fleet">Your fleet</h2>
       <div class="field">
+        <span class="label-like" id="fuelLabel">Fuel</span>
+        <div class="fuel-toggle" role="radiogroup" aria-labelledby="fuelLabel">
+          <label><input type="radio" name="fuel" value="diesel" checked> Diesel</label>
+          <label><input type="radio" name="fuel" value="electric"> Electric</label>
+        </div>
+      </div>
+      <div class="field">
         <label for="preset">Vehicle type</label>
         <select id="preset">
           <option value="artic" selected>44 tonne artic</option>
@@ -155,7 +168,7 @@
           <option value="coach">Coach or bus</option>
           <option value="custom">Own figures</option>
         </select>
-        <p class="hint">Picks starting figures for miles and mpg. Overwrite them with your own.</p>
+        <p class="hint" id="presetHint">Picks starting figures for miles and mpg. Overwrite them with your own.</p>
       </div>
       <div class="fields">
         <div class="field">
@@ -167,13 +180,13 @@
           <input id="miles" type="number" inputmode="numeric" min="0" step="500" value="73000">
         </div>
         <div class="field">
-          <label for="mpg">Miles per gallon</label>
+          <label for="mpg" id="mpgLabel">Miles per gallon</label>
           <input id="mpg" type="number" inputmode="decimal" min="0" step="0.1" value="8">
         </div>
         <div class="field">
-          <label for="price">Diesel price, pence per litre</label>
+          <label for="price" id="priceLabel">Diesel price, pence per litre</label>
           <input id="price" type="number" inputmode="decimal" min="0" step="0.5" value="140">
-          <p class="hint">What you pay, excluding VAT.</p>
+          <p class="hint" id="priceHint">What you pay, excluding VAT.</p>
         </div>
       </div>
     </div>
@@ -192,7 +205,7 @@
         </div>
       </div>
       <div class="field">
-        <label for="pct">Fuel saved by trained drivers</label>
+        <label for="pct" id="pctLabel">Fuel saved by trained drivers</label>
         <div class="range-row">
           <input id="pct" type="range" min="2" max="15" step="1" value="5">
           <output id="pctOut" for="pct">5%</output>
@@ -208,9 +221,9 @@
       <p class="slip-figure" id="saving">£0</p>
       <p class="slip-sub" id="savingSub"></p>
       <dl class="stats">
-        <div><dt>Diesel saved</dt><dd id="stLitres">0 L</dd></div>
-        <div><dt>CO₂ avoided</dt><dd id="stCo2">0 t</dd></div>
-        <div><dt>Of your fuel bill</dt><dd id="stShare">0%</dd></div>
+        <div><dt id="stLitresLabel">Diesel saved</dt><dd id="stLitres">0 L</dd></div>
+        <div><dt id="stCo2Label">CO₂ avoided</dt><dd id="stCo2">0 t</dd></div>
+        <div><dt id="stShareLabel">Of your fuel bill</dt><dd id="stShare">0%</dd></div>
         <div><dt>Training pays back in</dt><dd id="stPayback">Add a cost</dd></div>
       </dl>
     </div>
@@ -220,7 +233,7 @@
     <h2 id="h-scen">If the saving is lower or higher</h2>
     <div class="table-scroll">
       <table>
-        <thead><tr><th>Saving rate</th><th>Each year</th><th>Diesel</th></tr></thead>
+        <thead><tr><th>Saving rate</th><th>Each year</th><th id="thEnergy">Diesel</th></tr></thead>
         <tbody id="scenarios"></tbody>
       </table>
     </div>
@@ -230,9 +243,9 @@
     <h2 id="h-work">The working</h2>
     <dl class="rows">
       <div><dt>Cost per mile</dt><dd id="wPpm">0p</dd></div>
-      <div><dt>Diesel per vehicle each year</dt><dd id="wLitres">0 L</dd></div>
-      <div><dt>Fuel cost per vehicle each year</dt><dd id="wVeh">£0</dd></div>
-      <div><dt>Fuel cost for the whole fleet</dt><dd id="wFleet">£0</dd></div>
+      <div><dt id="wLitresLabel">Diesel per vehicle each year</dt><dd id="wLitres">0 L</dd></div>
+      <div><dt id="wVehLabel">Fuel cost per vehicle each year</dt><dd id="wVeh">£0</dd></div>
+      <div><dt id="wFleetLabel">Fuel cost for the whole fleet</dt><dd id="wFleet">£0</dd></div>
       <div><dt>Share of fleet driven by trained drivers</dt><dd id="wCover">100%</dd></div>
     </dl>
   </section>
@@ -248,6 +261,23 @@
       <li><a href="https://www.hwr.co.nz/our-communities/driving-safely-and-efficiently" target="_blank" rel="noopener">HWR: New Zealand driver training results</a></li>
       <li><a href="https://www.transportengineer.org.uk/content/news/duty-calls-rha-urges-chancellor-to-reduce-fuel-costs" target="_blank" rel="noopener">Transport Engineer: RHA fuel cost figures</a></li>
       <li><a href="https://www.rightfuelcard.co.uk/news/what-is-mpg" target="_blank" rel="noopener">RightFuelCard: typical mpg by vehicle</a></li>
+    </ul>
+  </section>
+
+  <section class="panel" aria-labelledby="h-ev" id="evNote" hidden>
+    <h2 id="h-ev">About the electric figures</h2>
+    <p>The training savings above were measured on diesel lorries. Smooth, planned driving helps electric lorries too: fleets in the UK's electric lorry trials found driving style affects range even more than it affects diesel economy. There is less published data on the size of the saving, so keep the slider low and compare your own energy use before and after.</p>
+    <p>The starting figures are typical real-world values. A 44 tonne artic uses about 1.9 kWh a mile (roughly 1.2 kWh a km). An 18 tonne rigid and a coach use about 1.5 kWh a mile, and a large 3.5 tonne van about 0.42 kWh a mile. Electric lorries in the UK trials averaged about 1,350 km a week, so the lorry presets use 43,000 miles a year. The 40p price is close to what public truck hubs charge at the low end (Milence Immingham listed 39.9p plus VAT), and public chargers on my <a href="truck-charging-map.html">charging map</a> go up to about 85p. If you charge at your own depot, use your own tariff.</p>
+    <p>"Range per charge" shows how much further a trained driver could go on the same charge at the saving you choose.</p>
+    <ul class="sources">
+      <li><a href="https://theicct.org/publication/rw-use-cases-for-zet-heavy-tractor-trailers-for-goods-transport-in-the-eu-aug25/" target="_blank" rel="noopener">ICCT: real-world electric tractor-trailers (2025)</a></li>
+      <li><a href="https://www.designwerk.com/en/post/faq-items/how-much-energy-does-an-electric-truck-consume/" target="_blank" rel="noopener">Designwerk: electric truck energy use</a></li>
+      <li><a href="https://www.oeko.de/publikation/real-world-data-analysis-of-battery-electric-trucks-operating-in-germany/" target="_blank" rel="noopener">Öko-Institut: electric delivery trucks in service</a></li>
+      <li><a href="https://route-one.net/news/zero-emission-coaches-pass-million-kilometre-mark-in-uk/" target="_blank" rel="noopener">Route One: electric coaches in UK service</a></li>
+      <li><a href="https://vanreviewer.co.uk/news/farizon-sv-proves-real-world-efficiency-during-1000-mile-drive/" target="_blank" rel="noopener">Van Reviewer: large electric van real-world test</a></li>
+      <li><a href="https://trans.info/en/zehid-annual-report-electric-trucks-508070" target="_blank" rel="noopener">trans.info: UK electric lorry trial findings</a></li>
+      <li><a href="https://www.hitachizerocarbon.com/wp-content/uploads/2026/03/Electric-Freightway-report-4-final-report.pdf" target="_blank" rel="noopener">Electric Freightway final report (2026)</a></li>
+      <li><a href="https://milence.com/location/immingham" target="_blank" rel="noopener">Milence: Immingham charging hub</a></li>
     </ul>
   </section>
 
@@ -343,9 +373,59 @@ function compute(i) {
 }
 /* compute:end */
 
+/* Electric version: i.mpg holds kWh per mile and i.price pence per kWh. Same structure as compute(). */
+function computeElectric(i) {
+  var kwhPerVehicle = i.miles * i.mpg;
+  var costPerVehicle = kwhPerVehicle * i.price / 100;
+  var fleetKwh = kwhPerVehicle * i.vehicles;
+  var fleetCost = costPerVehicle * i.vehicles;
+  var coverage = i.vehicles > 0 ? Math.min(1, i.drivers / i.vehicles) : 0;
+  function at(p) { return { pounds: fleetCost * p * coverage, litres: fleetKwh * p * coverage }; }
+  var s = at(i.pct / 100);
+  var training = i.drivers * i.cost;
+  var monthly = s.pounds / 12;
+  var p = i.pct / 100;
+  return {
+    litresPerVehicle: kwhPerVehicle,
+    costPerVehicle: costPerVehicle,
+    fleetLitres: fleetKwh,
+    fleetCost: fleetCost,
+    coverage: coverage,
+    pencePerMile: i.price * i.mpg,
+    saving: s.pounds,
+    litresSaved: s.litres,
+    rangeGain: p < 1 ? (1 / (1 - p) - 1) : 0,
+    shareOfBill: p * coverage,
+    training: training,
+    paybackMonths: (training > 0 && monthly > 0) ? training / monthly : null,
+    at: at
+  };
+}
+
 (function () {
   var $ = function (id) { return document.getElementById(id); };
   var PRESETS = { artic: { mpg: 8, miles: 73000 }, rigid: { mpg: 13, miles: 50000 }, van: { mpg: 26, miles: 25000 }, coach: { mpg: 8, miles: 40000 } };
+  var EV_PRESETS = { artic: { mpg: 1.9, miles: 43000 }, rigid: { mpg: 1.5, miles: 43000 }, van: { mpg: 0.42, miles: 25000 }, coach: { mpg: 1.5, miles: 40000 } };
+  var PRICE = { diesel: 140, electric: 40 };
+  function isEV() { return document.querySelector('input[name="fuel"]:checked').value === 'electric'; }
+  function setText(id, t) { $(id).textContent = t; }
+  function applyMode() {
+    var ev = isEV();
+    setText('mpgLabel', ev ? 'Electricity used, kWh per mile' : 'Miles per gallon');
+    $('mpg').step = ev ? '0.01' : '0.1';
+    setText('priceLabel', ev ? 'Electricity price, pence per kWh' : 'Diesel price, pence per litre');
+    setText('priceHint', ev ? 'What you pay, excluding VAT. Public truck chargers cost about 40p to 85p.' : 'What you pay, excluding VAT.');
+    setText('presetHint', ev ? 'Picks starting figures for miles and electricity use. Overwrite them with your own.' : 'Picks starting figures for miles and mpg. Overwrite them with your own.');
+    setText('pctLabel', ev ? 'Energy saved by trained drivers' : 'Fuel saved by trained drivers');
+    setText('stLitresLabel', ev ? 'Electricity saved' : 'Diesel saved');
+    setText('stCo2Label', ev ? 'Range per charge' : 'CO₂ avoided');
+    setText('stShareLabel', ev ? 'Of your electricity bill' : 'Of your fuel bill');
+    setText('thEnergy', ev ? 'Electricity' : 'Diesel');
+    setText('wLitresLabel', ev ? 'Electricity per vehicle each year' : 'Diesel per vehicle each year');
+    setText('wVehLabel', ev ? 'Electricity cost per vehicle each year' : 'Fuel cost per vehicle each year');
+    setText('wFleetLabel', ev ? 'Electricity cost for the whole fleet' : 'Fuel cost for the whole fleet');
+    $('evNote').hidden = !ev;
+  }
   var gbp = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 });
   var n0 = new Intl.NumberFormat('en-GB', { maximumFractionDigits: 0 });
   var n1 = new Intl.NumberFormat('en-GB', { maximumFractionDigits: 1 });
@@ -358,11 +438,12 @@ function compute(i) {
       vehicles: Math.floor(val('vehicles')), miles: val('miles'), mpg: val('mpg'), price: val('price'),
       drivers: Math.floor(val('drivers')), cost: val('cost'), pct: val('pct')
     };
-    var r = compute(i);
+    var ev = isEV(), unit = ev ? ' kWh' : ' L';
+    var r = ev ? computeElectric(i) : compute(i);
     $('pctOut').textContent = i.pct + '%';
     $('saving').textContent = gbp.format(r.saving);
-    $('stLitres').textContent = n0.format(r.litresSaved) + ' L';
-    $('stCo2').textContent = n1.format(r.co2Tonnes) + ' t';
+    $('stLitres').textContent = n0.format(r.litresSaved) + unit;
+    $('stCo2').textContent = ev ? '+' + n1.format(r.rangeGain * 100) + '%' : n1.format(r.co2Tonnes) + ' t';
     $('stShare').textContent = n1.format(r.shareOfBill * 100) + '%';
     if (r.paybackMonths === null) {
       $('stPayback').textContent = 'Add a cost';
@@ -371,34 +452,49 @@ function compute(i) {
     } else {
       $('stPayback').textContent = n1.format(r.paybackMonths) + ' months';
     }
-    $('savingSub').textContent = i.vehicles > 0 && i.mpg > 0
+    $('savingSub').textContent = ev
+      ? (i.vehicles > 0 && i.mpg > 0
+        ? i.vehicles + ' vehicle' + (i.vehicles === 1 ? '' : 's') + ', ' + n0.format(i.miles) + ' miles each, ' + i.mpg + ' kWh a mile, electricity at ' + n1.format(i.price) + 'p a kWh. Your electricity bill is about ' + gbp.format(r.fleetCost) + ' a year and the saving is ' + i.pct + '% of the energy used by trained drivers.'
+        : 'Enter at least one vehicle and its electricity use to see a saving.')
+      : i.vehicles > 0 && i.mpg > 0
       ? i.vehicles + ' vehicle' + (i.vehicles === 1 ? '' : 's') + ', ' + n0.format(i.miles) + ' miles each, ' + n1.format(i.mpg) + ' mpg, diesel at ' + n1.format(i.price) + 'p a litre. Your fuel bill is about ' + gbp.format(r.fleetCost) + ' a year and the saving is ' + i.pct + '% of the fuel used by trained drivers.'
       : 'Enter at least one vehicle and its mpg to see a saving.';
 
     var rows = [['Cautious', 5], ['Typical published', 10], ['Upper end', 15]].map(function (s) {
       var a = r.at(s[1] / 100);
-      return '<tr><td>' + s[0] + ' · ' + s[1] + '%</td><td>' + gbp.format(a.pounds) + '</td><td>' + n0.format(a.litres) + ' L</td></tr>';
+      return '<tr><td>' + s[0] + ' · ' + s[1] + '%</td><td>' + gbp.format(a.pounds) + '</td><td>' + n0.format(a.litres) + unit + '</td></tr>';
     });
     $('scenarios').innerHTML = rows.join('');
 
     $('wPpm').textContent = n1.format(r.pencePerMile) + 'p';
-    $('wLitres').textContent = n0.format(r.litresPerVehicle) + ' L';
+    $('wLitres').textContent = n0.format(r.litresPerVehicle) + unit;
     $('wVeh').textContent = gbp.format(r.costPerVehicle);
     $('wFleet').textContent = gbp.format(r.fleetCost);
     $('wCover').textContent = n0.format(r.coverage * 100) + '%';
 
     var msg = 'Hi Stuart, I used the Fleet Fuel Saver. We run ' + i.vehicles + ' vehicle' + (i.vehicles === 1 ? '' : 's') +
-      ' and spend about ' + gbp.format(r.fleetCost) + ' a year on diesel. Could you quote for fuel-efficient driver training for ' + i.drivers + ' driver' + (i.drivers === 1 ? '' : 's') + '?';
+      ' and spend about ' + gbp.format(r.fleetCost) + ' a year on ' + (ev ? 'electricity for our electric vehicles' : 'diesel') + '. Could you quote for fuel-efficient driver training for ' + i.drivers + ' driver' + (i.drivers === 1 ? '' : 's') + '?';
     $('wa').href = 'https://wa.me/447807395913?text=' + encodeURIComponent(msg);
   }
 
   $('preset').addEventListener('change', function () {
-    var p = PRESETS[this.value];
+    var p = (isEV() ? EV_PRESETS : PRESETS)[this.value];
     if (p) { $('mpg').value = p.mpg; $('miles').value = p.miles; }
     render();
   });
   ['miles', 'mpg'].forEach(function (id) {
     $(id).addEventListener('input', function () { $('preset').value = 'custom'; render(); });
+  });
+  document.querySelectorAll('input[name="fuel"]').forEach(function (radio) {
+    radio.addEventListener('change', function () {
+      var ev = isEV();
+      if ($('preset').value === 'custom') $('preset').value = 'artic';
+      var p = (ev ? EV_PRESETS : PRESETS)[$('preset').value];
+      $('mpg').value = p.mpg; $('miles').value = p.miles;
+      $('price').value = PRICE[ev ? 'electric' : 'diesel'];
+      applyMode();
+      render();
+    });
   });
   $('vehicles').addEventListener('input', function () {
     if (!driversTouched) $('drivers').value = this.value;
