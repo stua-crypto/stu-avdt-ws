@@ -182,6 +182,28 @@
     </div>
   </section>
 
+  <section class="signup" aria-labelledby="signup-heading">
+    <div class="container signup-inner">
+      <div>
+        <div class="section-label">Stay in touch</div>
+        <h2 id="signup-heading">Get driver training tips and new guides</h2>
+        <p>Practical advice from a former DVSA examiner, plus new guides and checklists when I publish them. Occasional emails only, no spam, and you can opt out at any time.</p>
+      </div>
+      <form class="signup-form" novalidate>
+        <div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;"><label>Leave this field empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <div class="form-group">
+          <label>First name (optional)<input type="text" name="name" autocomplete="given-name"></label>
+        </div>
+        <div class="form-group">
+          <label>Email<input type="email" name="email" required autocomplete="email"></label>
+        </div>
+        <label class="signup-consent"><input type="checkbox" name="consent"><span>I'm happy for Stuart Abbott (AVDT) to email me tips, guides and training news. I can unsubscribe at any time. See the <a href="privacy.html">privacy notice</a>.</span></label>
+        <button type="submit" class="btn btn-primary">Sign me up</button>
+        <p class="signup-status" role="status"></p>
+      </form>
+    </div>
+  </section>
+
   <section class="cta-band">
     <div class="container cta-band-inner">
       <div>
@@ -241,5 +263,6 @@
 </script>
 
 <script src="assets/nav.js" defer></script>
+<script src="assets/signup.js" defer></script>
 </body>
 </html>
