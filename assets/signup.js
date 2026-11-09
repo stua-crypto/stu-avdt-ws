@@ -11,13 +11,21 @@
       var consent = form.querySelector('[name="consent"]').checked;
       var trap = form.querySelector('[name="website"]').value;
 
-      function show(msg, ok) {
+      function show(msg, ok, withPdf) {
         status.textContent = msg;
+        if (withPdf) {
+          var link = document.createElement('a');
+          link.href = 'assets/downloads/driver-training-syllabus.pdf';
+          link.textContent = 'Download your printable syllabus (PDF)';
+          link.setAttribute('download', '');
+          status.appendChild(document.createElement('br'));
+          status.appendChild(link);
+        }
         status.className = 'signup-status visible' + (ok ? ' ok' : '');
       }
 
       // Spam trap: bots fill the hidden field or submit within seconds of page load. Pretend it worked, send nothing.
-      if (trap || Date.now() - loaded < 3000) { show('Thanks, you\'re signed up.', true); return; }
+      if (trap || Date.now() - loaded < 3000) { show('Thanks, you\'re signed up.', true, true); return; }
       if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { show('Please enter a valid email address.', false); return; }
       if (!consent) { show('Please tick the box so I know you\'re happy to hear from me.', false); return; }
 
@@ -39,7 +47,7 @@
         if (window.gtag) gtag('event', 'email_signup', { page: window.location.pathname });
         form.reset();
         button.textContent = 'Signed up';
-        show('Thanks, you\'re signed up. I\'ll only email occasionally, and every email has an easy way to opt out.', true);
+        show('Thanks, you\'re signed up. I\'ll only email occasionally, and every email has an easy way to opt out.', true, true);
       }).catch(function () {
         button.disabled = false;
         button.textContent = 'Sign me up';

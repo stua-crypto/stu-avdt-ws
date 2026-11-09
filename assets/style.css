@@ -879,4 +879,5 @@ textarea:focus-visible {
 .signup-status { display: none; font-size: 0.92rem; margin-top: 12px; color: #8a1c1c; }
 .signup-status.visible { display: block; }
 .signup-status.ok { color: #1d6b3a; }
+.signup-status a { color: var(--royal-800); font-weight: 600; text-decoration: underline; }
 @media (max-width: 760px) { .signup-inner { grid-template-columns: 1fr; } }
