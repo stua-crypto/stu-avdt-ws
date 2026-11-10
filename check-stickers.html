@@ -179,9 +179,10 @@
           <div class="field">
             <span class="label-like" id="cardLabel">Vehicle cards (credit card size)</span>
             <div class="toggle toggle-wrap" role="radiogroup" aria-labelledby="cardLabel">
-              <label><input type="radio" name="cardfmt" value="printer" checked> For a card printer</label>
-              <label><input type="radio" name="cardfmt" value="a4"> A4 sheet to cut out</label>
+              <label><input type="radio" name="cardfmt" value="a4" checked> A4 sheet to cut out</label>
+              <label><input type="radio" name="cardfmt" value="printer"> For a card printer</label>
             </div>
+            <p class="hint">Use "A4 sheet to cut out" on a normal printer. "For a card printer" is only for printers that print plastic cards: on a normal printer each card fills a whole A4 page.</p>
           </div>
           <div class="field">
             <label for="reportTo">Report defects to (optional, printed on the back of the card)</label>
@@ -201,7 +202,7 @@
           <h3 class="card-h">Vehicle card, front and back</h3>
           <div class="cards" id="cardPreview"></div>
           <span class="flash" id="flash" role="status"></span>
-          <p class="hint">Vehicle cards are 85.6 × 54 mm, the size of a bank card, with the QR code on the front and the check steps on the back. "For a card printer" makes one card per page, front then back. Choose double-sided in your card printer's settings. "A4 sheet to cut out" puts 8 cards on a page with the backs on the next page, lined up for double-sided printing. Laminate them, or slide them into a card holder on the vehicle's keys or a lanyard.</p>
+          <p class="hint">Vehicle cards are 85.6 × 54 mm, the size of a bank card, with the QR code on the front and the check steps on the back. "A4 sheet to cut out" puts 8 cards on a page with the backs on the next page, lined up for double-sided printing. "For a card printer" makes one card per page, front then back. Choose double-sided in your card printer's settings. Laminate them, or slide them into a card holder on the vehicle's keys or a lanyard.</p>
           <p class="hint">Print at 100% size ("actual size"), not "fit to page". Print on plain paper and cut out, or on sticker label sheets. Do a test print on plain paper first and hold it against the label sheet to check the stickers line up. For the cab, weatherproof vinyl labels or laminating will make them last.</p>
         </section>
 
@@ -281,7 +282,7 @@
   var TYPES = [['lorry', 'Lorry'], ['bus', 'Bus or minibus'], ['van', 'Van']];
   var FUELS = [['diesel', 'Diesel'], ['electric', 'Electric']];
   var EXAMPLE = [{ reg: 'WX21 ABC', type: 'lorry', fuel: 'diesel' }, { reg: 'YX70 BUS', type: 'bus', fuel: 'electric' }, { reg: 'AB12 CDE', type: 'van', fuel: 'diesel' }];
-  var state = { rows: EXAMPLE.slice(), copies: 1, fobs: 1, cardFmt: 'printer', reportTo: '' };
+  var state = { rows: EXAMPLE.slice(), copies: 1, fobs: 1, cardFmt: 'a4', reportTo: '' };
   try { var s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s && s.rows) state = s; } catch (e) {}
   function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -509,7 +510,7 @@
 
   document.querySelector('input[name="copies"][value="' + (state.copies || 1) + '"]').checked = true;
   var fr = document.querySelector('input[name="fobs"][value="' + (state.fobs || 0) + '"]'); if (fr) fr.checked = true;
-  var cf = document.querySelector('input[name="cardfmt"][value="' + (state.cardFmt || 'printer') + '"]'); if (cf) cf.checked = true;
+  var cf = document.querySelector('input[name="cardfmt"][value="' + (state.cardFmt || 'a4') + '"]'); if (cf) cf.checked = true;
   $('reportTo').value = state.reportTo || '';
   all();
 })();
