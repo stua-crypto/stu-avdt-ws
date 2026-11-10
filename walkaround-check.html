@@ -129,6 +129,7 @@
 .wc .gauge label:has(input:focus-visible) { outline: 3px solid var(--gold-500); outline-offset: -3px; }
 .wc .gauge label:has(input:checked) { background: var(--royal-800); color: #fff; }
 .wc .gauge label:first-child:has(input:checked) { background: #c0392b; }
+.wc .photo-note { margin: 0 0 14px; padding: 10px 14px; background: #eef3fb; border-left: 4px solid var(--royal-500); font-size: 0.92rem; color: var(--ink); }
 </style>
 </head>
 <body>
@@ -224,6 +225,7 @@
         <section class="panel" aria-labelledby="h-done">
           <h2 id="h-done">3. Your record</h2>
           <div id="summary" class="summary" aria-live="polite"></div>
+          <p class="photo-note" id="photoNote" hidden><strong>Sending photos?</strong> "Send or share" sends the words only. To send your defect photos too, use <strong>Save as PDF</strong> and send the PDF, or take the photos again with the camera in WhatsApp after you send the message.</p>
           <div class="actions">
             <button type="button" class="btn btn-primary" id="shareBtn">Send or share record</button>
             <button type="button" class="btn btn-outline-dark" id="pdfBtn">Save as PDF</button>
@@ -595,6 +597,7 @@
     else if (k.done === k.total) res = '<span class="res nil">Nil defects</span>';
     else res = '<span class="res todo">' + (k.total - k.done) + ' checks still to do</span>';
     var f = state.f;
+    $('photoNote').hidden = !hasPhotos();
     $('summary').innerHTML = '<div><strong>' + esc(f.reg || 'Vehicle not entered') + '</strong>' + (f.trailer ? ' · trailer ' + esc(f.trailer) : '') + ' · ' + esc(label()) + '</div>' +
       '<div>' + esc(f.driver || 'Driver not entered') + ' · ' + esc(stamp()) + '</div>' +
       (ev() ? (f.soc ? '<div>Battery charge: ' + esc(f.soc) + '%</div>' : '') : (f.fuellevel ? '<div>Fuel level: ' + esc(fuelText()) + '</div>' : '')) + res +
