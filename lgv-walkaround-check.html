@@ -72,8 +72,12 @@
 .wc .chk-name { font-weight: 700; color: var(--navy-950); }
 .wc .chk-desc { display: block; font-size: 0.88rem; color: var(--ink-soft); }
 .wc .chk-btns { display: flex; gap: 6px; flex: none; }
-.wc .chk-btns button { min-width: 64px; min-height: 44px; padding: 6px 10px; font: 600 0.92rem var(--font-body); border: 1.5px solid var(--steel-300); border-radius: 3px; background: #fff; color: var(--navy-950); cursor: pointer; }
+.wc .chk-btns button { min-width: 56px; min-height: 44px; padding: 6px 10px; font: 600 0.92rem var(--font-body); border: 1.5px solid var(--steel-300); border-radius: 3px; background: #fff; color: var(--navy-950); cursor: pointer; }
 .wc .chk-btns button[aria-pressed="true"].ok { background: #2e7d32; border-color: #2e7d32; color: #fff; }
+.wc .chk-btns button[aria-pressed="true"].na { background: var(--steel-500); border-color: var(--steel-500); color: #fff; }
+.wc .chk.is-na .chk-name, .wc .chk.is-na .chk-desc { opacity: .6; }
+.wc .field label.inline { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; min-height: 36px; }
+.wc .field input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--royal-700); }
 .wc .chk-btns button[aria-pressed="true"].bad { background: #c0392b; border-color: #c0392b; color: #fff; }
 .wc .chk.is-ok { background: linear-gradient(90deg, rgba(46,125,50,.06), transparent); }
 .wc .chk.is-bad { background: linear-gradient(90deg, rgba(192,57,43,.07), transparent); }
@@ -165,7 +169,7 @@
           </div>
           <div class="fields">
             <div class="field"><label for="reg">Vehicle reg / fleet no.</label><input id="reg" type="text" autocomplete="off" autocapitalize="characters"></div>
-            <div class="field"><label for="trailer">Trailer no. (if used)</label><input id="trailer" type="text" autocomplete="off" autocapitalize="characters"></div>
+            <div class="field"><label for="trailer">Trailer no. (if used)</label><input id="trailer" type="text" autocomplete="off" autocapitalize="characters"><label class="inline"><input type="checkbox" id="notrailer"> No trailer today</label></div>
             <div class="field"><label for="driver">Driver name</label><input id="driver" type="text" autocomplete="name"></div>
             <div class="field"><label for="odo">Odometer</label><input id="odo" type="number" inputmode="numeric" min="0"></div>
             <div class="field ev-only" hidden><label for="soc">Battery charge, %</label><input id="soc" type="number" inputmode="numeric" min="0" max="100"></div>
@@ -174,7 +178,7 @@
 
         <section class="panel" aria-labelledby="h-checks">
           <h2 id="h-checks">2. Checks</h2>
-          <p class="hint">Tap <strong>OK</strong> or <strong>Defect</strong> for each one. For a defect, say what's wrong.</p>
+          <p class="hint">Tap <strong>OK</strong> or <strong>Defect</strong> for each one. For a defect, say what's wrong. Checks that don't always apply, such as trailer checks, also have <strong>N/A</strong>.</p>
           <div class="progress" aria-live="polite"><div class="bar"><span id="bar"></span></div><span id="prog"></span></div>
           <div id="checks"></div>
         </section>
@@ -294,16 +298,18 @@
     ['avas', 'Pedestrian warning sound (if fitted)', 'working when moving slowly', 'ev'],
     ['spray', 'Spray suppression', 'flaps fitted, secure, undamaged (if required)'],
     ['tyres', 'Tyres and wheel fixings', 'tread 1mm or more, pressures correct, no cuts; wheel nuts secure'],
-    ['brakelines', 'Brake lines and trailer parking brake', 'couplings clear, no leaks or wear; trailer brake works'],
+    ['brakelines', 'Brake lines and trailer parking brake', 'couplings clear, no leaks or wear; trailer brake works (N/A if no trailer)'],
     ['electrics', 'Electrical connections', 'wiring protected; trailer connections secure'],
-    ['coupling', 'Coupling security', 'trailer correctly coupled; secondary locks in position'],
+    ['coupling', 'Coupling security', 'trailer correctly coupled; secondary locks in position (N/A if no trailer)'],
     ['load', 'Load security', 'load secure and not likely to move'],
     ['plate', 'Number plate', 'correct, clean, not broken or obscured'],
     ['reflectors', 'Reflectors', 'present, secure, correct colour, not obscured'],
     ['markings', 'Markings and warning plates', 'visible and secure; hazard panels correct (if carried)'],
-    ['other', 'Other equipment', 'any loading or specialist equipment safe and secure']
+    ['other', 'Other equipment', 'any loading or specialist equipment safe and secure (N/A if none)']
   ];
 
+  var NA = { coupling: 1, brakelines: 1, altfuel: 1, spray: 1, avas: 1, other: 1, markings: 0 };
+  var TRAILER = ['coupling', 'brakelines'];
   var state = { fuel: 'diesel', started: null, f: {}, c: {} };
   function load() { try { var s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s && s.c) state = s; } catch (e) {} }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
@@ -317,10 +323,11 @@
     items().forEach(function (pair) {
       var it = pair[0], grp = pair[1], c = state.c[it[0]] || {};
       if (grp !== last) { html += '<h3 class="grp">' + grp + '</h3>'; last = grp; }
-      html += '<div class="chk' + (c.s === 'ok' ? ' is-ok' : c.s === 'bad' ? ' is-bad' : '') + '" data-id="' + it[0] + '">' +
+      html += '<div class="chk' + (c.s === 'ok' ? ' is-ok' : c.s === 'bad' ? ' is-bad' : c.s === 'na' ? ' is-na' : '') + '" data-id="' + it[0] + '">' +
         '<div class="chk-row"><div class="chk-text"><span class="chk-name">' + esc(it[1]) + '</span><span class="chk-desc">' + esc(it[2]) + '</span></div>' +
         '<div class="chk-btns"><button type="button" class="ok" aria-pressed="' + (c.s === 'ok') + '" data-s="ok">OK</button>' +
-        '<button type="button" class="bad" aria-pressed="' + (c.s === 'bad') + '" data-s="bad">Defect</button></div></div>' +
+        '<button type="button" class="bad" aria-pressed="' + (c.s === 'bad') + '" data-s="bad">Defect</button>' +
+        (NA[it[0]] ? '<button type="button" class="na" aria-pressed="' + (c.s === 'na') + '" data-s="na" aria-label="Not applicable">N/A</button>' : '') + '</div></div>' +
         (c.s === 'bad' ? '<div class="defect"><label for="d-' + it[0] + '">What is wrong?</label><textarea id="d-' + it[0] + '" data-note="' + it[0] + '">' + esc(c.n || '') + '</textarea>' +
           '<label class="inline"><input type="checkbox" data-dang="' + it[0] + '"' + (c.d ? ' checked' : '') + '> Dangerous: do not drive</label></div>' : '') +
         '</div>';
@@ -329,9 +336,9 @@
   }
 
   function counts() {
-    var list = items(), done = 0, bad = [];
-    list.forEach(function (p) { var c = state.c[p[0][0]]; if (c && c.s) { done++; if (c.s === 'bad') bad.push([p[0], c]); } });
-    return { total: list.length, done: done, bad: bad };
+    var list = items(), done = 0, bad = [], na = [];
+    list.forEach(function (p) { var c = state.c[p[0][0]]; if (c && c.s) { done++; if (c.s === 'bad') bad.push([p[0], c]); if (c.s === 'na') na.push(p[0][1]); } });
+    return { total: list.length, done: done, bad: bad, na: na };
   }
 
   function stamp() {
@@ -348,6 +355,8 @@
     if (f.odo) lines.push('Odometer: ' + f.odo);
     if (ev() && f.soc) lines.push('Battery charge: ' + f.soc + '%');
     lines.push('Checks done: ' + k.done + ' of ' + k.total);
+    if (state.f.notrailer) lines.push('No trailer');
+    if (k.na.length) lines.push('Not applicable: ' + k.na.join(', '));
     if (k.done < k.total) lines.push('NOT COMPLETE: ' + (k.total - k.done) + ' checks not done');
     if (!k.bad.length) lines.push(k.done === k.total ? 'Result: NIL DEFECTS' : 'Defects so far: none');
     else {
@@ -369,6 +378,7 @@
     var f = state.f;
     $('summary').innerHTML = '<div><strong>' + esc(f.reg || 'Vehicle not entered') + '</strong>' + (f.trailer ? ' · trailer ' + esc(f.trailer) : '') + ' · ' + (ev() ? 'electric' : 'diesel') + '</div>' +
       '<div>' + esc(f.driver || 'Driver not entered') + ' · ' + esc(stamp()) + '</div>' + res +
+      (k.na.length ? '<div class="hint">Not applicable: ' + esc(k.na.join(', ')) + '</div>' : '') +
       (k.bad.length ? '<ul>' + k.bad.map(function (b) { return '<li><strong>' + esc(b[0][1]) + ':</strong> ' + esc(b[1].n || 'no details yet') + (b[1].d ? ' <strong style="color:#8a1c12">(dangerous)</strong>' : '') + '</li>'; }).join('') + '</ul>' : '');
   }
 
@@ -385,6 +395,22 @@
   });
   ['reg', 'trailer', 'driver', 'odo', 'soc'].forEach(function (id) {
     $(id).addEventListener('input', function () { state.f[id] = this.value.trim(); if (!state.started) state.started = Date.now(); renderSummary(); save(); });
+  });
+  function applyNoTrailer() {
+    var on = !!state.f.notrailer;
+    $('notrailer').checked = on; $('trailer').disabled = on;
+    if (on) { $('trailer').value = ''; state.f.trailer = ''; }
+  }
+  $('notrailer').addEventListener('change', function () {
+    state.f.notrailer = this.checked;
+    TRAILER.forEach(function (id) {
+      var c = state.c[id] || {};
+      if (state.f.notrailer && !c.s) c.s = 'na';
+      if (!state.f.notrailer && c.s === 'na') c.s = null;
+      state.c[id] = c;
+    });
+    if (!state.started) state.started = Date.now();
+    applyNoTrailer(); buildChecks(); renderSummary(); save();
   });
   $('checks').addEventListener('click', function (e) {
     var b = e.target.closest('button[data-s]'); if (!b) return;
@@ -427,6 +453,7 @@
     y = 34;
     line('Date: ' + stamp(), 10);
     line('Vehicle: ' + (f.reg || '-') + (f.trailer ? '     Trailer: ' + f.trailer : ''), 10);
+    if (f.notrailer) line('No trailer', 10);
     line('Driver: ' + (f.driver || '-') + (f.odo ? '     Odometer: ' + f.odo : '') + (ev() && f.soc ? '     Battery charge: ' + f.soc + '%' : ''), 10);
     y += 2;
     var result = k.bad.length ? k.bad.length + ' DEFECT' + (k.bad.length > 1 ? 'S' : '') + (k.bad.some(function (b) { return b[1].d; }) ? ' - DANGEROUS: DO NOT DRIVE' : '') : (k.done === k.total ? 'NIL DEFECTS' : 'NOT COMPLETE');
@@ -442,7 +469,7 @@
     items().forEach(function (p) {
       if (p[1] !== last) { y += 2; line(p[1], 11, 'bold', '#1c3f7a'); last = p[1]; }
       var c = state.c[p[0][0]] || {};
-      var st = c.s === 'ok' ? 'OK' : c.s === 'bad' ? 'DEFECT' : 'not checked';
+      var st = c.s === 'ok' ? 'OK' : c.s === 'bad' ? 'DEFECT' : c.s === 'na' ? 'N/A' : 'not checked';
       if (y > 282) { doc.addPage(); y = 15; }
       doc.setFont('helvetica', 'normal'); doc.setFontSize(9.5); doc.setTextColor('#16202b'); doc.text(p[0][1], M, y);
       doc.setFont('helvetica', 'bold'); doc.setTextColor(c.s === 'ok' ? '#1d5a24' : c.s === 'bad' ? '#8a1c12' : '#6b7480'); doc.text(st, W - M, y, { align: 'right' });
@@ -470,8 +497,9 @@
     flash('PDF saved: ' + name);
   });
   $('newBtn').addEventListener('click', function () {
-    var keep = { reg: state.f.reg, trailer: state.f.trailer, driver: state.f.driver };
+    var keep = { reg: state.f.reg, trailer: state.f.trailer, driver: state.f.driver, notrailer: state.f.notrailer };
     state = { fuel: state.fuel, started: null, f: keep, c: {} };
+    TRAILER.forEach(function (id) { if (keep.notrailer) state.c[id] = { s: 'na' }; });
     save(); ['odo', 'soc'].forEach(function (id) { $(id).value = ''; });
     buildChecks(); renderSummary(); flash('New check started. Vehicle and driver kept.');
     $('h-veh').scrollIntoView({ behavior: 'smooth' });
@@ -479,7 +507,7 @@
 
   load();
   ['reg', 'trailer', 'driver', 'odo', 'soc'].forEach(function (id) { if (state.f[id]) $(id).value = state.f[id]; });
-  setFuelUI(); buildChecks(); renderSummary();
+  applyNoTrailer(); setFuelUI(); buildChecks(); renderSummary();
 })();
 
 </script>
