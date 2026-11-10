@@ -1,0 +1,30 @@
+name: Tell Bing about changed pages (IndexNow)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Submit changed pages to IndexNow
+        run: |
+          HOST=$(tr -d '\r\n ' < CNAME)
+          KEY=$(ls *.txt | grep -E '^[0-9a-f]{32}\.txt$' | head -1 | sed 's/\.txt$//')
+          if [ -z "$KEY" ]; then echo "No IndexNow key file found"; exit 0; fi
+          CHANGED=$(git diff --name-only HEAD^ HEAD -- '*.html' || true)
+          if [ -z "$CHANGED" ]; then echo "No HTML changes"; exit 0; fi
+          URLS=$(echo "$CHANGED" | grep -v '^404.html$' | grep -v '^thank-you.html$' | while read f; do
+            if [ "$f" = "index.html" ]; then echo "https://$HOST/"; else echo "https://$HOST/$f"; fi
+          done)
+          if [ -z "$URLS" ]; then echo "Nothing to submit"; exit 0; fi
+          LIST=$(echo "$URLS" | python3 -c "import sys,json;print(json.dumps([l.strip() for l in sys.stdin if l.strip()]))")
+          echo "Submitting: $LIST"
+          curl -sS -o /dev/null -w "IndexNow response: %{http_code}\n" -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -d "{\"host\":\"$HOST\",\"key\":\"$KEY\",\"keyLocation\":\"https://$HOST/$KEY.txt\",\"urlList\":$LIST}"
