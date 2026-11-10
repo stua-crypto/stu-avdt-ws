@@ -121,6 +121,14 @@
 .wc .ph-del { position: absolute; top: -8px; right: -8px; width: 28px; height: 28px; border-radius: 50%; border: 0; background: #8a1c12; color: #fff; font-size: 1.1rem; line-height: 1; cursor: pointer; }
 .wc .ph-add { position: relative; overflow: hidden; min-height: 44px; cursor: pointer; }
 .wc .ph-input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.wc .fuel-field { grid-column: 1 / -1; }
+.wc .gauge { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid var(--steel-300); border-radius: 3px; overflow: hidden; max-width: 26rem; }
+.wc .gauge label { position: relative; display: flex; align-items: center; justify-content: center; min-height: 52px; cursor: pointer; background: #fff; font: 700 1.2rem var(--font-display); color: var(--navy-950); }
+.wc .gauge label + label { border-left: 1px solid var(--steel-300); }
+.wc .gauge input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.wc .gauge label:has(input:focus-visible) { outline: 3px solid var(--gold-500); outline-offset: -3px; }
+.wc .gauge label:has(input:checked) { background: var(--royal-800); color: #fff; }
+.wc .gauge label:first-child:has(input:checked) { background: #c0392b; }
 </style>
 </head>
 <body>
@@ -193,6 +201,15 @@
             <div class="field"><label for="driver">Driver name</label><input id="driver" type="text" autocomplete="name"></div>
             <div class="field"><label for="odo">Odometer</label><input id="odo" type="number" inputmode="numeric" min="0"></div>
             <div class="field ev-only" hidden><label for="soc">Battery charge, %</label><input id="soc" type="number" inputmode="numeric" min="0" max="100"></div>
+            <div class="field diesel-only fuel-field"><span class="label-like" id="fuelLvlLabel">Fuel level</span>
+              <div class="gauge" role="radiogroup" aria-labelledby="fuelLvlLabel">
+                <label><input type="radio" name="fuellevel" value="low"><span>Low</span></label>
+                <label><input type="radio" name="fuellevel" value="1/4"><span>&frac14;</span></label>
+                <label><input type="radio" name="fuellevel" value="1/2"><span>&frac12;</span></label>
+                <label><input type="radio" name="fuellevel" value="3/4"><span>&frac34;</span></label>
+                <label><input type="radio" name="fuellevel" value="full"><span>Full</span></label>
+              </div>
+            </div>
           </div>
           <label class="learner"><input type="checkbox" id="learner"> <span><strong>Learner mode</strong>: show why each check matters</span></label>
         </section>
@@ -556,6 +573,7 @@
     lines.push('Driver: ' + (f.driver || '-'));
     if (f.odo) lines.push('Odometer: ' + f.odo);
     if (ev() && f.soc) lines.push('Battery charge: ' + f.soc + '%');
+    if (!ev() && f.fuellevel) lines.push('Fuel level: ' + fuelText());
     lines.push('Checks done: ' + k.done + ' of ' + k.total);
     if (k.na.length) lines.push('Not applicable: ' + k.na.join(', '));
     if (k.done < k.total) lines.push('NOT COMPLETE: ' + (k.total - k.done) + ' checks not done');
@@ -578,7 +596,8 @@
     else res = '<span class="res todo">' + (k.total - k.done) + ' checks still to do</span>';
     var f = state.f;
     $('summary').innerHTML = '<div><strong>' + esc(f.reg || 'Vehicle not entered') + '</strong>' + (f.trailer ? ' · trailer ' + esc(f.trailer) : '') + ' · ' + esc(label()) + '</div>' +
-      '<div>' + esc(f.driver || 'Driver not entered') + ' · ' + esc(stamp()) + '</div>' + res +
+      '<div>' + esc(f.driver || 'Driver not entered') + ' · ' + esc(stamp()) + '</div>' +
+      (ev() ? (f.soc ? '<div>Battery charge: ' + esc(f.soc) + '%</div>' : '') : (f.fuellevel ? '<div>Fuel level: ' + esc(fuelText()) + '</div>' : '')) + res +
       (k.na.length ? '<div class="hint">Not applicable: ' + esc(k.na.join(', ')) + '</div>' : '') +
       (k.bad.length ? '<ul>' + k.bad.map(function (b) { return '<li><strong>' + esc(b[0][1]) + ':</strong> ' + esc(b[1].n || 'no details yet') + (b[1].d ? ' <strong class="danger-text">(dangerous)</strong>' : '') + ((b[1].p || []).length ? ' <span class="hint">(' + b[1].p.length + ' photo' + (b[1].p.length > 1 ? 's' : '') + ')</span>' : '') + '</li>'; }).join('') + '</ul>' : '');
   }
@@ -589,6 +608,8 @@
     document.querySelector('input[name="vtype"][value="' + state.type + '"]').checked = true;
     document.querySelector('input[name="fuel"][value="' + state.fuel + '"]').checked = true;
     document.querySelectorAll('.ev-only').forEach(function (el) { el.hidden = !ev(); });
+    document.querySelectorAll('.diesel-only').forEach(function (el) { el.hidden = ev(); });
+    document.querySelectorAll('input[name="fuellevel"]').forEach(function (r) { r.checked = r.value === state.f.fuellevel; });
     var tow = TRAILER[state.type].length > 0;
     document.querySelectorAll('.tow-only').forEach(function (el) { el.hidden = !tow; });
     $('trailerLabel').textContent = state.type === 'van' ? 'Trailer (if towing)' : 'Trailer no. (if used)';
@@ -615,6 +636,11 @@
   });
   document.querySelectorAll('input[name="fuel"]').forEach(function (r) {
     r.addEventListener('change', function () { state.fuel = this.value; refresh(); });
+  });
+  var FL = { low: 'Low', full: 'Full' };
+  function fuelText() { return FL[state.f.fuellevel] || state.f.fuellevel; }
+  document.querySelectorAll('input[name="fuellevel"]').forEach(function (r) {
+    r.addEventListener('change', function () { state.f.fuellevel = this.value; if (!state.started) state.started = Date.now(); renderSummary(); save(); });
   });
   $('learner').addEventListener('change', function () { state.learner = this.checked; buildChecks(); save(); });
   ['reg', 'trailer', 'driver', 'odo', 'soc'].forEach(function (id) {
@@ -681,7 +707,7 @@
     line('Date: ' + stamp(), 10);
     line('Vehicle: ' + (f.reg || '-') + (f.trailer ? '     Trailer: ' + f.trailer : ''), 10);
     if (f.notrailer && TRAILER[state.type].length) line(state.type === 'van' ? 'Not towing' : 'No trailer', 10);
-    line('Driver: ' + (f.driver || '-') + (f.odo ? '     Odometer: ' + f.odo : '') + (ev() && f.soc ? '     Battery charge: ' + f.soc + '%' : ''), 10);
+    line('Driver: ' + (f.driver || '-') + (f.odo ? '     Odometer: ' + f.odo : '') + (ev() && f.soc ? '     Battery charge: ' + f.soc + '%' : '') + (!ev() && f.fuellevel ? '     Fuel level: ' + fuelText() : ''), 10);
     y += 2;
     var result = k.bad.length ? k.bad.length + ' DEFECT' + (k.bad.length > 1 ? 'S' : '') + (k.bad.some(function (b) { return b[1].d; }) ? ' - DANGEROUS: DO NOT DRIVE' : '') : (k.done === k.total ? 'NIL DEFECTS' : 'NOT COMPLETE');
     line('Result: ' + result, 13, 'bold', k.bad.length ? '#8a1c12' : (k.done === k.total ? '#1d5a24' : '#16202b'));
