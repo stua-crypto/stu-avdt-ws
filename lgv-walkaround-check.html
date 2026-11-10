@@ -184,11 +184,11 @@
           <div id="summary" class="summary" aria-live="polite"></div>
           <div class="actions">
             <button type="button" class="btn btn-primary" id="shareBtn">Send or share record</button>
-            <button type="button" class="btn btn-outline-dark" id="printBtn">Print or save as PDF</button>
+            <button type="button" class="btn btn-outline-dark" id="pdfBtn">Save as PDF</button>
             <button type="button" class="btn btn-outline-dark" id="newBtn">Start a new check</button>
           </div>
           <span class="flash" id="flash" role="status"></span>
-          <p class="hint">"Send or share" opens your phone's share menu, so you can send it by WhatsApp, text or email to whoever handles defects. On a computer it copies the record for you to paste.</p>
+          <p class="hint">"Send or share" opens your phone's share menu, so you can send the record as a message by WhatsApp, text or email. "Save as PDF" makes a PDF copy you can save to Files or send. On a computer, the record is copied for you to paste and the PDF downloads.</p>
         </section>
 
         <section class="panel" aria-labelledby="h-home">
@@ -258,6 +258,7 @@
 
 <script src="assets/nav.js" defer></script>
 <script src="assets/signup.js" defer></script>
+<script src="assets/jspdf/jspdf.umd.min.js"></script>
 <script>
 (function () {
   var $ = function (id) { return document.getElementById(id); };
@@ -411,7 +412,63 @@
       navigator.clipboard.writeText(text).then(function () { flash('Record copied. Paste it into a message or email.'); }, function () { flash("Couldn't copy. Use Print or save as PDF instead."); });
     } else { flash("Sharing isn't available here. Use Print or save as PDF instead."); }
   });
-  $('printBtn').addEventListener('click', function () { window.print(); });
+  function buildPdf() {
+    var J = window.jspdf && window.jspdf.jsPDF; if (!J) return null;
+    var doc = new J({ unit: 'mm', format: 'a4' }), k = counts(), f = state.f, y = 0, W = 210, M = 15;
+    function line(t, size, style, color) {
+      doc.setFont('helvetica', style || 'normal'); doc.setFontSize(size || 10); doc.setTextColor(color || '#16202b');
+      var parts = doc.splitTextToSize(String(t), W - 2 * M);
+      parts.forEach(function (pt) { if (y > 280) { doc.addPage(); y = 15; } doc.text(pt, M, y); y += (size || 10) * 0.45; });
+    }
+    doc.setFillColor('#0d1b2c'); doc.rect(0, 0, W, 24, 'F');
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(16); doc.setTextColor('#ffffff'); doc.text('Daily walkaround check', M, 12);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.text((ev() ? 'Electric' : 'Diesel') + ' lorry - based on DVSA daily walkaround checks', M, 18);
+    doc.setTextColor('#c9a15b'); doc.text('avdt.co.uk', W - M, 12, { align: 'right' });
+    y = 34;
+    line('Date: ' + stamp(), 10);
+    line('Vehicle: ' + (f.reg || '-') + (f.trailer ? '     Trailer: ' + f.trailer : ''), 10);
+    line('Driver: ' + (f.driver || '-') + (f.odo ? '     Odometer: ' + f.odo : '') + (ev() && f.soc ? '     Battery charge: ' + f.soc + '%' : ''), 10);
+    y += 2;
+    var result = k.bad.length ? k.bad.length + ' DEFECT' + (k.bad.length > 1 ? 'S' : '') + (k.bad.some(function (b) { return b[1].d; }) ? ' - DANGEROUS: DO NOT DRIVE' : '') : (k.done === k.total ? 'NIL DEFECTS' : 'NOT COMPLETE');
+    line('Result: ' + result, 13, 'bold', k.bad.length ? '#8a1c12' : (k.done === k.total ? '#1d5a24' : '#16202b'));
+    line('Checks done: ' + k.done + ' of ' + k.total, 10);
+    y += 3;
+    if (k.bad.length) {
+      line('Defects', 12, 'bold');
+      k.bad.forEach(function (b) { line('- ' + b[0][1] + ': ' + (b[1].n || 'no details') + (b[1].d ? ' (DANGEROUS)' : ''), 10); });
+      y += 3;
+    }
+    var last = '';
+    items().forEach(function (p) {
+      if (p[1] !== last) { y += 2; line(p[1], 11, 'bold', '#1c3f7a'); last = p[1]; }
+      var c = state.c[p[0][0]] || {};
+      var st = c.s === 'ok' ? 'OK' : c.s === 'bad' ? 'DEFECT' : 'not checked';
+      if (y > 282) { doc.addPage(); y = 15; }
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(9.5); doc.setTextColor('#16202b'); doc.text(p[0][1], M, y);
+      doc.setFont('helvetica', 'bold'); doc.setTextColor(c.s === 'ok' ? '#1d5a24' : c.s === 'bad' ? '#8a1c12' : '#6b7480'); doc.text(st, W - M, y, { align: 'right' });
+      doc.setDrawColor('#e4e7e6'); doc.line(M, y + 1.5, W - M, y + 1.5); y += 5.2;
+    });
+    y += 4;
+    line('Report defects in writing to the person in charge of defects. Do not drive a vehicle with a dangerous defect. Your operator\'s procedures and the vehicle handbook come first.', 8.5, 'normal', '#3d4a58');
+    line("Made with the free AVDT digital walkaround check - Abbott's Vocational Driver Training, avdt.co.uk", 8.5, 'normal', '#3d4a58');
+    return doc;
+  }
+  $('pdfBtn').addEventListener('click', function () {
+    var doc = buildPdf();
+    if (!doc) { flash("The PDF maker didn't load. Check your signal, reload the page and try again."); return; }
+    var name = 'walkaround-' + (state.f.reg || 'check').replace(/[^A-Za-z0-9]+/g, '') + '-' + new Date(state.started || Date.now()).toISOString().slice(0, 10) + '.pdf';
+    var blob = doc.output('blob');
+    var file = null;
+    try { file = new File([blob], name, { type: 'application/pdf' }); } catch (e) {}
+    if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator.share({ files: [file], title: name }).catch(function (err) { if (err && err.name !== 'AbortError') flash("Couldn't open the share menu. Try again."); });
+      return;
+    }
+    var url = URL.createObjectURL(blob), a = document.createElement('a');
+    a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 60000);
+    flash('PDF saved: ' + name);
+  });
   $('newBtn').addEventListener('click', function () {
     var keep = { reg: state.f.reg, trailer: state.f.trailer, driver: state.f.driver };
     state = { fuel: state.fuel, started: null, f: keep, c: {} };
