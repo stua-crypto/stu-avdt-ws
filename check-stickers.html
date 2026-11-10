@@ -76,7 +76,8 @@
 .sm .stk svg { width: 70%; height: auto; margin: 8px 0 4px; display: block; }
 .sm .stk-reg { font: 700 1.25rem/1.1 var(--font-display); letter-spacing: 0.04em; }
 .sm .stk-sub { font-size: 0.7rem; color: #3d4a58; padding: 2px 4px 8px; }
-.sm .stk.fob { max-width: 110px; }
+.sm .stk.fob { max-width: 120px; }
+.sm .stk .fob-reg { font-size: 0.95rem; }
 .sm .stk.fob .stk-top { font-size: 0.62rem; }
 .sm .actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .sm .btn-primary { color: var(--navy-950); }
@@ -152,10 +153,14 @@
             </div>
           </div>
           <div class="field">
-            <label for="fobs">Keyring fob stickers (25 mm, open the check without a reg)</label>
-            <input id="fobs" type="number" inputmode="numeric" min="0" max="70" value="0">
+            <span class="label-like" id="fobsLabel">Key fob stickers for each vehicle (for the ignition keys)</span>
+            <div class="toggle" role="radiogroup" aria-labelledby="fobsLabel">
+              <label><input type="radio" name="fobs" value="0"> None</label>
+              <label><input type="radio" name="fobs" value="1" checked> 1</label>
+              <label><input type="radio" name="fobs" value="2"> 2</label>
+            </div>
           </div>
-          <p class="hint">Cab stickers are 50 mm square, 15 to an A4 sheet. Fob stickers are 25 mm square, 35 to a sheet. Each sticker has a thin grey cutting line.</p>
+          <p class="hint">Cab stickers are 50 mm square, 15 to an A4 sheet. Key fob stickers are 30 mm square, 40 to a sheet, and carry the same QR code and reg as the cab sticker, so they stay with the vehicle's keys. Each sticker has a thin grey cutting line.</p>
         </section>
 
         <section class="panel" aria-labelledby="h-prev">
@@ -240,12 +245,12 @@
 <script>
 (function () {
   var $ = function (id) { return document.getElementById(id); };
-  var KEY = 'avdt-stickers-v1';
+  var KEY = 'avdt-stickers-v2';
   var BASE = 'https://avdt.co.uk/walkaround-check.html';
   var TYPES = [['lorry', 'Lorry'], ['bus', 'Bus or minibus'], ['van', 'Van']];
   var FUELS = [['diesel', 'Diesel'], ['electric', 'Electric']];
   var EXAMPLE = [{ reg: 'WX21 ABC', type: 'lorry', fuel: 'diesel' }, { reg: 'YX70 BUS', type: 'bus', fuel: 'electric' }, { reg: 'AB12 CDE', type: 'van', fuel: 'diesel' }];
-  var state = { rows: EXAMPLE.slice(), copies: 1, fobs: 0 };
+  var state = { rows: EXAMPLE.slice(), copies: 1, fobs: 1 };
   try { var s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s && s.rows) state = s; } catch (e) {}
   function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -275,7 +280,9 @@
       return '<div class="stk"><div class="stk-top">Daily walkaround check</div>' + qrSvg(linkFor(v)) +
         '<div class="stk-reg">' + esc(v.reg) + '</div><div class="stk-sub">Scan me · ' + (v.fuel === 'electric' ? 'electric ' : '') + v.type + ' · avdt.co.uk</div></div>';
     }).join('');
-    if (state.fobs > 0) html += '<div class="stk fob"><div class="stk-top">AVDT check</div>' + qrSvg(BASE) + '<div class="stk-sub">Daily walkaround check</div></div>';
+    if (state.fobs > 0) vehicles().forEach(function (v) {
+      html += '<div class="stk fob"><div class="stk-top">Key fob</div>' + qrSvg(linkFor(v)) + '<div class="stk-reg fob-reg">' + esc(v.reg) + '</div><div class="stk-sub">Walkaround check</div></div>';
+    });
     $('preview').innerHTML = html || '<p class="hint">Add a vehicle or some fob stickers to see a preview.</p>';
   }
   function all() { renderRows(); renderPreview(); save(); }
@@ -317,7 +324,7 @@
     state.rows = rows; all(); flash(rows.length + ' vehicle' + (rows.length > 1 ? 's' : '') + ' added from your list.');
   });
   document.querySelectorAll('input[name="copies"]').forEach(function (r) { r.addEventListener('change', function () { state.copies = +this.value; save(); }); });
-  $('fobs').addEventListener('input', function () { state.fobs = Math.max(0, Math.min(70, Math.floor(+this.value || 0))); renderPreview(); save(); });
+  document.querySelectorAll('input[name="fobs"]').forEach(function (r) { r.addEventListener('change', function () { state.fobs = +this.value; renderPreview(); save(); }); });
 
   function flash(t) { $('flash').textContent = t; setTimeout(function () { $('flash').textContent = ''; }, 3500); }
 
@@ -358,19 +365,23 @@
       doc.setFont('helvetica', 'normal'); doc.setFontSize(6); doc.setTextColor(61, 74, 88);
       doc.text('Scan me  |  ' + (v.fuel === 'electric' ? 'electric ' : '') + v.type + '  |  avdt.co.uk', x + S / 2, y + 47.8, { align: 'center' });
     });
-    if (state.fobs > 0) {
+    var fobList = [];
+    if (state.fobs > 0) vehicles().forEach(function (v) { for (var k = 0; k < state.fobs; k++) fobList.push(v); });
+    if (fobList.length) {
       if (list.length) doc.addPage();
-      var F = 25, fc = grid(doc, F, 5, 7, 8);
-      for (var i = 0; i < state.fobs; i++) {
+      var F = 30, fc = grid(doc, F, 5, 8, 5);
+      fobList.forEach(function (v, i) {
         if (i && i % fc.length === 0) doc.addPage();
         var x = fc[i % fc.length][0], y = fc[i % fc.length][1];
         cutLine(doc, x, y, F);
-        drawQr(doc, BASE, x + 3, y + 2, 19);
-        doc.setTextColor(13, 27, 44); doc.setFont('helvetica', 'bold'); doc.setFontSize(5.5);
-        doc.text('AVDT CHECK', x + F / 2, y + 23.4, { align: 'center' });
-      }
+        drawQr(doc, linkFor(v), x + 4.5, y + 1.8, 21);
+        doc.setTextColor(13, 27, 44); doc.setFont('helvetica', 'bold'); doc.setFontSize(7.5);
+        doc.text(v.reg, x + F / 2, y + 26, { align: 'center' });
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(4.6); doc.setTextColor(61, 74, 88);
+        doc.text('WALKAROUND CHECK  |  AVDT', x + F / 2, y + 28.6, { align: 'center' });
+      });
     }
-    if (!list.length && !state.fobs) return null;
+    if (!list.length && !fobList.length) return null;
     return doc;
   }
   $('makePdf').addEventListener('click', function () {
@@ -390,7 +401,7 @@
   });
 
   document.querySelector('input[name="copies"][value="' + (state.copies || 1) + '"]').checked = true;
-  $('fobs').value = state.fobs || 0;
+  var fr = document.querySelector('input[name="fobs"][value="' + (state.fobs || 0) + '"]'); if (fr) fr.checked = true;
   all();
 })();
 
