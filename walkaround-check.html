@@ -115,6 +115,12 @@
 .wc .learner input { width: 22px; height: 22px; accent-color: var(--royal-700); flex: none; }
 .wc .chk-why { display: block; margin-top: 6px; padding: 8px 10px; background: #eef3fb; border-left: 3px solid var(--royal-500); font-size: 0.88rem; color: var(--navy-950); }
 .wc .danger-text { color: #8a1c12; }
+.wc .photos { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.wc .ph { position: relative; width: 84px; height: 84px; }
+.wc .ph img { width: 100%; height: 100%; object-fit: cover; border-radius: 3px; border: 1px solid var(--steel-300); }
+.wc .ph-del { position: absolute; top: -8px; right: -8px; width: 28px; height: 28px; border-radius: 50%; border: 0; background: #8a1c12; color: #fff; font-size: 1.1rem; line-height: 1; cursor: pointer; }
+.wc .ph-add { position: relative; overflow: hidden; min-height: 44px; cursor: pointer; }
+.wc .ph-input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
 </style>
 </head>
 <body>
@@ -193,7 +199,7 @@
 
         <section class="panel" aria-labelledby="h-checks">
           <h2 id="h-checks">2. Checks</h2>
-          <p class="hint">Tap <strong>OK</strong> or <strong>Defect</strong> for each one. For a defect, say what's wrong. Checks that don't always apply, such as trailer checks, also have <strong>N/A</strong>.</p>
+          <p class="hint">Tap <strong>OK</strong> or <strong>Defect</strong> for each one. For a defect, say what's wrong and add up to 3 photos. Checks that don't always apply, such as trailer checks, also have <strong>N/A</strong>.</p>
           <div class="progress" aria-live="polite"><div class="bar"><span id="bar"></span></div><span id="prog"></span></div>
           <div id="checks"></div>
         </section>
@@ -207,7 +213,7 @@
             <button type="button" class="btn btn-outline-dark" id="newBtn">Start a new check</button>
           </div>
           <span class="flash" id="flash" role="status"></span>
-          <p class="hint">"Send or share" opens your phone's share menu, so you can send the record as a message by WhatsApp, text or email. "Save as PDF" makes a PDF copy you can save to Files or send. On a computer, the record is copied for you to paste and the PDF downloads.</p>
+          <p class="hint">"Send or share" opens your phone's share menu, so you can send the record as a message by WhatsApp, text or email. "Save as PDF" makes a PDF copy, including any defect photos, that you can save to Files or send. On a computer, the record is copied for you to paste and the PDF downloads.</p>
         </section>
 
         <section class="panel" aria-labelledby="h-home">
@@ -462,7 +468,28 @@
 
   var state = { type: 'lorry', fuel: 'diesel', learner: false, started: null, f: {}, c: {} };
   function load() { try { var s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s && s.c) state = s; } catch (e) {} }
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+  var photoWarned = false;
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); }
+    catch (e) { if (!photoWarned && hasPhotos()) { photoWarned = true; flash("This phone is short of space, so photos may not be kept if the page closes. Send or save the record before you leave this page."); } }
+  }
+  function hasPhotos() { return Object.keys(state.c).some(function (id) { return state.c[id].p && state.c[id].p.length; }); }
+  function shrink(file, cb) {
+    var reader = new FileReader();
+    reader.onload = function () {
+      var img = new Image();
+      img.onload = function () {
+        var max = 1024, w = img.naturalWidth, h = img.naturalHeight, k = Math.min(1, max / Math.max(w, h));
+        var cv = document.createElement('canvas'); cv.width = Math.round(w * k); cv.height = Math.round(h * k);
+        cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+        cb(cv.toDataURL('image/jpeg', 0.6), cv.width, cv.height);
+      };
+      img.onerror = function () { cb(null); };
+      img.src = reader.result;
+    };
+    reader.onerror = function () { cb(null); };
+    reader.readAsDataURL(file);
+  }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function ev() { return state.fuel === 'electric'; }
   function applies(item) { return !item[3] || (item[3] === 'ev') === ev(); }
@@ -501,7 +528,9 @@
         '<button type="button" class="bad" aria-pressed="' + (c.s === 'bad') + '" data-s="bad">Defect</button>' +
         (NA[it[0]] ? '<button type="button" class="na" aria-pressed="' + (c.s === 'na') + '" data-s="na" aria-label="Not applicable">N/A</button>' : '') + '</div></div>' +
         (c.s === 'bad' ? '<div class="defect"><label for="d-' + it[0] + '">What is wrong?</label><textarea id="d-' + it[0] + '" data-note="' + it[0] + '">' + esc(c.n || '') + '</textarea>' +
-          '<label class="inline"><input type="checkbox" data-dang="' + it[0] + '"' + (c.d ? ' checked' : '') + '> Dangerous: do not drive</label></div>' : '') +
+          '<label class="inline"><input type="checkbox" data-dang="' + it[0] + '"' + (c.d ? ' checked' : '') + '> Dangerous: do not drive</label>' +
+          '<div class="photos">' + (c.p || []).map(function (ph, n) { return '<span class="ph"><img src="' + ph.d + '" alt="Defect photo ' + (n + 1) + '"><button type="button" class="ph-del" data-delph="' + it[0] + '" data-n="' + n + '" aria-label="Remove photo ' + (n + 1) + '">&times;</button></span>'; }).join('') +
+          ((c.p || []).length < 3 ? '<label class="btn btn-outline-dark ph-add">Add a photo<input type="file" accept="image/*" capture="environment" data-photo="' + it[0] + '" class="ph-input"></label>' : '') + '</div></div>' : '') +
         '</div>';
     });
     $('checks').innerHTML = html;
@@ -533,7 +562,7 @@
     if (!k.bad.length) lines.push(k.done === k.total ? 'Result: NIL DEFECTS' : 'Defects so far: none');
     else {
       lines.push('Result: ' + k.bad.length + ' DEFECT' + (k.bad.length > 1 ? 'S' : ''));
-      k.bad.forEach(function (b) { lines.push('- ' + b[0][1] + ': ' + (b[1].n || 'no details') + (b[1].d ? ' (DANGEROUS)' : '')); });
+      k.bad.forEach(function (b) { lines.push('- ' + b[0][1] + ': ' + (b[1].n || 'no details') + (b[1].d ? ' (DANGEROUS)' : '') + ((b[1].p || []).length ? ' [' + b[1].p.length + ' photo' + (b[1].p.length > 1 ? 's' : '') + ' in the PDF record]' : '')); });
     }
     lines.push('Checked using the AVDT daily walkaround check, based on DVSA guidance.');
     return lines.join('\n');
@@ -551,7 +580,7 @@
     $('summary').innerHTML = '<div><strong>' + esc(f.reg || 'Vehicle not entered') + '</strong>' + (f.trailer ? ' · trailer ' + esc(f.trailer) : '') + ' · ' + esc(label()) + '</div>' +
       '<div>' + esc(f.driver || 'Driver not entered') + ' · ' + esc(stamp()) + '</div>' + res +
       (k.na.length ? '<div class="hint">Not applicable: ' + esc(k.na.join(', ')) + '</div>' : '') +
-      (k.bad.length ? '<ul>' + k.bad.map(function (b) { return '<li><strong>' + esc(b[0][1]) + ':</strong> ' + esc(b[1].n || 'no details yet') + (b[1].d ? ' <strong class="danger-text">(dangerous)</strong>' : '') + '</li>'; }).join('') + '</ul>' : '');
+      (k.bad.length ? '<ul>' + k.bad.map(function (b) { return '<li><strong>' + esc(b[0][1]) + ':</strong> ' + esc(b[1].n || 'no details yet') + (b[1].d ? ' <strong class="danger-text">(dangerous)</strong>' : '') + ((b[1].p || []).length ? ' <span class="hint">(' + b[1].p.length + ' photo' + (b[1].p.length > 1 ? 's' : '') + ')</span>' : '') + '</li>'; }).join('') + '</ul>' : '');
   }
 
   function flash(t) { $('flash').textContent = t; setTimeout(function () { $('flash').textContent = ''; }, 3000); }
@@ -599,6 +628,8 @@
     refresh();
   });
   $('checks').addEventListener('click', function (e) {
+    var del = e.target.closest('[data-delph]');
+    if (del) { var c0 = state.c[del.getAttribute('data-delph')]; c0.p.splice(+del.getAttribute('data-n'), 1); buildChecks(); renderSummary(); save(); return; }
     var b = e.target.closest('button[data-s]'); if (!b) return;
     var id = b.closest('.chk').getAttribute('data-id');
     var c = state.c[id] || {};
@@ -613,6 +644,16 @@
     if (id) { state.c[id].n = e.target.value; renderSummary(); save(); }
   });
   $('checks').addEventListener('change', function (e) {
+    var pid = e.target.getAttribute('data-photo');
+    if (pid && e.target.files && e.target.files[0]) {
+      flash('Adding photo…');
+      shrink(e.target.files[0], function (data, w, h) {
+        if (!data) { flash("That photo couldn't be added. Try taking it again."); return; }
+        var c = state.c[pid]; c.p = (c.p || []).concat([{ d: data, w: w, h: h }]).slice(0, 3);
+        buildChecks(); renderSummary(); save(); flash('Photo added. It goes into the PDF.');
+      });
+      return;
+    }
     var id = e.target.getAttribute('data-dang');
     if (id) { state.c[id].d = e.target.checked; renderSummary(); save(); }
   });
@@ -661,7 +702,23 @@
       doc.setFont('helvetica', 'bold'); doc.setTextColor(c.s === 'ok' ? '#1d5a24' : c.s === 'bad' ? '#8a1c12' : '#6b7480'); doc.text(st, W - M, y, { align: 'right' });
       doc.setDrawColor('#e4e7e6'); doc.line(M, y + 1.5, W - M, y + 1.5); y += 5.2;
     });
+    var photos = [];
+    k.bad.forEach(function (b) { (b[1].p || []).forEach(function (ph) { photos.push([b[0][1], ph]); }); });
+    if (photos.length) {
+      doc.addPage(); y = 18;
+      line('Defect photos', 13, 'bold');
+      y += 2;
+      photos.forEach(function (pp) {
+        var ph = pp[1], wmm = 120, hmm = wmm * ph.h / ph.w;
+        if (hmm > 110) { hmm = 110; wmm = hmm * ph.w / ph.h; }
+        if (y + hmm + 10 > 285) { doc.addPage(); y = 18; }
+        line(pp[0], 10, 'bold');
+        try { doc.addImage(ph.d, 'JPEG', M, y, wmm, hmm); } catch (e) {}
+        y += hmm + 8;
+      });
+    }
     y += 4;
+    if (y > 270) { doc.addPage(); y = 18; }
     line("Report defects in writing to the person in charge of defects. Do not drive a vehicle with a dangerous defect. Your operator's procedures and the vehicle handbook come first.", 8.5, 'normal', '#3d4a58');
     line("Made with the free AVDT daily walkaround check - Abbott's Vocational Driver Training, avdt.co.uk", 8.5, 'normal', '#3d4a58');
     return doc;
