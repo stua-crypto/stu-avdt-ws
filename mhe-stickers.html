@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MHE Check Sticker Maker | AVDT</title>
+<meta name="description" content="Free QR sticker and card maker for forklift and telehandler fleets. Print a sticker for each machine that opens the daily pre-use check with the machine already filled in.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="canonical" href="https://avdt.co.uk/mhe-stickers.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AVDT – Abbott's Vocational Driver Training">
+<meta property="og:title" content="MHE Check Sticker Maker | AVDT">
+<meta property="og:description" content="Free QR sticker and card maker for forklift and telehandler fleets. Print a sticker for each machine that opens the daily pre-use check with the machine already filled in.">
+<meta property="og:url" content="https://avdt.co.uk/mhe-stickers.html">
+<meta property="og:image" content="https://avdt.co.uk/assets/hero-banner.jpg">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/style.css">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "WebPage", "name": "MHE Check Sticker Maker", "description": "Free QR sticker and card maker for forklift and telehandler fleets. Print a sticker for each machine that opens the daily pre-use check with the machine already filled in.", "url": "https://avdt.co.uk/mhe-stickers.html"}
+</script>
+<!-- Google tag (gtag.js) - Google Ads AW-18394247641 -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied',
+    'wait_for_update': 500
+  });
+  gtag('set', 'ads_data_redaction', true);
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18394247641"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'AW-18394247641');
+</script>
+<script src="assets/cookie-consent.js" defer></script>
+<meta name="robots" content="noindex">
+<style>
+/* Check sticker maker: page styles using the site's colours and fonts */
+.sm { max-width: 52rem; display: grid; gap: 22px; }
+.sm [hidden] { display: none !important; }
+.sm h2 { margin: 0 0 10px; font-size: 1.6rem; color: var(--navy-950); }
+.sm p { margin: 0 0 10px; }
+.sm a:not(.btn) { color: var(--royal-600); font-weight: 600; }
+.sm .panel { background: var(--paper-raised); border: 1px solid var(--steel-300); border-top: 5px solid var(--gold-500); padding: 20px; }
+.sm .hint { font-size: 0.88rem; color: var(--steel-500); }
+.sm .label-like, .sm label { font-size: 0.92rem; font-weight: 600; color: var(--navy-950); }
+.sm .field { display: grid; gap: 6px; margin-bottom: 14px; max-width: 26rem; }
+.sm input[type="text"], .sm input[type="number"], .sm select, .sm textarea { width: 100%; min-height: 46px; padding: 8px 12px; font: inherit; font-size: 1rem; color: var(--ink); background: #fff; border: 1px solid var(--steel-300); border-radius: 3px; }
+.sm textarea { min-height: 110px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.92rem; }
+.sm .toggle { display: inline-flex; border: 1px solid var(--steel-300); border-radius: 3px; overflow: hidden; width: max-content; }
+.sm .toggle label { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; min-height: 46px; cursor: pointer; background: #fff; }
+.sm .toggle label + label { border-left: 1px solid var(--steel-300); }
+.sm .toggle input { width: 18px; height: 18px; accent-color: var(--royal-700); }
+.sm .toggle label:has(input:checked) { background: var(--royal-800); color: #fff; }
+.sm .rows { display: grid; gap: 10px; margin-bottom: 12px; }
+.sm .row { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr) auto; gap: 8px; align-items: end; padding-bottom: 10px; border-bottom: 1px solid var(--steel-200); }
+.sm .row .f { display: grid; gap: 4px; min-width: 0; }
+.sm .row .f label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--steel-500); }
+.sm .row .del { min-height: 46px; min-width: 46px; border: 1px solid var(--steel-300); background: #fff; border-radius: 3px; font-size: 1.3rem; color: var(--steel-500); cursor: pointer; }
+@media (max-width: 560px) { .sm .row { grid-template-columns: 1fr 1fr auto; } .sm .row .f-reg { grid-column: 1 / -1; } }
+.sm .paste { margin-top: 14px; }
+.sm .paste summary { cursor: pointer; font-weight: 600; color: var(--royal-600); padding: 6px 0; }
+.sm .paste[open] summary { margin-bottom: 8px; }
+.sm .paste .btn { margin-top: 8px; }
+.sm .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.sm .preview { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; margin: 6px 0 16px; }
+.sm .stk { border: 1px dashed var(--steel-300); background: #fff; border-radius: 4px; overflow: hidden; display: grid; justify-items: center; text-align: center; color: #0d1b2c; }
+.sm .stk-top { width: 100%; background: #0d1b2c; color: #fff; font: 700 0.72rem/1 var(--font-body); letter-spacing: 0.06em; text-transform: uppercase; padding: 7px 4px; }
+.sm .stk svg { width: 70%; height: auto; margin: 8px 0 4px; display: block; }
+.sm .stk-reg { font: 700 1.25rem/1.1 var(--font-display); letter-spacing: 0.04em; }
+.sm .stk-sub { font-size: 0.7rem; color: #3d4a58; padding: 2px 4px 8px; }
+.sm .stk.fob { max-width: 120px; }
+.sm .stk .fob-reg { font-size: 0.95rem; }
+.sm .stk.fob .stk-top { font-size: 0.62rem; }
+.sm .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.sm .btn-primary { color: var(--navy-950); }
+.sm .flash { display: block; min-height: 1.2em; font-size: 0.88rem; color: var(--steel-500); margin-top: 8px; }
+.sm .foot { font-size: 0.85rem; color: var(--steel-500); max-width: none; }
+.sm code { font-size: 0.9em; background: var(--steel-200); padding: 1px 4px; border-radius: 3px; }
+.sm .toggle-wrap { flex-wrap: wrap; width: auto; max-width: 100%; }
+.sm .card-h { margin: 8px 0 10px; font-size: 1.15rem; color: var(--navy-950); }
+.sm .cards { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 16px; }
+.sm .card { width: 100%; max-width: 324px; aspect-ratio: 85.6 / 54; background: #fff; border: 1px solid var(--steel-300); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; color: #0d1b2c; box-shadow: 0 1px 3px rgba(13,27,44,.12); }
+.sm .card-band { background: #0d1b2c; color: #fff; font: 700 0.72rem/1 var(--font-body); letter-spacing: 0.06em; text-transform: uppercase; padding: 9px 14px; }
+.sm .card-body { flex: 1; display: flex; gap: 12px; align-items: center; padding: 8px 14px; min-height: 0; }
+.sm .card-body svg { width: 40%; height: auto; flex: none; }
+.sm .card-text { min-width: 0; }
+.sm .card-reg { font: 700 1.35rem/1.1 var(--font-display); letter-spacing: 0.03em; }
+.sm .card-type { font-size: 0.8rem; color: #1c3f7a; margin: 2px 0 4px; }
+.sm .card-scan { font-size: 0.72rem; color: #3d4a58; line-height: 1.3; }
+.sm .card-foot { background: #c9a15b; color: #0d1b2c; font: 700 0.62rem/1 var(--font-body); padding: 5px 14px; text-align: right; }
+.sm .card-back ol { margin: 8px 0 4px; padding-left: 32px; font-size: 0.78rem; line-height: 1.45; flex: 1; }
+.sm .card-danger { margin: 0 14px 4px; padding: 4px 8px; background: #fbe3e0; color: #8a1c12; font-size: 0.72rem; font-weight: 700; }
+.sm .card-report { margin: 0 14px 4px; font-size: 0.7rem; }
+.sm .card-back .card-foot { text-align: left; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Primary">
+    <a class="brand" href="index.html">
+      <picture><source srcset="assets/logo-112.webp" type="image/webp"><img class="brand-logo" src="assets/logo-112.png" alt="AVDT logo" width="56" height="56"></picture>
+      <span class="brand-text">
+        <span class="brand-mark">AVDT</span>
+        <span class="brand-sub">Abbott's Vocational Driver Training</span>
+      </span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu"><span class="nav-toggle-bars" aria-hidden="true"></span>Menu</button>
+    <ul class="nav-links" id="primary-menu">
+      <li><a href="forklift-training.html">Forklift</a></li>
+      <li><a href="telehandler-training.html">Telehandler</a></li>
+      <li><a href="lgv-training.html">LGV &amp; PCV</a></li>
+      <li><a href="lgv-training.html#c1-d1">C1 Ambulance</a></li>
+      <li><a href="d1-minibus-training.html">D1 Minibus</a></li>
+      <li><a href="driver-cpc.html">Driver CPC</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="page-header hero--rays">
+    <div class="container">
+      <div class="section-label" style="color:var(--gold-500);">Free tool for supervisors</div>
+      <h1>MHE check sticker and card maker</h1>
+      <p>Make a QR sticker or card for each forklift, telehandler, reach truck or pallet truck. Operators scan it on the machine or its key and the daily pre-use check opens with that machine already filled in.</p>
+    </div>
+  </section>
+
+  <div class="hazard-stripe" role="presentation"></div>
+
+  <section class="section section-tight">
+    <div class="container">
+      <div class="sm">
+
+        <section class="panel" aria-labelledby="h-list">
+          <h2 id="h-list">1. Your machines</h2>
+          <p class="hint">Example machines are filled in. Change them to yours, or paste a list below.</p>
+          <div class="rows" id="rows"></div>
+          <button type="button" class="btn btn-outline-dark" id="addRow">Add a machine</button>
+          <details class="paste">
+            <summary>Paste a list instead</summary>
+            <p class="hint">One machine per line: fleet number, then the type (counterbalance, telehandler, reach or pallet), then diesel, LPG or electric. For example: <code>FLT 04, counterbalance, LPG</code>. Anything left out is set to counterbalance and diesel.</p>
+            <label for="pasteBox" class="sr-only">List</label>
+            <textarea id="pasteBox" rows="5" placeholder="FLT 01, counterbalance, LPG&#10;TH 02, telehandler, diesel&#10;RT 03, reach, electric"></textarea>
+            <button type="button" class="btn btn-outline-dark" id="usePaste">Use this list</button>
+          </details>
+        </section>
+
+        <section class="panel" aria-labelledby="h-opts">
+          <h2 id="h-opts">2. Sticker options</h2>
+          <div class="field">
+            <span class="label-like" id="copiesLabel">Machine stickers for each machine</span>
+            <div class="toggle" role="radiogroup" aria-labelledby="copiesLabel">
+              <label><input type="radio" name="copies" value="1" checked> 1</label>
+              <label><input type="radio" name="copies" value="2"> 2</label>
+            </div>
+          </div>
+          <div class="field">
+            <span class="label-like" id="fobsLabel">Key fob stickers for each machine (for the start key)</span>
+            <div class="toggle" role="radiogroup" aria-labelledby="fobsLabel">
+              <label><input type="radio" name="fobs" value="0"> None</label>
+              <label><input type="radio" name="fobs" value="1" checked> 1</label>
+              <label><input type="radio" name="fobs" value="2"> 2</label>
+            </div>
+          </div>
+          <div class="field">
+            <span class="label-like" id="cardLabel">Machine cards (credit card size)</span>
+            <div class="toggle toggle-wrap" role="radiogroup" aria-labelledby="cardLabel">
+              <label><input type="radio" name="cardfmt" value="a4" checked> A4 sheet to cut out</label>
+              <label><input type="radio" name="cardfmt" value="printer"> For a card printer</label>
+            </div>
+            <p class="hint">Use "A4 sheet to cut out" on a normal printer. "For a card printer" is only for printers that print plastic cards: on a normal printer each card fills a whole A4 page.</p>
+          </div>
+          <div class="field">
+            <label for="reportTo">Report defects to (optional, printed on the back of the card)</label>
+            <input id="reportTo" type="text" maxlength="60" placeholder="e.g. Transport office 01392 000000">
+          </div>
+          <p class="hint">Machine stickers are 50 mm square, 15 to an A4 sheet: put one inside the cab or on the overhead guard where the operator sees it. Key fob stickers are 30 mm square, 40 to a sheet, and carry the same QR code and fleet number, so they stay with the machine's key. Each sticker has a thin grey cutting line.</p>
+        </section>
+
+        <section class="panel" aria-labelledby="h-prev">
+          <h2 id="h-prev">3. Check and print</h2>
+          <p>Scan a sticker below with your phone camera to test it before you print.</p>
+          <div class="preview" id="preview" aria-live="polite"></div>
+          <div class="actions">
+            <button type="button" class="btn btn-primary" id="makePdf">Make sticker sheet (PDF)</button>
+            <button type="button" class="btn btn-outline-dark" id="makeCards">Make machine cards (PDF)</button>
+          </div>
+          <h3 class="card-h">Machine card, front and back</h3>
+          <div class="cards" id="cardPreview"></div>
+          <span class="flash" id="flash" role="status"></span>
+          <p class="hint">Machine cards are 85.6 × 54 mm, the size of a bank card, with the QR code on the front and the check steps on the back. "A4 sheet to cut out" puts 8 cards on a page with the backs on the next page, lined up for double-sided printing. "For a card printer" makes one card per page, front then back. Choose double-sided in your card printer's settings. Laminate them, or slide them into a card holder on the machine's key or a lanyard.</p>
+          <p class="hint">Print at 100% size ("actual size"), not "fit to page". Print on plain paper and cut out, or on sticker label sheets. Do a test print on plain paper first and hold it against the label sheet to check the stickers line up. For machines used outdoors, weatherproof vinyl labels or laminating will make them last.</p>
+        </section>
+
+        <p class="foot">Everything happens in your browser. Your machine list is kept on this device so you can come back to it, and is never sent to AVDT. The stickers open the free <a href="mhe-check.html">daily pre-use check</a>.</p>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container cta-band-inner">
+      <div>
+        <h2>Training your operators?</h2>
+        <p>On-site counterbalance forklift and telehandler training on your own machines, across Devon and Cornwall, including daily checks and defect reporting.</p>
+      </div>
+      <div class="cta-band-ctas">
+        <a class="btn btn-primary" href="contact.html">Get in touch</a>
+        <a class="btn btn-outline" href="forklift-training.html">Forklift training</a>
+      </div>
+    </div>
+  </section>
+</main>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" style="margin-bottom:14px;">
+          <picture><source srcset="assets/logo-112.webp" type="image/webp"><img class="brand-logo" src="assets/logo-112.png" alt="AVDT logo" width="56" height="56"></picture>
+          <span class="brand-mark">AVDT</span>
+        </a>
+        <p style="max-width:36ch; color:var(--steel-300);">Stuart Abbott, trading as Abbott's Vocational Driver Training. On-site forklift and telehandler operator training, LGV (lorry) and PCV (bus and minibus) driver training, and event water safety cover across Devon and Cornwall.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="forklift-training.html">Forklift Training</a>
+        <a href="telehandler-training.html">Telehandler Training</a>
+        <a href="lgv-training.html">LGV &amp; PCV Training</a>
+        <a href="lgv-training.html#c1-d1">C1 Ambulance Training</a>
+        <a href="d1-minibus-training.html">D1 Minibus Training</a>
+        <a href="driver-cpc.html">Driver CPC</a>
+        <a href="https://water.avdt.co.uk/">Water Safety Cover</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="resources.html">Resources</a>
+        <a href="privacy.html">Privacy notice</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:info@avdt.co.uk">info@avdt.co.uk</a>
+        <a href="tel:07807395913">07807 395913</a>
+        <a href="https://g.page/r/CQ6pZFvB53g9EBM/review" target="_blank" rel="noopener">Leave a Google review</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> Abbott's Vocational Driver Training. All rights reserved.</span>
+      <span>ICO registered — ZC212008</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+<script src="assets/nav.js" defer></script>
+<script src="assets/signup.js" defer></script>
+<script src="assets/qrcode/qrcode.js"></script>
+<script src="assets/jspdf/jspdf.umd.min.js"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var CFG = {
+    key: 'avdt-mhe-check-v1',
+    filePrefix: 'pre-use',
+    types: {
+      counterbalance: { name: 'Counterbalance forklift', code: 'c', fuels: ['diesel', 'lpg', 'electric'] },
+      telehandler: { name: 'Telehandler', code: 't', fuels: ['diesel', 'electric'] },
+      reach: { name: 'Reach truck', code: 'r', fuels: ['electric'] },
+      pallet: { name: 'Powered pallet truck', code: 'p', fuels: ['electric'] }
+    },
+    fuels: {
+      diesel: { name: 'Diesel', code: 'd' },
+      lpg: { name: 'LPG (gas)', code: 'g' },
+      electric: { name: 'Electric', code: 'e', ev: true }
+    },
+    levelNames: { diesel: 'Fuel level', lpg: 'Gas cylinder level' },
+    labelFn: function (fuel, type) { return (fuel === 'lpg (gas)' ? 'LPG' : fuel) + ' ' + type; },
+    words: {
+      title: 'Daily pre-use check',
+      unit: 'Truck / fleet no.',
+      person: 'Operator',
+      meter: 'Hour meter',
+      doNot: 'do not use',
+      dangerTick: 'Dangerous: do not use',
+      basisShort: 'daily pre-use checks',
+      pdfFoot: "Report defects straight away to your supervisor or the person in charge of the equipment. Do not use a machine with a dangerous defect until it has been made safe. The manufacturer's operator handbook and your employer's procedures come first.",
+      madeWith: "Checked using the free AVDT daily pre-use check - Abbott's Vocational Driver Training, avdt.co.uk"
+    },
+    pdf: { band: '#0d1b2c', accent: '#c9a15b', group: '#1c3f7a', site: 'avdt.co.uk' },
+    checks: {
+      counterbalance: [
+        ['Visual checks (before starting)', [
+          ['forks', 'Forks', 'not bent, cracked or worn at the heel; locking pins secure'],
+          ['carriage', 'Carriage and load backrest', 'secure, no damage'],
+          ['mast', 'Mast and rollers', 'no cracks or damage; channels clear'],
+          ['chains', 'Lift chains', 'no damage, stretch or rust; anchor pins in place; even tension'],
+          ['hydraulics', 'Hydraulics', 'no leaks; hoses not split or chafed'],
+          ['tyres', 'Tyres and wheels', 'no damage, chunking or excess wear; wheel nuts secure; pressures correct (air tyres)'],
+          ['guard', 'Overhead guard', 'secure, no damage'],
+          ['fluids', 'Engine oil, coolant and fuel', 'levels correct; filler caps on; no leaks underneath', 'diesel'],
+          ['lpgfluids', 'Engine oil and coolant', 'levels correct; no leaks underneath', 'lpg'],
+          ['lpg', 'LPG cylinder', 'right way round and secure in its bracket; valve, hose and coupling undamaged; no smell or hiss of gas', 'lpg'],
+          ['battery', 'Traction battery', 'charged; charger unplugged; connector and cables undamaged; no leaks; cover closed', 'ev'],
+          ['plate', 'Capacity (data) plate', 'fitted, readable and correct for any attachment fitted'],
+          ['attachment', 'Attachment (if fitted)', 'secure, no damage or leaks'],
+          ['seat', 'Seat and seat belt', 'seat secure; belt undamaged, latches and retracts'],
+          ['mirrors', 'Mirrors, lights and windscreen', 'clean, undamaged (if fitted)'],
+          ['extinguisher', 'Fire extinguisher', 'secure and in date (if fitted)'],
+          ['loler', 'Thorough examination', 'LOLER thorough examination in date (sticker or record)']
+        ]],
+        ['Operational checks (engine or power on)', [
+          ['dash', 'Gauges and warning lights', 'working; no warnings showing'],
+          ['horn', 'Horn and reversing alarm', 'working'],
+          ['beacon', 'Lights and beacon', 'working (if fitted)'],
+          ['liftctl', 'Lift, lower and tilt', 'smooth, with no creep, jerks or unusual noise'],
+          ['brakes', 'Foot brake and parking brake', 'service brake stops the truck; parking brake holds'],
+          ['steering', 'Steering', 'working, no excess play'],
+          ['drive', 'Drive, direction and inching controls', 'working smoothly'],
+          ['isolator', 'Emergency isolator', 'cuts the power when used', 'ev'],
+          ['smoke', 'Exhaust', 'no excess smoke or fumes', 'ic']
+        ]]
+      ],
+      telehandler: [
+        ['Visual checks (before starting)', [
+          ['forks', 'Forks or attachment', 'no damage; locking pins fitted'],
+          ['hitch', 'Carriage and quick-hitch', 'attachment locked and secure; locking pin or indicator shows locked'],
+          ['boom', 'Boom', 'no cracks, bends or damage; wear pads in good condition'],
+          ['hydraulics', 'Hydraulic rams, hoses and fittings', 'no leaks or damage'],
+          ['tyres', 'Tyres and wheels', 'no damage; wheel nuts secure; pressures correct'],
+          ['stabilisers', 'Stabilisers', 'no damage; pads fitted (if fitted)'],
+          ['cab', 'Cab, ROPS / FOPS and glass', 'no damage; door and windows secure'],
+          ['seat', 'Seat and seat belt', 'seat secure; belt undamaged, latches and retracts'],
+          ['mirrors', 'Mirrors, lights and beacon', 'clean, undamaged'],
+          ['fluids', 'Fluids', 'engine oil, coolant, hydraulic oil, fuel and AdBlue at the right levels; no leaks', 'ic'],
+          ['evfluids', 'Hydraulic oil and coolant', 'levels correct; no leaks', 'ev'],
+          ['battery', 'Battery and charging', 'enough charge for the shift; charging cable unplugged and stowed', 'ev'],
+          ['hv', 'High-voltage parts', "orange cables and covers undamaged. Look, don't touch", 'ev'],
+          ['chart', 'Load chart and data plate', 'in the cab, readable and right for the attachment fitted'],
+          ['extinguisher', 'Fire extinguisher', 'secure and in date (if fitted)'],
+          ['loler', 'Thorough examination', 'LOLER thorough examination in date (sticker or record)']
+        ]],
+        ['Operational checks (engine or power on)', [
+          ['dash', 'Gauges and warning lights', 'working; no warnings showing'],
+          ['lmi', 'Load moment indicator', 'self-test passes; alarm and cut-outs work'],
+          ['horn', 'Horn, reversing alarm and beacon', 'working'],
+          ['boomops', 'Boom functions', 'lift, lower, extend, retract and tilt all smooth'],
+          ['steering', 'Steering and steer modes', 'working correctly; wheels line up when changing mode'],
+          ['brakes', 'Service brake and parking brake', 'service brake stops the machine; parking brake holds'],
+          ['drive', 'Forward, reverse and gears', 'working smoothly'],
+          ['level', 'Frame levelling', 'working (if fitted)'],
+          ['avas', 'Pedestrian warning sound (if fitted)', 'working when moving slowly', 'ev'],
+          ['smoke', 'Exhaust', 'no excess smoke', 'ic']
+        ]]
+      ],
+      reach: [
+        ['Visual checks (before starting)', [
+          ['forks', 'Forks', 'not bent, cracked or worn at the heel; locking pins secure'],
+          ['carriage', 'Carriage, backrest and reach mechanism', 'secure, no damage'],
+          ['mast', 'Mast and rollers', 'no cracks or damage; channels clear'],
+          ['chains', 'Lift chains', 'no damage, stretch or rust; anchor pins in place; even tension'],
+          ['hydraulics', 'Hydraulics', 'no leaks; hoses not split or chafed'],
+          ['wheels', 'Load and drive wheels', 'no damage, flat spots or chunking; nothing wrapped round them'],
+          ['guard', 'Overhead guard', 'secure, no damage'],
+          ['battery', 'Traction battery', 'charged; secure in its compartment; charger unplugged; connector and cables undamaged; no leaks'],
+          ['plate', 'Capacity (data) plate', 'fitted and readable'],
+          ['seat', 'Seat or operator platform', 'secure; seat or presence switch works'],
+          ['camera', 'Camera or screen', 'clean, working, correct view (if fitted)'],
+          ['loler', 'Thorough examination', 'LOLER thorough examination in date (sticker or record)']
+        ]],
+        ['Operational checks (power on)', [
+          ['dash', 'Display and warning lights', 'working; battery level shown; no fault codes'],
+          ['horn', 'Horn and travel alarm', 'working; blue or red warning light working (if fitted)'],
+          ['liftctl', 'Lift, lower, reach, tilt and side-shift', 'smooth, with no creep, jerks or unusual noise'],
+          ['brakes', 'Brakes', 'service brake stops the truck; parking brake applies when stopped'],
+          ['steering', 'Steering', 'working, no excess play'],
+          ['drive', 'Drive and direction controls', 'working smoothly'],
+          ['isolator', 'Emergency isolator', 'cuts the power when used']
+        ]]
+      ],
+      pallet: [
+        ['Visual checks (before starting)', [
+          ['forks', 'Forks', 'not bent or cracked; no damage'],
+          ['wheels', 'Load wheels and drive wheel', 'undamaged, turn freely, nothing wrapped round them'],
+          ['tiller', 'Tiller arm and handle', 'undamaged; springs back to the upright braking position'],
+          ['chassis', 'Chassis and covers', 'panels secure; no sharp edges'],
+          ['battery', 'Battery', 'charged; charger unplugged; connector and cables undamaged; no leaks'],
+          ['plate', 'Data plate', 'fitted and readable'],
+          ['platform', 'Platform and side arms', 'secure; fold and lock properly (N/A if pedestrian only)']
+        ]],
+        ['Operational checks (power on)', [
+          ['dash', 'Battery indicator and display', 'working; no fault codes'],
+          ['belly', 'Belly (reverse safety) button', 'stops the truck and drives it away from you when pressed'],
+          ['horn', 'Horn', 'working'],
+          ['liftctl', 'Lift and lower', 'smooth, no creep'],
+          ['brakes', 'Brakes', 'truck stops when the tiller is let go, or moved fully up or down'],
+          ['drive', 'Drive controls', 'forward and reverse smooth; speed control works; tortoise (slow) mode works if fitted'],
+          ['isolator', 'Emergency stop', 'cuts the power when pressed']
+        ]]
+      ]
+    },
+    na: { attachment: 1, mirrors: 1, extinguisher: 1, beacon: 1, stabilisers: 1, level: 1, camera: 1, platform: 1, avas: 1 },
+    why: {
+      forks: 'A cracked or worn fork can snap under load and drop it. Heel wear of 10% or more means the fork must be taken out of use.',
+      carriage: 'The backrest stops the load falling back towards you when the mast is tilted or lifted high.',
+      mast: 'Damage to the mast or rollers can make the forks jam or drop suddenly.',
+      chains: 'The chains hold the whole load. A worn or damaged chain can fail without warning.',
+      hydraulics: 'A burst hose can drop the load and spray hot oil. Oil on the floor is a slip and skid hazard.',
+      tyres: 'Damaged or soft tyres make the truck unstable, especially when lifting or turning.',
+      wheels: 'Damaged or jammed wheels make the truck pull, shudder or tip, and shrink wrap round a wheel stops it turning.',
+      guard: 'The overhead guard protects you from falling loads. It must never be damaged or removed.',
+      fluids: 'Low oil or coolant can wreck the engine, and a leak can cause a fire or a slippery floor.',
+      lpgfluids: 'Low oil or coolant can wreck the engine, and a leak makes the floor slippery.',
+      lpg: 'Leaking gas can catch fire or explode. If you smell gas, close the valve, keep flames away and report it.',
+      battery: 'A damaged battery or cable can cause burns, fire or a shock. Driving off still plugged in rips out the charging cable.',
+      plate: 'The data plate tells you the safe working load. Fitting an attachment lowers it.',
+      attachment: 'An insecure attachment can come off and drop its load, and it changes how much the truck can lift.',
+      seat: 'If the truck tips over, the seat belt keeps you inside the guard. Never try to jump out.',
+      mirrors: 'You need to see clearly behind and around you, where pedestrians are most at risk.',
+      extinguisher: 'You may have seconds to deal with a small fire before it spreads.',
+      loler: 'The law requires lifting equipment to be thoroughly examined by a competent person, usually every 6 or 12 months.',
+      dash: 'A warning light is the machine telling you about a fault. Never start work with one you do not understand.',
+      horn: 'Pedestrians need warning that you are there, especially at blind corners and doorways.',
+      beacon: 'A beacon warns people that the truck is moving nearby, even if they can not hear it.',
+      liftctl: 'Jerky or creeping hydraulics can drop or shake loose a load at height.',
+      brakes: 'You must be able to stop safely with a load, and the truck must not roll away when parked.',
+      steering: 'Loose or heavy steering can make you hit racking, loads or people.',
+      drive: 'Jerky or sticking controls cause loads to fall and collisions with people and racking.',
+      isolator: 'In an emergency you must be able to cut the power instantly.',
+      smoke: 'Excess smoke means an engine fault, and exhaust fumes are harmful, especially indoors.',
+      hitch: 'An attachment that is not locked on can fall off the boom, with its load.',
+      boom: 'A damaged boom can bend or fail under load. Worn pads let the boom move unevenly.',
+      stabilisers: 'Stabilisers keep the machine stable at full height or reach.',
+      cab: 'The cab and its ROPS / FOPS protection keep you safe if the machine overturns or something falls on it.',
+      evfluids: 'Hydraulic oil works the boom and coolant keeps the battery and motors at the right temperature.',
+      hv: 'High-voltage parts can kill. Never touch damaged orange cables, and report them straight away.',
+      chart: 'The load chart shows how much you can lift at each height and reach. Overloading tips the machine forward.',
+      lmi: 'The load moment indicator warns you before the machine tips forward. It is your last line of defence.',
+      boomops: 'Jerky or creeping boom movements can drop or swing a load at height.',
+      level: 'Frame levelling keeps the boom upright on uneven ground, so the load stays stable.',
+      avas: 'Electric machines are almost silent. The warning sound helps people hear you coming.',
+      camera: 'A camera covers blind spots behind and to the side, where pedestrians are most at risk.',
+      tiller: 'If the tiller does not spring back, the brake may not apply when you let go.',
+      chassis: 'Loose covers and sharp edges can trap or cut your feet and legs.',
+      platform: 'A loose platform or side arm can throw you off when the truck turns or brakes.',
+      belly: 'The belly button stops you being pinned between the tiller and a wall or racking.'
+    }
+  };
+  var SCFG = {
+    key: 'avdt-mhe-stickers-v1', base: 'https://avdt.co.uk/mhe-check.html', filePrefix: 'avdt-mhe',
+    unit: 'Truck / fleet no.', typeLabel: 'Machine', fuelLabel: 'Power', noun: 'machine',
+    examples: [{ reg: 'FLT 01', type: 'counterbalance', fuel: 'lpg' }, { reg: 'TH 02', type: 'telehandler', fuel: 'diesel' }, { reg: 'RT 03', type: 'reach', fuel: 'electric' }],
+    top: 'Daily pre-use check', fobTop: 'Machine key', fobSub: 'Pre-use check', fobPdf: 'PRE-USE CHECK  |  AVDT', site: 'avdt.co.uk',
+    backTitle: 'Before every shift', steps: ['Scan the card', 'Check every item', 'Note any defects', 'Send or save your record'],
+    danger: "Dangerous defect? Don't use it. Report it.", cardFoot: 'Free from AVDT · avdt.co.uk', cardPdfFoot: "Free from Abbott's Vocational Driver Training  |  avdt.co.uk",
+    noneFound: 'No machines found. Put one fleet number on each line.',
+    desc: function (f, t) { return (f === 'LPG (gas)' ? 'LPG' : f.toLowerCase()) + ' ' + t; },
+    pasteWords: /^(counterbalance|forklift|flt|telehandler|tele|reach|pallet|ppt|truck|diesel|lpg|gas|electric|ev|battery)$/,
+    parseType: function (r) { return /tele/.test(r) ? 'telehandler' : /reach/.test(r) ? 'reach' : /pallet|ppt|pump/.test(r) ? 'pallet' : 'counterbalance'; },
+    parseFuel: function (r) { return /lpg|gas/.test(r) ? 'lpg' : /elec|\bev\b|battery/.test(r) ? 'electric' : 'diesel'; }
+  };
+
+  var S = SCFG, SC = SCFG, KEY = S.key, BASE = S.base;
+  var TYPES = Object.keys(CFG.types).map(function (id) { return [id, CFG.types[id].name]; });
+  var FUELS = Object.keys(CFG.fuels).map(function (id) { return [id, CFG.fuels[id].name]; });
+  var EXAMPLE = S.examples;
+  function tName(v) { return CFG.types[v.type] ? CFG.types[v.type].name.toLowerCase() : ''; }
+  function fName(v) { return CFG.fuels[v.fuel] ? (CFG.fuels[v.fuel].short || CFG.fuels[v.fuel].name) : ''; }
+  function desc(v) { return S.desc ? S.desc(fName(v), tName(v)) : fName(v) + ' ' + tName(v); }
+  var state = { rows: EXAMPLE.slice(), copies: 1, fobs: 1, cardFmt: 'a4', reportTo: '' };
+  try { var s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s && s.rows) state = s; } catch (e) {}
+  function fixRow(v) { if (!CFG.types[v.type]) v.type = TYPES[0][0]; var ok = CFG.types[v.type].fuels; if (ok.indexOf(v.fuel) < 0) v.fuel = ok[0]; return v; }
+  state.rows.forEach(fixRow);
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function cleanReg(r) { return String(r || '').toUpperCase().replace(/[^A-Z0-9 \-]/g, '').replace(/\s+/g, ' ').trim().slice(0, 20); }
+  function linkFor(v) { return v ? BASE + '?t=' + CFG.types[v.type].code + '&f=' + CFG.fuels[v.fuel].code + '&r=' + encodeURIComponent(S.keepSpaces ? v.reg : v.reg.replace(/ /g, '')) : BASE; }
+  function qr(text) { var q = qrcode(0, 'M'); q.addData(text); q.make(); return q; }
+  function qrSvg(text) {
+    var q = qr(text), n = q.getModuleCount(), m = 4, size = n + m * 2, d = '';
+    for (var r = 0; r < n; r++) for (var c = 0; c < n; c++) if (q.isDark(r, c)) d += 'M' + (c + m) + ' ' + (r + m) + 'h1v1h-1z';
+    return '<svg viewBox="0 0 ' + size + ' ' + size + '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QR code"><rect width="' + size + '" height="' + size + '" fill="#fff"/><path d="' + d + '" fill="#000"/></svg>';
+  }
+  function opts(list, sel) { return list.map(function (o) { return '<option value="' + o[0] + '"' + (o[0] === sel ? ' selected' : '') + '>' + o[1] + '</option>'; }).join(''); }
+
+  function renderRows() {
+    $('rows').innerHTML = state.rows.map(function (v, i) {
+      return '<div class="row" data-i="' + i + '">' +
+        '<div class="f f-reg"><label for="reg' + i + '">' + esc(S.unit) + '</label><input id="reg' + i + '" type="text" data-k="reg" value="' + esc(v.reg) + '" autocapitalize="characters" autocomplete="off"></div>' +
+        (TYPES.length > 1 ? '<div class="f"><label for="type' + i + '">' + esc(S.typeLabel) + '</label><select id="type' + i + '" data-k="type">' + opts(TYPES, v.type) + '</select></div>' : '') +
+        '<div class="f"><label for="fuel' + i + '">' + esc(S.fuelLabel) + '</label><select id="fuel' + i + '" data-k="fuel">' + opts(FUELS.filter(function (f) { return CFG.types[v.type].fuels.indexOf(f[0]) >= 0; }), v.fuel) + '</select></div>' +
+        '<button type="button" class="del" data-del="' + i + '" aria-label="Remove ' + esc(v.reg || 'vehicle') + '">&times;</button></div>';
+    }).join('');
+  }
+  function vehicles() { return state.rows.map(function (v) { return { reg: cleanReg(v.reg), type: v.type, fuel: v.fuel }; }).filter(function (v) { return v.reg; }); }
+
+  function renderPreview() {
+    var html = vehicles().map(function (v) {
+      return '<div class="stk"><div class="stk-top">' + esc(S.top) + '</div>' + qrSvg(linkFor(v)) +
+        '<div class="stk-reg">' + esc(v.reg) + '</div><div class="stk-sub">Scan me · ' + esc(desc(v)) + '</div></div>';
+    }).join('');
+    if (state.fobs > 0) vehicles().forEach(function (v) {
+      html += '<div class="stk fob"><div class="stk-top">' + esc(S.fobTop) + '</div>' + qrSvg(linkFor(v)) + '<div class="stk-reg fob-reg">' + esc(v.reg) + '</div><div class="stk-sub">' + esc(S.fobSub) + '</div></div>';
+    });
+    $('preview').innerHTML = html || '<p class="hint">Add a ' + esc(S.noun) + ' to see a preview.</p>';
+    var v = vehicles()[0];
+    $('cardPreview').innerHTML = v ? '<div class="card card-front"><div class="card-band">' + esc(S.top) + '</div><div class="card-body">' + qrSvg(linkFor(v)) +
+      '<div class="card-text"><div class="card-reg">' + esc(v.reg) + '</div><div class="card-type">' + esc(desc(v).charAt(0).toUpperCase() + desc(v).slice(1)) + '</div><div class="card-scan">Scan with your phone camera to start the check</div></div></div><div class="card-foot">' + esc(S.site) + '</div></div>' +
+      '<div class="card card-back"><div class="card-band">' + esc(S.backTitle) + '</div><ol>' + S.steps.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ol><div class="card-danger">' + esc(S.danger) + '</div>' +
+      (state.reportTo ? '<div class="card-report">Report defects to: ' + esc(state.reportTo) + '</div>' : '') + '<div class="card-foot">' + esc(S.cardFoot) + '</div></div>' : '';
+  }
+  function all() { renderRows(); renderPreview(); save(); }
+
+  $('rows').addEventListener('input', function (e) {
+    var k = e.target.getAttribute('data-k'); if (!k) return;
+    var i = +e.target.closest('.row').getAttribute('data-i');
+    state.rows[i][k] = e.target.value; renderPreview(); save();
+  });
+  $('rows').addEventListener('change', function (e) {
+    var k = e.target.getAttribute('data-k'); if (!k) return;
+    var i = +e.target.closest('.row').getAttribute('data-i');
+    state.rows[i][k] = e.target.value; fixRow(state.rows[i]); if (k === 'type') renderRows(); renderPreview(); save();
+  });
+  $('rows').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-del]'); if (!b) return;
+    state.rows.splice(+b.getAttribute('data-del'), 1); all();
+  });
+  $('addRow').addEventListener('click', function () {
+    var last = state.rows[state.rows.length - 1] || fixRow({ type: TYPES[0][0], fuel: '' });
+    state.rows.push({ reg: '', type: last.type, fuel: last.fuel }); all();
+    var inp = document.getElementById('reg' + (state.rows.length - 1)); if (inp) inp.focus();
+  });
+  $('usePaste').addEventListener('click', function () {
+    var rows = $('pasteBox').value.split(/\r?\n/).map(function (line) {
+      var parts = line.split(/[,\t;]/).map(function (p) { return p.trim().toLowerCase(); });
+      if (parts.length === 1) {
+        var words = parts[0].split(/\s+/), kw = S.pasteWords, tail = [];
+        while (words.length > 1 && kw.test(words[words.length - 1])) tail.unshift(words.pop());
+        parts = [words.join(' ')].concat(tail);
+      }
+      var reg = cleanReg(parts[0]); if (!reg) return null;
+      var rest = parts.slice(1).join(' ');
+      return fixRow({ reg: reg, type: S.parseType(rest), fuel: S.parseFuel(rest) });
+    }).filter(Boolean);
+    if (!rows.length) { flash(S.noneFound); return; }
+    state.rows = rows; all(); flash(rows.length + ' ' + S.noun + (rows.length > 1 ? 's' : '') + ' added from your list.');
+  });
+  document.querySelectorAll('input[name="copies"]').forEach(function (r) { r.addEventListener('change', function () { state.copies = +this.value; save(); }); });
+  document.querySelectorAll('input[name="cardfmt"]').forEach(function (r) { r.addEventListener('change', function () { state.cardFmt = this.value; save(); }); });
+  $('reportTo').addEventListener('input', function () { state.reportTo = this.value.slice(0, 60); renderPreview(); save(); });
+  document.querySelectorAll('input[name="fobs"]').forEach(function (r) { r.addEventListener('change', function () { state.fobs = +this.value; renderPreview(); save(); }); });
+
+  function flash(t) { $('flash').textContent = t; setTimeout(function () { $('flash').textContent = ''; }, 3500); }
+
+  function drawQr(doc, text, x, y, size) {
+    var q = qr(text), n = q.getModuleCount(), cell = size / n;
+    doc.setFillColor(0, 0, 0);
+    for (var r = 0; r < n; r++) {
+      var c = 0;
+      while (c < n) {
+        if (q.isDark(r, c)) { var s = c; while (c < n && q.isDark(r, c)) c++; doc.rect(x + s * cell, y + r * cell, (c - s) * cell + 0.01, cell + 0.01, 'F'); }
+        else c++;
+      }
+    }
+  }
+  function grid(doc, size, cols, rows, gap) {
+    var W = 210, H = 297, gw = cols * size + (cols - 1) * gap, gh = rows * size + (rows - 1) * gap;
+    var x0 = (W - gw) / 2, y0 = (H - gh) / 2, cells = [];
+    for (var r = 0; r < rows; r++) for (var c = 0; c < cols; c++) cells.push([x0 + c * (size + gap), y0 + r * (size + gap)]);
+    return cells;
+  }
+  function cutLine(doc, x, y, s) { doc.setDrawColor(190, 196, 194); doc.setLineWidth(0.15); doc.setLineDashPattern([1, 1], 0); doc.rect(x, y, s, s, 'S'); doc.setLineDashPattern([], 0); }
+
+  function makePdf() {
+    var J = window.jspdf && window.jspdf.jsPDF; if (!J) return null;
+    var doc = new J({ unit: 'mm', format: 'a4' }), list = [];
+    vehicles().forEach(function (v) { for (var k = 0; k < state.copies; k++) list.push(v); });
+    var S = 50, cells = grid(doc, S, 3, 5, 6), page = 0;
+    list.forEach(function (v, i) {
+      if (i && i % cells.length === 0) doc.addPage();
+      var x = cells[i % cells.length][0], y = cells[i % cells.length][1];
+      cutLine(doc, x, y, S);
+      doc.setFillColor(SC.band || "#0d1b2c"); doc.rect(x, y, S, 8, 'F');
+      doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(7.5);
+      doc.text(SC.top.toUpperCase(), x + S / 2, y + 5.3, { align: 'center' });
+      drawQr(doc, linkFor(v), x + (S - 26) / 2, y + 11.5, 26);
+      doc.setTextColor(13, 27, 44); doc.setFont('helvetica', 'bold'); doc.setFontSize(12.5);
+      doc.text(v.reg, x + S / 2, y + 44, { align: 'center' });
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(6); doc.setTextColor(61, 74, 88);
+      var sub = 'Scan me  |  ' + desc(v) + '  |  ' + SC.site, fs = 6; while (fs > 4 && doc.getTextWidth(sub) > S - 3) { fs -= 0.25; doc.setFontSize(fs); } doc.text(sub, x + S / 2, y + 47.8, { align: 'center' });
+    });
+    var fobList = [];
+    if (state.fobs > 0) vehicles().forEach(function (v) { for (var k = 0; k < state.fobs; k++) fobList.push(v); });
+    if (fobList.length) {
+      if (list.length) doc.addPage();
+      var F = 30, fc = grid(doc, F, 5, 8, 5);
+      fobList.forEach(function (v, i) {
+        if (i && i % fc.length === 0) doc.addPage();
+        var x = fc[i % fc.length][0], y = fc[i % fc.length][1];
+        cutLine(doc, x, y, F);
+        drawQr(doc, linkFor(v), x + 4.5, y + 1.8, 21);
+        doc.setTextColor(13, 27, 44); doc.setFont('helvetica', 'bold'); doc.setFontSize(7.5);
+        doc.text(v.reg, x + F / 2, y + 26, { align: 'center' });
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(4.6); doc.setTextColor(61, 74, 88);
+        doc.text(SC.fobPdf, x + F / 2, y + 28.6, { align: 'center' });
+      });
+    }
+    if (!list.length && !fobList.length) return null;
+    return doc;
+  }
+  function cardFront(doc, v, x, y) {
+    var W = 85.6, H = 54;
+    doc.setFillColor(255, 255, 255); doc.rect(x, y, W, H, 'F');
+    doc.setFillColor(SC.band || "#0d1b2c"); doc.rect(x, y, W, 9, 'F');
+    doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(9);
+    doc.text(SC.top.toUpperCase(), x + 5, y + 6);
+    drawQr(doc, linkFor(v), x + 5, y + 12, 33);
+    doc.setTextColor(13, 27, 44); doc.setFont('helvetica', 'bold'); doc.setFontSize(17);
+    doc.text(v.reg, x + 42, y + 22);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.setTextColor(28, 63, 122);
+    var dl = doc.splitTextToSize(desc(v).charAt(0).toUpperCase() + desc(v).slice(1), 39); doc.text(dl, x + 42, y + 28);
+    doc.setFontSize(7.5); doc.setTextColor(61, 74, 88);
+    doc.text(doc.splitTextToSize('Scan with your phone camera to start the check', 38), x + 42, y + 33.5 + dl.length * 3.6);
+    doc.setFillColor(SC.accent || "#c9a15b"); doc.rect(x, y + H - 5, W, 5, 'F');
+    doc.setTextColor(13, 27, 44); doc.setFont('helvetica', 'bold'); doc.setFontSize(6.5);
+    doc.text(SC.site, x + W - 5, y + H - 1.6, { align: 'right' });
+  }
+  function cardBack(doc, x, y) {
+    var W = 85.6, H = 54;
+    doc.setFillColor(255, 255, 255); doc.rect(x, y, W, H, 'F');
+    doc.setFillColor(SC.band || "#0d1b2c"); doc.rect(x, y, W, 9, 'F');
+    doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(9);
+    doc.text(SC.backTitle.toUpperCase(), x + 5, y + 6);
+    doc.setTextColor(13, 27, 44); doc.setFont('helvetica', 'normal'); doc.setFontSize(8);
+    SC.steps.forEach(function (t, i) { doc.text((i + 1) + '  ' + t, x + 5, y + 15.5 + i * 4.6); });
+    doc.setFillColor(251, 227, 224); doc.rect(x + 5, y + 34, W - 10, 6.5, 'F');
+    doc.setTextColor(138, 28, 18); doc.setFont('helvetica', 'bold'); doc.setFontSize(7.5);
+    doc.text(SC.danger, x + 7, y + 38.4);
+    doc.setTextColor(13, 27, 44); doc.setFont('helvetica', 'normal'); doc.setFontSize(7);
+    doc.text('Report defects to: ' + (state.reportTo || ''), x + 5, y + 45.5);
+    if (!state.reportTo) { doc.setDrawColor(150, 150, 150); doc.setLineWidth(0.2); doc.line(x + 28, y + 46, x + W - 5, y + 46); }
+    doc.setFillColor(SC.accent || "#c9a15b"); doc.rect(x, y + H - 5, W, 5, 'F');
+    doc.setTextColor(13, 27, 44); doc.setFont('helvetica', 'bold'); doc.setFontSize(6);
+    doc.text(SC.cardPdfFoot, x + 5, y + H - 1.6);
+  }
+  function makeCards() {
+    var J = window.jspdf && window.jspdf.jsPDF; if (!J) return null;
+    var list = vehicles(); if (!list.length) return null;
+    if (state.cardFmt === 'a4') {
+      var doc = new J({ unit: 'mm', format: 'a4' }), W = 85.6, H = 54, gx = 8, gy = 8;
+      var x0 = (210 - (2 * W + gx)) / 2, y0 = (297 - (4 * H + 3 * gy)) / 2, per = 8;
+      for (var p = 0; p < list.length; p += per) {
+        if (p) doc.addPage();
+        var chunk = list.slice(p, p + per);
+        chunk.forEach(function (v, i) {
+          var x = x0 + (i % 2) * (W + gx), y = y0 + Math.floor(i / 2) * (H + gy);
+          cardFront(doc, v, x, y); doc.setDrawColor(190, 196, 194); doc.setLineWidth(0.15); doc.setLineDashPattern([1, 1], 0); doc.rect(x, y, W, H, 'S'); doc.setLineDashPattern([], 0);
+        });
+        doc.addPage();
+        chunk.forEach(function (v, i) {
+          var x = x0 + (1 - i % 2) * (W + gx), y = y0 + Math.floor(i / 2) * (H + gy);
+          cardBack(doc, x, y); doc.setDrawColor(190, 196, 194); doc.setLineWidth(0.15); doc.setLineDashPattern([1, 1], 0); doc.rect(x, y, W, H, 'S'); doc.setLineDashPattern([], 0);
+        });
+      }
+      return doc;
+    }
+    var d = new J({ unit: 'mm', format: [85.6, 54], orientation: 'landscape' });
+    list.forEach(function (v, i) { if (i) d.addPage([85.6, 54], 'landscape'); cardFront(d, v, 0, 0); d.addPage([85.6, 54], 'landscape'); cardBack(d, 0, 0); });
+    return d;
+  }
+  function deliver(doc, name, okMsg) {
+    var blob = doc.output('blob'), file = null;
+    try { file = new File([blob], name, { type: 'application/pdf' }); } catch (e) {}
+    if (file && navigator.canShare && navigator.canShare({ files: [file] }) && /iPhone|iPad|Android/i.test(navigator.userAgent)) {
+      navigator.share({ files: [file], title: name }).catch(function () {});
+      return;
+    }
+    var url = URL.createObjectURL(blob), a = document.createElement('a');
+    a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 60000);
+    flash(okMsg + name);
+  }
+  $('makeCards').addEventListener('click', function () {
+    var doc;
+    try { doc = makeCards(); } catch (e) { doc = null; }
+    if (!doc) { flash(window.jspdf ? 'Add at least one ' + S.noun + ' first.' : "The PDF maker didn't load. Check your connection and reload the page."); return; }
+    deliver(doc, S.filePrefix + (state.cardFmt === 'a4' ? '-cards-a4.pdf' : '-cards.pdf'), 'Cards saved: ');
+  });
+  $('makePdf').addEventListener('click', function () {
+    var doc;
+    try { doc = makePdf(); } catch (e) { doc = null; }
+    if (!doc) { flash(window.jspdf ? 'Add at least one ' + S.noun + ' first.' : "The PDF maker didn't load. Check your connection and reload the page."); return; }
+    deliver(doc, S.filePrefix + '-stickers.pdf', 'Sticker sheet saved: ');
+  });
+
+  document.querySelector('input[name="copies"][value="' + (state.copies || 1) + '"]').checked = true;
+  var fr = document.querySelector('input[name="fobs"][value="' + (state.fobs || 0) + '"]'); if (fr) fr.checked = true;
+  var cf = document.querySelector('input[name="cardfmt"][value="' + (state.cardFmt || 'a4') + '"]'); if (cf) cf.checked = true;
+  $('reportTo').value = state.reportTo || '';
+  all();
+})();
+
+</script>
+</body>
+</html>
