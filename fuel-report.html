@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fuel Card Report | AVDT</title>
+<meta name="description" content="Free fuel card report for lorry, bus and van drivers and instructors. Photo the receipt, add the vehicle, location and mileage, then send a tidy PDF report by WhatsApp or email.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="canonical" href="https://avdt.co.uk/fuel-report.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AVDT – Abbott's Vocational Driver Training">
+<meta property="og:title" content="Fuel Card Report | AVDT">
+<meta property="og:description" content="Free fuel card report for lorry, bus and van drivers and instructors. Photo the receipt, add the vehicle, location and mileage, then send a tidy PDF report by WhatsApp or email.">
+<meta property="og:url" content="https://avdt.co.uk/fuel-report.html">
+<meta property="og:image" content="https://avdt.co.uk/assets/hero-banner.jpg">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/style.css">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "WebPage", "name": "Fuel Card Report", "description": "Free fuel card report for lorry, bus and van drivers and instructors. Photo the receipt, add the vehicle, location and mileage, then send a tidy PDF report by WhatsApp or email.", "url": "https://avdt.co.uk/fuel-report.html"}
+</script>
+<!-- Google tag (gtag.js) - Google Ads AW-18394247641 -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied',
+    'wait_for_update': 500
+  });
+  gtag('set', 'ads_data_redaction', true);
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18394247641"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'AW-18394247641');
+</script>
+<script src="assets/cookie-consent.js" defer></script>
+<link rel="apple-touch-icon" href="assets/apple-touch-icon-fuel.png">
+<meta name="apple-mobile-web-app-title" content="AVDT Fuel">
+<meta name="robots" content="noindex">
+<style>
+/* Digital walkaround check: page styles using the site's colours and fonts */
+.wc { max-width: 46rem; display: grid; gap: 22px; }
+.wc [hidden] { display: none !important; }
+.wc h2 { margin: 0 0 10px; font-size: 1.6rem; color: var(--navy-950); }
+.wc p { margin: 0 0 10px; }
+.wc a:not(.btn) { color: var(--royal-600); font-weight: 600; }
+.wc .panel { background: var(--paper-raised); border: 1px solid var(--steel-300); border-top: 5px solid var(--gold-500); padding: 20px; }
+.wc-note { background: var(--paper-raised); border: 1px solid var(--steel-300); border-left: 6px solid var(--royal-600); padding: 14px 18px; }
+.wc-note p { margin: 0; max-width: none; }
+.wc-note.danger { border-left-color: #c0392b; background: #fdf1ef; }
+.wc .label-like, .wc label { font-size: 0.92rem; font-weight: 600; color: var(--navy-950); }
+.wc .field { display: grid; gap: 6px; margin-bottom: 12px; }
+.wc .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: 0 14px; }
+.wc input[type="text"], .wc input[type="number"], .wc textarea { width: 100%; min-height: 48px; padding: 10px 14px; font: inherit; font-size: 1rem; color: var(--ink); background: #fff; border: 1px solid var(--steel-300); border-radius: 3px; }
+.wc textarea { min-height: 70px; resize: vertical; }
+.wc .toggle { display: inline-flex; border: 1px solid var(--steel-300); border-radius: 3px; overflow: hidden; }
+.wc .toggle label { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; min-height: 48px; cursor: pointer; background: #fff; }
+.wc .toggle label + label { border-left: 1px solid var(--steel-300); }
+.wc .toggle input { width: 18px; height: 18px; accent-color: var(--royal-700); }
+.wc .toggle label:has(input:checked) { background: var(--royal-800); color: #fff; }
+.wc .hint { font-size: 0.88rem; color: var(--steel-500); }
+.wc .progress { display: flex; align-items: center; gap: 12px; margin: 4px 0 14px; font-weight: 600; color: var(--navy-950); position: sticky; top: 64px; background: var(--paper-raised); padding: 8px 0; z-index: 2; }
+.wc .bar { flex: 1; height: 10px; background: var(--steel-200); border-radius: 5px; overflow: hidden; }
+.wc .bar span { display: block; height: 100%; width: 0; background: var(--gold-500); transition: width .2s; }
+.wc .grp { margin: 18px 0 8px; font: 700 1rem var(--font-body); letter-spacing: 0.06em; text-transform: uppercase; color: var(--royal-700); }
+.wc .chk { border-top: 1px solid var(--steel-200); padding: 12px 0; }
+.wc .chk-row { display: flex; gap: 12px; align-items: center; justify-content: space-between; }
+.wc .chk-text { min-width: 0; }
+.wc .chk-name { font-weight: 700; color: var(--navy-950); }
+.wc .chk-desc { display: block; font-size: 0.88rem; color: var(--ink-soft); }
+.wc .chk-btns { display: flex; gap: 6px; flex: none; }
+.wc .chk-btns button { min-width: 56px; min-height: 44px; padding: 6px 10px; font: 600 0.92rem var(--font-body); border: 1.5px solid var(--steel-300); border-radius: 3px; background: #fff; color: var(--navy-950); cursor: pointer; }
+.wc .chk-btns button[aria-pressed="true"].ok { background: #2e7d32; border-color: #2e7d32; color: #fff; }
+.wc .chk-btns button[aria-pressed="true"].na { background: var(--steel-500); border-color: var(--steel-500); color: #fff; }
+.wc .chk.is-na .chk-name, .wc .chk.is-na .chk-desc { opacity: .6; }
+.wc .field label.inline { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; min-height: 36px; }
+.wc .field input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--royal-700); }
+.wc .chk-btns button[aria-pressed="true"].bad { background: #c0392b; border-color: #c0392b; color: #fff; }
+.wc .chk.is-ok { background: linear-gradient(90deg, rgba(46,125,50,.06), transparent); }
+.wc .chk.is-bad { background: linear-gradient(90deg, rgba(192,57,43,.07), transparent); }
+.wc .defect { margin-top: 10px; display: grid; gap: 8px; }
+.wc .defect label.inline { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
+.wc .defect input[type="checkbox"] { width: 20px; height: 20px; accent-color: #c0392b; }
+.wc .summary { border: 1px solid var(--steel-300); padding: 14px 16px; background: #fff; margin-bottom: 14px; font-size: 0.95rem; }
+.wc .summary .res { display: inline-block; margin: 6px 0 10px; padding: 4px 12px; border-radius: 3px; font: 700 1.3rem var(--font-display); }
+.wc .summary .res.nil { background: #e3f1e3; color: #1d5a24; }
+.wc .summary .res.def { background: #fbe3e0; color: #8a1c12; }
+.wc .summary .res.todo { background: var(--steel-200); color: var(--navy-950); }
+.wc .summary ul { margin: 6px 0 0; padding-left: 1.2rem; }
+.wc .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.wc .btn-primary { color: var(--navy-950); }
+.wc .flash { display: block; min-height: 1.2em; font-size: 0.88rem; color: var(--steel-500); margin-top: 8px; }
+.wc .home-steps { margin: 0 0 10px; padding-left: 1.2rem; display: grid; gap: 8px; }
+.wc .foot { font-size: 0.85rem; color: var(--steel-500); max-width: none; }
+@media (max-width: 420px) { .wc .chk-row { flex-direction: column; align-items: stretch; } .wc .chk-btns button { flex: 1; } }
+@media print {
+  header, footer, .page-header, .hazard-stripe, .cta-band, .cookie-banner, #cookie-banner, .wc-note, .wc .actions, .wc .flash, .wc .hint, #allOk, .wc .progress, .skip-link { display: none !important; }
+  body { background: #fff; }
+  .section { padding: 0 !important; }
+  .wc .panel { border: 0; padding: 0; }
+  .wc #h-veh, .wc #h-checks { font-size: 1.1rem; }
+  .wc .chk { padding: 4px 0; break-inside: avoid; }
+  .wc .chk-btns button[aria-pressed="false"] { display: none; }
+  .wc .chk-desc { display: none; }
+}
+.wc .toggle-3 { flex-wrap: wrap; }
+@media (max-width: 420px) { .wc .toggle-3 { display: flex; } .wc .toggle-3 label { flex: 1 1 auto; justify-content: center; padding: 10px 12px; } }
+.wc .learner { display: flex; gap: 10px; align-items: center; margin-top: 4px; padding: 12px 14px; border: 1px dashed var(--steel-300); border-radius: 3px; cursor: pointer; font-weight: 400; }
+.wc .learner input { width: 22px; height: 22px; accent-color: var(--royal-700); flex: none; }
+.wc .chk-why { display: block; margin-top: 6px; padding: 8px 10px; background: #eef3fb; border-left: 3px solid var(--royal-500); font-size: 0.88rem; color: var(--navy-950); }
+.wc .danger-text { color: #8a1c12; }
+.wc .photos { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.wc .ph { position: relative; width: 84px; height: 84px; }
+.wc .ph img { width: 100%; height: 100%; object-fit: cover; border-radius: 3px; border: 1px solid var(--steel-300); }
+.wc .ph-del { position: absolute; top: -8px; right: -8px; width: 28px; height: 28px; border-radius: 50%; border: 0; background: #8a1c12; color: #fff; font-size: 1.1rem; line-height: 1; cursor: pointer; }
+.wc .ph-add { position: relative; overflow: hidden; min-height: 44px; cursor: pointer; }
+.wc .ph-input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.wc .fuel-field { grid-column: 1 / -1; }
+.wc .gauge { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid var(--steel-300); border-radius: 3px; overflow: hidden; max-width: 26rem; }
+.wc .gauge label { position: relative; display: flex; align-items: center; justify-content: center; min-height: 52px; cursor: pointer; background: #fff; font: 700 1.2rem var(--font-display); color: var(--navy-950); }
+.wc .gauge label + label { border-left: 1px solid var(--steel-300); }
+.wc .gauge input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.wc .gauge label:has(input:focus-visible) { outline: 3px solid var(--gold-500); outline-offset: -3px; }
+.wc .gauge label:has(input:checked) { background: var(--royal-800); color: #fff; }
+.wc .gauge label:first-child:has(input:checked) { background: #c0392b; }
+.wc .photo-note { margin: 0 0 14px; padding: 10px 14px; background: #eef3fb; border-left: 4px solid var(--royal-500); font-size: 0.92rem; color: var(--ink); }
+.wc textarea#notes { min-height: 70px; }
+.wc .fuel-log { list-style: none; margin: 0 0 8px; padding: 0; display: grid; gap: 8px; }
+.wc .fuel-log li { position: relative; padding: 10px 52px 10px 12px; background: var(--paper); border: 1px solid var(--steel-300); border-radius: 3px; font-size: 0.95rem; }
+.wc .fuel-log .log-del { position: absolute; top: 50%; right: 8px; transform: translateY(-50%); }
+.wc .log-total { margin: 6px 0 12px; }
+.wc #photos .ph img { max-height: 160px; width: auto; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Primary">
+    <a class="brand" href="index.html">
+      <picture><source srcset="assets/logo-112.webp" type="image/webp"><img class="brand-logo" src="assets/logo-112.png" alt="AVDT logo" width="56" height="56"></picture>
+      <span class="brand-text">
+        <span class="brand-mark">AVDT</span>
+        <span class="brand-sub">Abbott's Vocational Driver Training</span>
+      </span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu"><span class="nav-toggle-bars" aria-hidden="true"></span>Menu</button>
+    <ul class="nav-links" id="primary-menu">
+      <li><a href="forklift-training.html">Forklift</a></li>
+      <li><a href="telehandler-training.html">Telehandler</a></li>
+      <li><a href="lgv-training.html">LGV &amp; PCV</a></li>
+      <li><a href="lgv-training.html#c1-d1">C1 Ambulance</a></li>
+      <li><a href="d1-minibus-training.html">D1 Minibus</a></li>
+      <li><a href="driver-cpc.html">Driver CPC</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="page-header hero--rays">
+    <div class="container">
+      <div class="section-label" style="color:var(--gold-500);">Free tool</div>
+      <h1>Fuel card report</h1>
+      <p>Filled up on a company fuel card? Take a photo of the receipt, add the vehicle, place and mileage, then send a tidy report to your employer or the training school by WhatsApp or email.</p>
+    </div>
+  </section>
+
+  <div class="hazard-stripe" role="presentation"></div>
+
+  <section class="section section-tight">
+    <div class="container">
+      <div class="wc" id="fr">
+
+        <div class="wc-note">
+          <p><strong>Follow your company's fuel card rules first.</strong> This makes a report to go with the receipt; it doesn't replace the receipt. Your details stay on this phone and are only sent to the people you choose to send them to.</p>
+        </div>
+
+        <section class="panel" aria-labelledby="h-me">
+          <h2 id="h-me">1. Your details</h2>
+          <p class="hint">Filled in once, then remembered on this phone.</p>
+          <div class="fields">
+            <div class="field"><label for="name">Your name</label><input id="name" type="text" autocomplete="name"></div>
+            <div class="field"><label for="company">Report to (company)</label><input id="company" type="text" placeholder="e.g. the training school or haulier"></div>
+            <div class="field"><label for="card4">Fuel card: last 4 digits only</label><input id="card4" type="text" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" autocomplete="off"><span class="hint">Never enter the full card number or PIN.</span></div>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="h-fill">
+          <h2 id="h-fill">2. This fill-up</h2>
+          <div class="fields">
+            <div class="field"><label for="when">Date and time</label><input id="when" type="datetime-local"></div>
+            <div class="field"><label for="reg">Vehicle reg / fleet no.</label><input id="reg" type="text" autocomplete="off" autocapitalize="characters"></div>
+            <div class="field"><label for="loc">Training or work location</label><input id="loc" type="text" placeholder="e.g. Plymouth"></div>
+            <div class="field"><label for="station">Fuel station (optional)</label><input id="station" type="text" placeholder="e.g. Tesco, Marsh Mills"></div>
+            <div class="field"><label for="odo">Odometer</label><input id="odo" type="number" inputmode="numeric" min="0"></div>
+          </div>
+          <div class="fields">
+            <div class="field"><label for="litres">Diesel, litres</label><input id="litres" type="number" inputmode="decimal" min="0" step="any"></div>
+            <div class="field"><label for="cost">Diesel, cost £</label><input id="cost" type="number" inputmode="decimal" min="0" step="any"></div>
+            <div class="field"><label for="ablitres">AdBlue, litres (if any)</label><input id="ablitres" type="number" inputmode="decimal" min="0" step="any"></div>
+            <div class="field"><label for="abcost">AdBlue, cost £ (if any)</label><input id="abcost" type="number" inputmode="decimal" min="0" step="any"></div>
+          </div>
+          <div class="field"><label for="notes">Notes (optional)</label><textarea id="notes" placeholder="e.g. vehicle low on fuel at handover"></textarea></div>
+          <div class="field">
+            <span class="label-like">Receipt photo</span>
+            <div class="photos" id="photos"></div>
+            <span class="hint">Lay the receipt flat, in good light, with the whole slip in the picture. Up to 2 photos, e.g. a long receipt in two halves.</span>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="h-send">
+          <h2 id="h-send">3. Send it</h2>
+          <div id="summary" class="summary" aria-live="polite"></div>
+          <div class="actions">
+            <button type="button" class="btn btn-primary" id="pdfBtn">Send report (PDF)</button>
+            <button type="button" class="btn btn-outline-dark" id="shareBtn">Send as a message</button>
+            <button type="button" class="btn btn-outline-dark" id="newBtn">Start a new report</button>
+          </div>
+          <span class="flash" id="flash" role="status"></span>
+          <p class="hint">"Send report (PDF)" makes a PDF with your details and the receipt photo, and opens your phone's share menu so you can send it by WhatsApp or email. "Send as a message" sends the details as text only: attach the receipt photo yourself. Sending also adds the fill-up to your log below.</p>
+        </section>
+
+        <section class="panel" aria-labelledby="h-log">
+          <h2 id="h-log">Your fuel log</h2>
+          <div class="field">
+            <span class="label-like" id="rangeLabel">Show</span>
+            <div class="toggle toggle-3" role="radiogroup" aria-labelledby="rangeLabel">
+              <label><input type="radio" name="range" value="week" checked> This week</label>
+              <label><input type="radio" name="range" value="last"> Last week</label>
+              <label><input type="radio" name="range" value="all"> All</label>
+            </div>
+          </div>
+          <div id="log"></div>
+          <div class="actions">
+            <button type="button" class="btn btn-outline-dark" id="logPdfBtn">Send log as PDF</button>
+          </div>
+          <p class="hint">The log keeps the details of each fill-up on this phone, without the photos, so you can send a weekly summary or check it against your timesheet. Weeks run Monday to Sunday.</p>
+        </section>
+
+        <section class="panel" aria-labelledby="h-home">
+          <h2 id="h-home">Keep it on your phone</h2>
+          <ul class="home-steps">
+            <li><strong>iPhone:</strong> open this page in Safari, tap the <strong>Share</strong> button (the square with an arrow), then <strong>Add to Home Screen</strong>.</li>
+            <li><strong>Android:</strong> open this page in Chrome, tap the <strong>three dots</strong> at the top right, then <strong>Add to home screen</strong>.</li>
+          </ul>
+        </section>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" style="margin-bottom:14px;">
+          <picture><source srcset="assets/logo-112.webp" type="image/webp"><img class="brand-logo" src="assets/logo-112.png" alt="AVDT logo" width="56" height="56"></picture>
+          <span class="brand-mark">AVDT</span>
+        </a>
+        <p style="max-width:36ch; color:var(--steel-300);">Stuart Abbott, trading as Abbott's Vocational Driver Training. On-site forklift and telehandler operator training, LGV (lorry) and PCV (bus and minibus) driver training, and event water safety cover across Devon and Cornwall.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="forklift-training.html">Forklift Training</a>
+        <a href="telehandler-training.html">Telehandler Training</a>
+        <a href="lgv-training.html">LGV &amp; PCV Training</a>
+        <a href="lgv-training.html#c1-d1">C1 Ambulance Training</a>
+        <a href="d1-minibus-training.html">D1 Minibus Training</a>
+        <a href="driver-cpc.html">Driver CPC</a>
+        <a href="https://water.avdt.co.uk/">Water Safety Cover</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="resources.html">Resources</a>
+        <a href="privacy.html">Privacy notice</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:info@avdt.co.uk">info@avdt.co.uk</a>
+        <a href="tel:07807395913">07807 395913</a>
+        <a href="https://g.page/r/CQ6pZFvB53g9EBM/review" target="_blank" rel="noopener">Leave a Google review</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> Abbott's Vocational Driver Training. All rights reserved.</span>
+      <span>ICO registered — ZC212008</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+<script src="assets/nav.js" defer></script>
+<script src="assets/signup.js" defer></script>
+<script src="assets/jspdf/jspdf.umd.min.js"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var KEY = 'avdt-fuel-v1';
+  function nowLocal() { var d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 16); }
+  function blank(keep) { return { id: null, when: nowLocal(), reg: keep ? keep.reg : '', loc: keep ? keep.loc : '', station: '', odo: '', litres: '', cost: '', ablitres: '', abcost: '', notes: '', photos: [] }; }
+  var state = { me: { name: '', company: '', card4: '' }, cur: blank(), log: [], range: 'week' };
+  try { var s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s && s.cur) state = s; } catch (e) {}
+  var warned = false;
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); }
+    catch (e) { if (!warned && state.cur.photos.length) { warned = true; flash('This phone is short of space, so the photo may not be kept if the page closes. Send the report before you leave this page.'); } }
+  }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function flash(t) { $('flash').textContent = t; setTimeout(function () { $('flash').textContent = ''; }, 3500); }
+  function num(v) { var n = parseFloat(v); return isNaN(n) ? 0 : n; }
+  function money(n) { return '£' + n.toFixed(2); }
+  function litres(n) { return (Math.round(n * 100) / 100) + ' L'; }
+  function whenText(w) {
+    var d = new Date(w || Date.now()); if (isNaN(d)) d = new Date();
+    return d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }) + ', ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+  }
+  function ppl(cost, l) { return l > 0 && cost > 0 ? (cost / l * 100).toFixed(1) + 'p a litre' : ''; }
+
+  var ME = ['name', 'company', 'card4'], CUR = ['when', 'reg', 'loc', 'station', 'odo', 'litres', 'cost', 'ablitres', 'abcost', 'notes'];
+  function fill() {
+    ME.forEach(function (k) { $(k).value = state.me[k] || ''; });
+    CUR.forEach(function (k) { $(k).value = state.cur[k] || ''; });
+    document.querySelectorAll('input[name="range"]').forEach(function (r) { r.checked = r.value === state.range; });
+  }
+  ME.forEach(function (k) {
+    $(k).addEventListener('input', function () {
+      var v = this.value;
+      if (k === 'card4') { v = v.replace(/\D/g, '').slice(0, 4); this.value = v; }
+      state.me[k] = v.trim(); renderSummary(); save();
+    });
+  });
+  CUR.forEach(function (k) {
+    $(k).addEventListener('input', function () {
+      var v = this.value; if (k === 'reg') v = v.toUpperCase();
+      state.cur[k] = k === 'notes' ? v : v.trim(); state.cur.id = null; renderSummary(); save();
+    });
+  });
+
+  // receipt photos
+  function shrink(file, cb) {
+    var reader = new FileReader();
+    reader.onload = function () {
+      var img = new Image();
+      img.onload = function () {
+        var max = 1400, w = img.naturalWidth, h = img.naturalHeight, k = Math.min(1, max / Math.max(w, h));
+        var cv = document.createElement('canvas'); cv.width = Math.round(w * k); cv.height = Math.round(h * k);
+        cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+        cb(cv.toDataURL('image/jpeg', 0.7), cv.width, cv.height);
+      };
+      img.onerror = function () { cb(null); };
+      img.src = reader.result;
+    };
+    reader.onerror = function () { cb(null); };
+    reader.readAsDataURL(file);
+  }
+  function renderPhotos() {
+    var p = state.cur.photos;
+    $('photos').innerHTML = p.map(function (ph, n) { return '<span class="ph"><img src="' + ph.d + '" alt="Receipt photo ' + (n + 1) + '"><button type="button" class="ph-del" data-n="' + n + '" aria-label="Remove photo ' + (n + 1) + '">&times;</button></span>'; }).join('') +
+      (p.length < 2 ? '<label class="btn btn-outline-dark ph-add">' + (p.length ? 'Add another photo' : 'Take a photo of the receipt') + '<input type="file" accept="image/*" capture="environment" class="ph-input" id="phIn"></label>' : '');
+  }
+  $('photos').addEventListener('click', function (e) {
+    var b = e.target.closest('.ph-del'); if (!b) return;
+    state.cur.photos.splice(+b.getAttribute('data-n'), 1); state.cur.id = null; renderPhotos(); renderSummary(); save();
+  });
+  $('photos').addEventListener('change', function (e) {
+    if (!e.target.files || !e.target.files[0]) return;
+    flash('Adding photo…');
+    shrink(e.target.files[0], function (d, w, h) {
+      if (!d) { flash("That photo couldn't be added. Try taking it again."); return; }
+      state.cur.photos.push({ d: d, w: w, h: h }); state.cur.id = null; renderPhotos(); renderSummary(); save(); flash('Photo added. It goes into the PDF.');
+    });
+  });
+
+  function missing() {
+    var c = state.cur, m = [];
+    if (!c.reg) m.push('vehicle reg');
+    if (!c.loc) m.push('location');
+    if (!num(c.litres) && !num(c.ablitres)) m.push('litres');
+    if (!c.photos.length) m.push('receipt photo');
+    return m;
+  }
+  function renderSummary() {
+    var c = state.cur, me = state.me, m = missing(), l = num(c.litres), co = num(c.cost), al = num(c.ablitres), ac = num(c.abcost);
+    $('summary').innerHTML = '<div><strong>' + esc(c.reg || 'Vehicle not entered') + '</strong> · ' + esc(c.loc || 'location not entered') + '</div>' +
+      '<div>' + esc(whenText(c.when)) + (c.odo ? ' · ' + esc(c.odo) + ' miles' : '') + '</div>' +
+      (l ? '<div>Diesel: ' + litres(l) + (co ? ', ' + money(co) + ' (' + ppl(co, l) + ')' : '') + '</div>' : '') +
+      (al ? '<div>AdBlue: ' + litres(al) + (ac ? ', ' + money(ac) : '') + '</div>' : '') +
+      '<div>' + esc(me.name || 'Your name not entered') + (me.company ? ' → ' + esc(me.company) : '') + (me.card4 ? ' · card ending ' + esc(me.card4) : '') + '</div>' +
+      (m.length ? '<span class="res todo">Still to add: ' + esc(m.join(', ')) + '</span>' : '<span class="res nil">Ready to send</span>');
+  }
+
+  function reportText(c) {
+    var me = state.me, L = [], l = num(c.litres), co = num(c.cost), al = num(c.ablitres), ac = num(c.abcost);
+    L.push('Fuel card report' + (me.company ? ' for ' + me.company : ''));
+    L.push('Date: ' + whenText(c.when));
+    L.push('Vehicle: ' + (c.reg || '-'));
+    L.push('Location: ' + (c.loc || '-') + (c.station ? ' (fuel station: ' + c.station + ')' : ''));
+    if (c.odo) L.push('Odometer: ' + c.odo);
+    if (l) L.push('Diesel: ' + litres(l) + (co ? ', ' + money(co) + ' (' + ppl(co, l) + ')' : ''));
+    if (al) L.push('AdBlue: ' + litres(al) + (ac ? ', ' + money(ac) : ''));
+    if (co || ac) L.push('Total: ' + money(co + ac));
+    if (me.card4) L.push('Fuel card ending: ' + me.card4);
+    L.push('Driver: ' + (me.name || '-'));
+    if (c.notes) L.push('Notes: ' + c.notes);
+    L.push('Receipt: ' + (c.photos && c.photos.length ? 'photo in the PDF report' : 'photo sent separately'));
+    L.push('Sent using the free AVDT fuel card report - avdt.co.uk');
+    return L.join('\n');
+  }
+
+  function addToLog() {
+    var c = state.cur;
+    if (c.id) { var i = state.log.map(function (e) { return e.id; }).indexOf(c.id); if (i >= 0) state.log.splice(i, 1); }
+    c.id = c.id || String(Date.now());
+    var e = {}; CUR.forEach(function (k) { e[k] = c[k]; }); e.id = c.id; e.ph = c.photos.length;
+    state.log.push(e);
+    state.log.sort(function (a, b) { return String(a.when).localeCompare(String(b.when)); });
+    save(); renderLog();
+  }
+
+  function pdfDoc() { var J = window.jspdf && window.jspdf.jsPDF; return J ? new J({ unit: 'mm', format: 'a4' }) : null; }
+  function header(doc, title, sub) {
+    doc.setFillColor('#0d1b2c'); doc.rect(0, 0, 210, 24, 'F');
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(16); doc.setTextColor('#ffffff'); doc.text(title, 15, 12);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.text(sub, 15, 18);
+    doc.setTextColor('#c9a15b'); doc.text('avdt.co.uk', 195, 12, { align: 'right' });
+  }
+  function deliver(doc, name, okText) {
+    var blob = doc.output('blob'), file = null;
+    try { file = new File([blob], name, { type: 'application/pdf' }); } catch (e) {}
+    if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator.share({ files: [file], title: name }).catch(function (err) { if (err && err.name !== 'AbortError') flash("Couldn't open the share menu. Try again."); });
+      return;
+    }
+    var url = URL.createObjectURL(blob), a = document.createElement('a');
+    a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 60000);
+    flash(okText + name);
+  }
+  function safe(s) { return String(s || '').replace(/[^A-Za-z0-9]+/g, ''); }
+
+  $('pdfBtn').addEventListener('click', function () {
+    var c = state.cur, me = state.me, doc = pdfDoc();
+    if (!doc) { flash("The PDF maker didn't load. Check your signal, reload the page and try again."); return; }
+    var m = missing().filter(function (x) { return x !== 'receipt photo'; });
+    if (m.length) { flash('Please add the ' + m.join(', ') + ' first.'); return; }
+    header(doc, 'Fuel card report', (me.company ? 'For ' + me.company + '  -  ' : '') + 'from ' + (me.name || 'driver'));
+    var y = 36, rows = [['Date', whenText(c.when)], ['Vehicle', c.reg], ['Location', c.loc]];
+    if (c.station) rows.push(['Fuel station', c.station]);
+    if (c.odo) rows.push(['Odometer', c.odo]);
+    var l = num(c.litres), co = num(c.cost), al = num(c.ablitres), ac = num(c.abcost);
+    if (l) rows.push(['Diesel', litres(l) + (co ? '   ' + money(co) + '   (' + ppl(co, l) + ')' : '')]);
+    if (al) rows.push(['AdBlue', litres(al) + (ac ? '   ' + money(ac) : '')]);
+    if (co || ac) rows.push(['Total', money(co + ac)]);
+    if (me.card4) rows.push(['Fuel card ending', me.card4]);
+    rows.push(['Driver', me.name || '-']);
+    if (c.notes) rows.push(['Notes', c.notes]);
+    rows.forEach(function (r) {
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(10.5); doc.setTextColor('#3d4a58'); doc.text(r[0], 15, y);
+      doc.setFont('helvetica', r[0] === 'Total' ? 'bold' : 'normal'); doc.setTextColor('#16202b');
+      var t = doc.splitTextToSize(String(r[1]), 130); doc.text(t, 62, y);
+      y += 6.2 * t.length; doc.setDrawColor('#e4e7e6'); doc.line(15, y - 4, 195, y - 4);
+    });
+    y += 4;
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(12); doc.setTextColor('#16202b');
+    doc.text(c.photos.length ? 'Receipt' : 'Receipt: not attached to this report', 15, y); y += 4;
+    c.photos.forEach(function (ph, i) {
+      var maxW = 180, maxH = 287 - y - 10, w = maxW, h = w * ph.h / ph.w;
+      if (h > maxH) { if (maxH < 90) { doc.addPage(); y = 15; maxH = 262; } h = Math.min(h, maxH); w = h * ph.w / ph.h; }
+      try { doc.addImage(ph.d, 'JPEG', 15, y, w, h); } catch (e) {}
+      y += h + 6;
+      if (i < c.photos.length - 1 && y > 200) { doc.addPage(); y = 15; }
+    });
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.setTextColor('#6b7480');
+    doc.text('Made with the free AVDT fuel card report - avdt.co.uk. The receipt photo is the record of the purchase.', 15, 290);
+    addToLog();
+    deliver(doc, 'fuel-' + safe(c.reg) + '-' + safe(c.loc) + '-' + String(c.when || '').slice(0, 10) + '.pdf', 'Report saved: ');
+  });
+
+  $('shareBtn').addEventListener('click', function () {
+    var m = missing().filter(function (x) { return x !== 'receipt photo'; });
+    if (m.length) { flash('Please add the ' + m.join(', ') + ' first.'); return; }
+    var text = reportText(state.cur).replace('photo in the PDF report', 'photo sent separately');
+    addToLog();
+    if (navigator.share) navigator.share({ title: 'Fuel card report', text: text }).catch(function () {});
+    else if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { flash('Report copied. Paste it into a message, then attach the receipt photo.'); }, function () { flash("Couldn't copy. Use Send report (PDF) instead."); });
+  });
+
+  $('newBtn').addEventListener('click', function () {
+    state.cur = blank(state.cur); fill(); renderPhotos(); renderSummary(); save();
+    flash('New report started. Vehicle and location kept.');
+    $('h-fill').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // log
+  function weekStart(offset) { var d = new Date(); d.setHours(0, 0, 0, 0); var day = (d.getDay() + 6) % 7; d.setDate(d.getDate() - day - 7 * offset); return d; }
+  function inRange(e) {
+    if (state.range === 'all') return true;
+    var t = new Date(e.when), s = weekStart(state.range === 'last' ? 1 : 0), end = new Date(s); end.setDate(end.getDate() + 7);
+    return t >= s && t < end;
+  }
+  function rangeName() { if (state.range === 'all') return 'All fill-ups'; var s = weekStart(state.range === 'last' ? 1 : 0), e = new Date(s); e.setDate(e.getDate() + 6); var f = function (d) { return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); }; return 'Week ' + f(s) + ' to ' + f(e); }
+  function shown() { return state.log.filter(inRange); }
+  function totals(list) { var t = { l: 0, c: 0, al: 0, ac: 0 }; list.forEach(function (e) { t.l += num(e.litres); t.c += num(e.cost); t.al += num(e.ablitres); t.ac += num(e.abcost); }); return t; }
+  function renderLog() {
+    var list = shown(), t = totals(list);
+    if (!list.length) { $('log').innerHTML = '<p class="hint">No fill-ups ' + (state.range === 'all' ? 'yet' : 'in this week') + '. They appear here when you send a report.</p>'; return; }
+    $('log').innerHTML = '<p class="hint">' + esc(rangeName()) + '</p><ul class="fuel-log">' + list.map(function (e) {
+      return '<li><div><strong>' + esc(new Date(e.when).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })) + '</strong> · ' + esc(e.reg) + ' · ' + esc(e.loc) + '</div>' +
+        '<div>' + (num(e.litres) ? litres(num(e.litres)) + (num(e.cost) ? ', ' + money(num(e.cost)) : '') : '') + (num(e.ablitres) ? ' + AdBlue ' + litres(num(e.ablitres)) : '') + '</div>' +
+        '<button type="button" class="ph-del log-del" data-id="' + esc(e.id) + '" aria-label="Remove this fill-up from the log">&times;</button></li>';
+    }).join('') + '</ul><p class="log-total"><strong>Total: ' + litres(t.l) + ' diesel' + (t.c ? ', ' + money(t.c) : '') + (t.al ? '; AdBlue ' + litres(t.al) + (t.ac ? ', ' + money(t.ac) : '') : '') + '</strong> (' + list.length + ' fill-up' + (list.length > 1 ? 's' : '') + ')</p>';
+  }
+  var pendingDel = null;
+  $('log').addEventListener('click', function (e) {
+    var b = e.target.closest('.log-del'); if (!b) return;
+    var id = b.getAttribute('data-id');
+    if (pendingDel !== id) { pendingDel = id; flash('Tap × again to remove that fill-up from the log.'); setTimeout(function () { pendingDel = null; }, 4000); return; }
+    state.log = state.log.filter(function (x) { return x.id !== id; }); pendingDel = null; save(); renderLog(); flash('Removed from the log.');
+  });
+  document.querySelectorAll('input[name="range"]').forEach(function (r) { r.addEventListener('change', function () { state.range = this.value; save(); renderLog(); }); });
+  $('logPdfBtn').addEventListener('click', function () {
+    var list = shown(), doc = pdfDoc(), me = state.me;
+    if (!list.length) { flash('There are no fill-ups to send for this period.'); return; }
+    if (!doc) { flash("The PDF maker didn't load. Check your signal, reload the page and try again."); return; }
+    header(doc, 'Fuel card log', rangeName() + (me.company ? '  -  for ' + me.company : '') + '  -  from ' + (me.name || 'driver'));
+    var y = 34, cols = [15, 52, 80, 118, 140, 160, 180];
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.setTextColor('#3d4a58');
+    ['Date', 'Vehicle', 'Location', 'Odometer', 'Diesel L', 'Diesel £', 'AdBlue L'].forEach(function (h, i) { doc.text(h, cols[i], y); });
+    y += 6; doc.setFont('helvetica', 'normal'); doc.setTextColor('#16202b');
+    list.forEach(function (e) {
+      if (y > 275) { doc.addPage(); y = 20; }
+      var d = new Date(e.when);
+      [d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }) + ' ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }), e.reg, doc.splitTextToSize(e.loc || '', 36)[0], e.odo || '', num(e.litres) ? String(num(e.litres)) : '', num(e.cost) ? num(e.cost).toFixed(2) : '', num(e.ablitres) ? String(num(e.ablitres)) : ''].forEach(function (v, i) { doc.text(String(v), cols[i], y); });
+      doc.setDrawColor('#e4e7e6'); doc.line(15, y + 1.8, 195, y + 1.8); y += 6.5;
+    });
+    var t = totals(list); y += 2;
+    doc.setFont('helvetica', 'bold'); doc.text('Total (' + list.length + ')', 15, y); doc.text(String(Math.round(t.l * 100) / 100), cols[4], y); doc.text(t.c ? t.c.toFixed(2) : '', cols[5], y); doc.text(t.al ? String(Math.round(t.al * 100) / 100) : '', cols[6], y);
+    if (t.ac) { y += 6; doc.setFont('helvetica', 'normal'); doc.text('AdBlue cost: ' + money(t.ac), 15, y); }
+    if (me.card4) { y += 8; doc.setFont('helvetica', 'normal'); doc.text('Fuel card ending ' + me.card4, 15, y); }
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.setTextColor('#6b7480');
+    doc.text('Receipts were sent with each fuel card report. Made with the free AVDT fuel card report - avdt.co.uk', 15, 290);
+    deliver(doc, 'fuel-log-' + (state.range === 'all' ? 'all' : weekStart(state.range === 'last' ? 1 : 0).toISOString().slice(0, 10)) + '.pdf', 'Log saved: ');
+  });
+
+  if (!state.cur.when) state.cur.when = nowLocal();
+  fill(); renderPhotos(); renderSummary(); renderLog();
+})();
+
+</script>
+</body>
+</html>
