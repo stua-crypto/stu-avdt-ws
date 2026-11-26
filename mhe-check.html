@@ -589,6 +589,10 @@
   var FL = { low: 'Low', full: 'Full' };
   function fuelText() { return FL[state.f.fuellevel] || state.f.fuellevel; }
   function levelName() { return (C.levelNames && C.levelNames[state.fuel]) || 'Fuel level'; }
+  function repairLink(b) {
+    var e = encodeURIComponent;
+    return 'https://avdt.co.uk/defect-repair.html?r=' + e((state.f.reg || '').replace(/\s+/g, '')) + '&f=' + e(b[0][1] + ': ' + (b[1].n || 'no details')) + '&d=' + e(stamp()) + '&by=' + e(state.f.driver || '');
+  }
   function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 
   function recordText() {
@@ -606,7 +610,7 @@
     if (!k.bad.length) lines.push(k.done === k.total ? 'Result: NIL DEFECTS' : 'Defects so far: none');
     else {
       lines.push('Result: ' + k.bad.length + ' DEFECT' + (k.bad.length > 1 ? 'S' : ''));
-      k.bad.forEach(function (b) { lines.push('- ' + b[0][1] + ': ' + (b[1].n || 'no details') + (b[1].d ? ' (DANGEROUS)' : '') + ((b[1].p || []).length ? ' [' + b[1].p.length + ' photo' + (b[1].p.length > 1 ? 's' : '') + ' in the PDF record]' : '')); });
+      k.bad.forEach(function (b) { lines.push('- ' + b[0][1] + ': ' + (b[1].n || 'no details') + (b[1].d ? ' (DANGEROUS)' : '') + ((b[1].p || []).length ? ' [' + b[1].p.length + ' photo' + (b[1].p.length > 1 ? 's' : '') + ' in the PDF record]' : '')); lines.push('  Record the repair: ' + repairLink(b)); });
     }
     lines.push(W.madeWith);
     return lines.join('\n');
@@ -722,7 +726,12 @@
     y += 3;
     if (k.bad.length) {
       line('Defects', 12, 'bold');
-      k.bad.forEach(function (b) { line('- ' + b[0][1] + ': ' + (b[1].n || 'no details') + (b[1].d ? ' (DANGEROUS)' : ''), 10); });
+      k.bad.forEach(function (b) {
+        line('- ' + b[0][1] + ': ' + (b[1].n || 'no details') + (b[1].d ? ' (DANGEROUS)' : ''), 10);
+        if (y > 282) { doc.addPage(); y = 15; }
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(9.5); doc.setTextColor('#1c3f7a');
+        doc.textWithLink('Workshop: tap here to record the repair', M + 4, y, { url: repairLink(b) }); y += 5.5;
+      });
       y += 3;
     }
     var last = '';
