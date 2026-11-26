@@ -136,6 +136,13 @@
 .wc .fuel-log .log-del { position: absolute; top: 50%; right: 8px; transform: translateY(-50%); }
 .wc .log-total { margin: 6px 0 12px; }
 .wc #photos .ph img { max-height: 160px; width: auto; }
+.wc .scan { display: grid; gap: 8px; margin: 4px 0 18px; padding: 14px; background: var(--paper); border: 1px dashed var(--steel-300); border-radius: 4px; }
+.wc .scan-btn { position: relative; overflow: hidden; justify-self: start; font-size: 1.05rem; }
+.wc .scan-btn.busy { opacity: 0.6; pointer-events: none; }
+.wc .scan .hint { margin: 0; }
+.wc .scan .hint.ok { color: #1d5a24; font-weight: 600; }
+.wc .scan .hint.warn { color: #8a5a00; font-weight: 600; }
+.wc input.auto, .wc textarea.auto { background: #fff6d6; border-color: var(--gold-500); }
 </style>
 </head>
 <body>
@@ -197,6 +204,10 @@
 
         <section class="panel" aria-labelledby="h-fill">
           <h2 id="h-fill">2. This fill-up</h2>
+          <div class="scan">
+            <label class="btn btn-primary scan-btn" id="scanLbl">Scan the receipt<input type="file" accept="image/*" capture="environment" class="ph-input" id="scanIn"></label>
+            <p class="hint" id="scanMsg">Take a photo of the receipt and the date, fuel station, litres, cost and card number fill in for you. Check them against the receipt, then add the vehicle, location and mileage if they've changed.</p>
+          </div>
           <div class="fields">
             <div class="field"><label for="when">Date and time</label><input id="when" type="datetime-local"></div>
             <div class="field"><label for="reg">Vehicle reg / fleet no.</label><input id="reg" type="text" autocomplete="off" autocapitalize="characters"></div>
@@ -214,7 +225,7 @@
           <div class="field">
             <span class="label-like">Receipt photo</span>
             <div class="photos" id="photos"></div>
-            <span class="hint">Lay the receipt flat, in good light, with the whole slip in the picture. Up to 2 photos, e.g. a long receipt in two halves.</span>
+            <span class="hint">The scanned receipt appears here. Lay the receipt flat, in good light, with the whole slip in the picture. Up to 2 photos, e.g. a long receipt in two halves.</span>
           </div>
         </section>
 
@@ -502,6 +513,8 @@
 
   $('newBtn').addEventListener('click', function () {
     state.cur = blank(state.cur); fill(); renderPhotos(); renderSummary(); save();
+    document.querySelectorAll('#fr .auto').forEach(function (el) { el.classList.remove('auto'); });
+    $('scanMsg').className = 'hint'; $('scanMsg').textContent = 'Take a photo of the receipt and the details fill in for you.';
     flash('New report started. Vehicle and location kept.');
     $('h-fill').scrollIntoView({ behavior: 'smooth' });
   });
@@ -557,6 +570,191 @@
     deliver(doc, 'fuel-log-' + (state.range === 'all' ? 'all' : weekStart(state.range === 'last' ? 1 : 0).toISOString().slice(0, 10)) + '.pdf', 'Log saved: ');
   });
 
+  // Reads fuel receipt text (from OCR) into fields. Everything it finds is for the driver to check.
+  function parseReceipt(text) {
+    var lines = String(text).split(/\r?\n/).map(function (l) { return l.replace(/\s+/g, ' ').trim(); }).filter(Boolean);
+    var out = {};
+    var MON = { jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12 };
+    function n(s) { return parseFloat(String(s).replace(',', '.')); }
+    function moneyIn(l) {
+      var m, res = [], re = /(?:£|gbp\s*)?(?<![\d.,])(\d{1,4}[.,]\d{2})(?![\d.,]*\s*(?:l\b|ltr|lt\b|litre|itr|p\b|p\/))/gi;
+      while ((m = re.exec(l))) res.push(n(m[1]));
+      return res;
+    }
+    function y4(y) { y = +y; return y < 100 ? 2000 + y : y; }
+    function pad(x) { return (x < 10 ? '0' : '') + x; }
+
+    // date and time
+    var date = null, time = null;
+    lines.forEach(function (l) {
+      if (!date) {
+        var m = l.match(/(?<!\d)(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{2,4})(?!\d)/);
+        if (m && +m[1] >= 1 && +m[1] <= 31 && +m[2] >= 1 && +m[2] <= 12) date = [y4(m[3]), +m[2], +m[1]];
+        else {
+          m = l.match(/(?<!\d)(\d{1,2})\s*[\-\/ ]?\s*(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s*[\-\/ ]?\s*(\d{2,4})(?!\d)/i);
+          if (m && +m[1] >= 1 && +m[1] <= 31) date = [y4(m[3]), MON[m[2].toLowerCase()], +m[1]];
+        }
+      }
+      if (!time) { var t = l.match(/(?<![\d.])([01]?\d|2[0-3])[:.]([0-5]\d)(?::[0-5]\d)?(?![\d.])/); if (t && !/[£$]|gbp|p\/l|price/i.test(l)) time = [+t[1], +t[2]]; }
+    });
+    if (date && date[0] >= 2020 && date[0] <= 2099) out.when = date[0] + '-' + pad(date[1]) + '-' + pad(date[2]) + 'T' + (time ? pad(time[0]) + ':' + pad(time[1]) : '12:00');
+
+    // station: first lines with words
+    var head = lines.slice(0, 3).filter(function (l) { return /[a-z]{2,}/i.test(l) && !/^(tel|vat|phone|www|receipt)/i.test(l) && !/\d{5,}/.test(l.replace(/\s/g, '')); });
+    function tidy(s) { s = s.replace(/[^A-Za-z0-9 &',\-]/g, ' ').replace(/\s+/g, ' ').trim(); return s === s.toUpperCase() ? s.toLowerCase().replace(/\b[a-z]/g, function (c) { return c.toUpperCase(); }).replace(/\bBp\b/, 'BP') : s; }
+    if (head.length) {
+      var a = tidy(head[0]), b = head[1] ? tidy(head[1]) : '';
+      if (b && b.toLowerCase().indexOf(a.toLowerCase()) === 0) out.station = b.charAt(0).toUpperCase() + b.slice(1);
+      else out.station = b && !/\d{2}[:.]\d{2}|\d+[.,]\d{2}/.test(b) ? a + ', ' + b : a;
+      out.station = out.station.slice(0, 60);
+    }
+
+    // AdBlue
+    lines.forEach(function (l, i) {
+      if (!/ad\s*-?\s*blue/i.test(l) || out.ablitres) return;
+      var q = l.match(/(\d{1,3}(?:[.,]\d{1,3})?)\s*(?:l\b|ltr|lt\b|litre|itr)/i);
+      if (q) out.ablitres = n(q[1]);
+      var mm = moneyIn(l); if (!mm.length && lines[i + 1]) mm = moneyIn(lines[i + 1]);
+      if (mm.length) out.abcost = mm[mm.length - 1];
+    });
+
+    // diesel litres
+    var litreRe = /(\d{1,4}[.,]\d{1,3})\s*(?:l\b|ltrs?|lt\b|litres?|itr)/i, kwRe = /(?:volume|litres?|ltrs?|qty|quantity|vol)\b\s*[:=]?\s*(\d{1,4}[.,]\d{1,3})/i;
+    var dieselIdx = -1;
+    lines.some(function (l, i) {
+      if (/ad\s*-?\s*blue/i.test(l)) return false;
+      var m = l.match(litreRe) || (!/price|unit|ppl|p\/l|£|@/i.test(l) && l.match(kwRe));
+      if (m) { out.litres = n(m[1]); dieselIdx = i; return true; }
+      return false;
+    });
+    if (!out.litres) lines.some(function (l, i) {
+      if (!/diesel|derv|gasoil/i.test(l)) return false;
+      var m = l.replace(/^.*?(diesel|derv|gasoil)/i, '').match(/(\d{1,4}[.,]\d{2,3})(?!\d)/);
+      if (m) { out.litres = n(m[1]); dieselIdx = i; return true; }
+      return false;
+    });
+    if (!out.litres) lines.some(function (l, i) {
+      if (/litres?|ltrs?|volume/i.test(l) && !/\d/.test(l) && lines[i + 1]) { var m = lines[i + 1].match(/(\d{1,4}[.,]\d{2,3})(?!\d)/g); if (m) { out.litres = n(m[m.length - 1]); dieselIdx = i + 1; return true; } }
+      return false;
+    });
+
+    // price per litre (pence)
+    lines.some(function (l) {
+      var m = l.match(/(\d{2,3}[.,]\d{1,2})\s*p(?:\s*\/\s*l|pl|\b)/i);
+      if (m) { out.ppl = n(m[1]); return true; }
+      if (/price|ppl|p\/l|per\s*l|unit|£\/l|@/i.test(l)) {
+        var k = l.match(/(?<![\d.,])([0-2][.,]\d{3})(?!\d)/);
+        if (k) { out.ppl = Math.round(n(k[1]) * 1000) / 10; return true; }
+      }
+      return false;
+    });
+
+    // total
+    lines.some(function (l) {
+      if (/total|balance|to pay|amount due|grand/i.test(l) && !/vat|sub\s*total|net/i.test(l)) { var mm = moneyIn(l); if (mm.length) { out.total = mm[mm.length - 1]; return true; } }
+      return false;
+    });
+
+    // diesel cost
+    [/amount|value|@|p\/l|gbp|£/i, /diesel|derv|gasoil/i].some(function (kw) {
+      return lines.some(function (l, i) {
+        if (/ad\s*-?\s*blue|vat|total|balance|card|change|price|unit/i.test(l)) return false;
+        if (i >= dieselIdx - 1 && kw.test(l)) {
+          var mm = moneyIn(l).filter(function (v) { return v !== out.litres; });
+          if (mm.length && mm[mm.length - 1] > 5) { out.cost = mm[mm.length - 1]; return true; }
+        }
+        return false;
+      });
+    });
+    if (!out.cost && out.total) out.cost = Math.round((out.total - (out.abcost || 0)) * 100) / 100;
+    if (!out.cost && out.litres && out.ppl) out.cost = Math.round(out.litres * out.ppl) / 100;
+    if (!out.litres && out.cost && out.ppl) out.litres = Math.round(out.cost / out.ppl * 10000) / 100;
+
+    // card: last 4 digits after masked characters
+    lines.some(function (l) {
+      var m = l.match(/(?:[x*#•.]{3,}|[xX*]{2,}.*?)\s*(\d{4})\s*$/i) || (/card|pan|acct|account/i.test(l) && l.match(/[^\d]\s*(\d{4})\s*$/));
+      if (m && !/\d{2}[:.]\d{2}$/.test(l) && !/£|gbp|\d[.,]\d{2}\s*$/i.test(l)) { out.card4 = m[1]; return true; }
+      return false;
+    });
+    if (out.litres && out.ppl && out.cost && Math.abs(out.litres * out.ppl / 100 - out.cost) / out.cost > 0.04) out.mismatch = true;
+    return out;
+  }
+
+  // ---- receipt scanning (runs on the phone; the photo is not sent anywhere) ----
+  var ocrWorker = null;
+  function loadScript(src) { return new Promise(function (res, rej) { var s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = rej; document.head.appendChild(s); }); }
+  function scanMsg(t, cls) { var m = $('scanMsg'); m.textContent = t; m.className = 'hint' + (cls ? ' ' + cls : ''); }
+  function getWorker() {
+    if (ocrWorker) return Promise.resolve(ocrWorker);
+    return (window.Tesseract ? Promise.resolve() : loadScript('assets/ocr/tesseract.min.js')).then(function () {
+      return Tesseract.createWorker('eng', 1, {
+        workerPath: 'assets/ocr/worker.min.js', corePath: 'assets/ocr/', langPath: 'assets/ocr/lang', workerBlobURL: false,
+        logger: function (m) { if (m.status === 'recognizing text') scanMsg('Reading the receipt… ' + Math.round(m.progress * 100) + '%'); else if (/load/.test(m.status)) scanMsg('Getting the receipt reader ready… (the first time takes a little longer)'); }
+      });
+    }).then(function (w) { ocrWorker = w; return w; });
+  }
+  function prepImage(file) {
+    return new Promise(function (res, rej) {
+      var r = new FileReader();
+      r.onload = function () {
+        var img = new Image();
+        img.onload = function () {
+          var k = Math.min(1, 2000 / Math.max(img.naturalWidth, img.naturalHeight)), cv = document.createElement('canvas');
+          cv.width = Math.round(img.naturalWidth * k); cv.height = Math.round(img.naturalHeight * k);
+          var cx = cv.getContext('2d'); cx.drawImage(img, 0, 0, cv.width, cv.height);
+          try {
+            var d = cx.getImageData(0, 0, cv.width, cv.height), a = d.data, lo = 255, hi = 0, i, g;
+            for (i = 0; i < a.length; i += 16) { g = a[i] * 0.3 + a[i + 1] * 0.59 + a[i + 2] * 0.11; if (g < lo) lo = g; if (g > hi) hi = g; }
+            var span = Math.max(40, hi - lo);
+            for (i = 0; i < a.length; i += 4) { g = (a[i] * 0.3 + a[i + 1] * 0.59 + a[i + 2] * 0.11 - lo) * 255 / span; a[i] = a[i + 1] = a[i + 2] = g < 0 ? 0 : g > 255 ? 255 : g; }
+            cx.putImageData(d, 0, 0);
+          } catch (e) {}
+          res(cv);
+        };
+        img.onerror = rej; img.src = r.result;
+      };
+      r.onerror = rej; r.readAsDataURL(file);
+    });
+  }
+  var FIELD_NAMES = { when: 'date and time', station: 'fuel station', litres: 'litres', cost: 'diesel cost', ablitres: 'AdBlue litres', abcost: 'AdBlue cost', card4: 'card number' };
+  function clearAuto() { document.querySelectorAll('#fr .auto').forEach(function (el) { el.classList.remove('auto'); }); }
+  function applyScan(f) {
+    var got = []; clearAuto();
+    ['when', 'station', 'litres', 'cost', 'ablitres', 'abcost'].forEach(function (k) {
+      if (f[k] === undefined || f[k] === '' || (typeof f[k] === 'number' && isNaN(f[k]))) return;
+      var v = typeof f[k] === 'number' ? String(k === 'cost' || k === 'abcost' ? f[k].toFixed(2) : f[k]) : f[k];
+      state.cur[k] = v; $(k).value = v; $(k).classList.add('auto'); got.push(FIELD_NAMES[k]);
+    });
+    if (f.card4) {
+      if (!state.me.card4) { state.me.card4 = f.card4; $('card4').value = f.card4; $('card4').classList.add('auto'); got.push(FIELD_NAMES.card4); }
+      else if (state.me.card4 !== f.card4) flash('The receipt shows a card ending ' + f.card4 + ', not ' + state.me.card4 + '. Check which card you used.');
+    }
+    state.cur.id = null; renderSummary(); save();
+    var miss = ['date and time', 'litres', 'diesel cost'].filter(function (x) { return got.indexOf(x) < 0; });
+    if (!got.length) scanMsg("Sorry, the receipt couldn't be read. Try again with the receipt flat, in good light and filling the picture, or type the details in. The photo is still attached.", 'warn');
+    else scanMsg('Filled in from the receipt: ' + got.join(', ') + '. Please check them (shaded yellow) against the receipt.' + (miss.length ? ' Couldn’t read: ' + miss.join(', ') + ', so please type ' + (miss.length > 1 ? 'these' : 'this') + ' in.' : '') + (f.mismatch ? ' The litres, price and cost don’t quite add up, so check those carefully.' : ''), miss.length || f.mismatch ? 'warn' : 'ok');
+  }
+  document.querySelectorAll('#fr input, #fr textarea').forEach(function (el) { el.addEventListener('input', function () { el.classList.remove('auto'); }); });
+  $('scanIn').addEventListener('change', function (e) {
+    var file = e.target.files && e.target.files[0]; if (!file) return;
+    e.target.value = '';
+    $('scanLbl').classList.add('busy');
+    scanMsg('Getting the receipt reader ready…');
+    shrink(file, function (d, w, h) {
+      if (d) { if (state.cur.photos.length >= 2) state.cur.photos.shift(); state.cur.photos.push({ d: d, w: w, h: h }); renderPhotos(); save(); }
+    });
+    var cvs;
+    prepImage(file).then(function (c) { cvs = c; return getWorker(); })
+      .then(function (w) { return w.setParameters({ tessedit_pageseg_mode: '6', preserve_interword_spaces: '1' }).then(function () { return w.recognize(cvs); }); })
+      .then(function (r) {
+        var f = parseReceipt(r.data.text);
+        if (f.litres || f.total) return f;
+        return ocrWorker.setParameters({ tessedit_pageseg_mode: '4' }).then(function () { return ocrWorker.recognize(cvs); }).then(function (r2) { var f2 = parseReceipt(r2.data.text); return Object.keys(f2).length > Object.keys(f).length ? f2 : f; });
+      })
+      .then(function (f) { applyScan(f); })
+      .catch(function () { scanMsg("The receipt reader didn't load. Check your signal and try again, or type the details in. The photo is still attached.", 'warn'); })
+      .then(function () { $('scanLbl').classList.remove('busy'); });
+  });
   if (!state.cur.when) state.cur.when = nowLocal();
   fill(); renderPhotos(); renderSummary(); renderLog();
 })();
