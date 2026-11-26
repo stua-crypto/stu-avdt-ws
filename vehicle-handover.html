@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vehicle Handover and Return Report | AVDT</title>
+<meta name="description" content="Free vehicle handover and return report for drivers: mileage, fuel, keys and walk-round damage photos when you collect, return or hand over a vehicle, as a PDF.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="canonical" href="https://avdt.co.uk/vehicle-handover.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AVDT – Abbott's Vocational Driver Training">
+<meta property="og:title" content="Vehicle Handover and Return Report | AVDT">
+<meta property="og:description" content="Free vehicle handover and return report for drivers: mileage, fuel, keys and walk-round damage photos when you collect, return or hand over a vehicle, as a PDF.">
+<meta property="og:url" content="https://avdt.co.uk/vehicle-handover.html">
+<meta property="og:image" content="https://avdt.co.uk/assets/hero-banner.jpg">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/style.css">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "WebPage", "name": "Vehicle Handover and Return Report", "description": "Free vehicle handover and return report for drivers: mileage, fuel, keys and walk-round damage photos when you collect, return or hand over a vehicle, as a PDF.", "url": "https://avdt.co.uk/vehicle-handover.html"}
+</script>
+<!-- Google tag (gtag.js) - Google Ads AW-18394247641 -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied',
+    'wait_for_update': 500
+  });
+  gtag('set', 'ads_data_redaction', true);
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18394247641"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'AW-18394247641');
+</script>
+<script src="assets/cookie-consent.js" defer></script>
+<link rel="apple-touch-icon" href="assets/apple-touch-icon-handover.png">
+<meta name="apple-mobile-web-app-title" content="AVDT Handover">
+<meta name="robots" content="noindex">
+<style>
+/* Digital walkaround check: page styles using the site's colours and fonts */
+.wc { max-width: 46rem; display: grid; gap: 22px; }
+.wc [hidden] { display: none !important; }
+.wc h2 { margin: 0 0 10px; font-size: 1.6rem; color: var(--navy-950); }
+.wc p { margin: 0 0 10px; }
+.wc a:not(.btn) { color: var(--royal-600); font-weight: 600; }
+.wc .panel { background: var(--paper-raised); border: 1px solid var(--steel-300); border-top: 5px solid var(--gold-500); padding: 20px; }
+.wc-note { background: var(--paper-raised); border: 1px solid var(--steel-300); border-left: 6px solid var(--royal-600); padding: 14px 18px; }
+.wc-note p { margin: 0; max-width: none; }
+.wc-note.danger { border-left-color: #c0392b; background: #fdf1ef; }
+.wc .label-like, .wc label { font-size: 0.92rem; font-weight: 600; color: var(--navy-950); }
+.wc .field { display: grid; gap: 6px; margin-bottom: 12px; }
+.wc .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: 0 14px; }
+.wc input[type="text"], .wc input[type="number"], .wc textarea { width: 100%; min-height: 48px; padding: 10px 14px; font: inherit; font-size: 1rem; color: var(--ink); background: #fff; border: 1px solid var(--steel-300); border-radius: 3px; }
+.wc textarea { min-height: 70px; resize: vertical; }
+.wc .toggle { display: inline-flex; border: 1px solid var(--steel-300); border-radius: 3px; overflow: hidden; }
+.wc .toggle label { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; min-height: 48px; cursor: pointer; background: #fff; }
+.wc .toggle label + label { border-left: 1px solid var(--steel-300); }
+.wc .toggle input { width: 18px; height: 18px; accent-color: var(--royal-700); }
+.wc .toggle label:has(input:checked) { background: var(--royal-800); color: #fff; }
+.wc .hint { font-size: 0.88rem; color: var(--steel-500); }
+.wc .progress { display: flex; align-items: center; gap: 12px; margin: 4px 0 14px; font-weight: 600; color: var(--navy-950); position: sticky; top: 64px; background: var(--paper-raised); padding: 8px 0; z-index: 2; }
+.wc .bar { flex: 1; height: 10px; background: var(--steel-200); border-radius: 5px; overflow: hidden; }
+.wc .bar span { display: block; height: 100%; width: 0; background: var(--gold-500); transition: width .2s; }
+.wc .grp { margin: 18px 0 8px; font: 700 1rem var(--font-body); letter-spacing: 0.06em; text-transform: uppercase; color: var(--royal-700); }
+.wc .chk { border-top: 1px solid var(--steel-200); padding: 12px 0; }
+.wc .chk-row { display: flex; gap: 12px; align-items: center; justify-content: space-between; }
+.wc .chk-text { min-width: 0; }
+.wc .chk-name { font-weight: 700; color: var(--navy-950); }
+.wc .chk-desc { display: block; font-size: 0.88rem; color: var(--ink-soft); }
+.wc .chk-btns { display: flex; gap: 6px; flex: none; }
+.wc .chk-btns button { min-width: 56px; min-height: 44px; padding: 6px 10px; font: 600 0.92rem var(--font-body); border: 1.5px solid var(--steel-300); border-radius: 3px; background: #fff; color: var(--navy-950); cursor: pointer; }
+.wc .chk-btns button[aria-pressed="true"].ok { background: #2e7d32; border-color: #2e7d32; color: #fff; }
+.wc .chk-btns button[aria-pressed="true"].na { background: var(--steel-500); border-color: var(--steel-500); color: #fff; }
+.wc .chk.is-na .chk-name, .wc .chk.is-na .chk-desc { opacity: .6; }
+.wc .field label.inline { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; min-height: 36px; }
+.wc .field input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--royal-700); }
+.wc .chk-btns button[aria-pressed="true"].bad { background: #c0392b; border-color: #c0392b; color: #fff; }
+.wc .chk.is-ok { background: linear-gradient(90deg, rgba(46,125,50,.06), transparent); }
+.wc .chk.is-bad { background: linear-gradient(90deg, rgba(192,57,43,.07), transparent); }
+.wc .defect { margin-top: 10px; display: grid; gap: 8px; }
+.wc .defect label.inline { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
+.wc .defect input[type="checkbox"] { width: 20px; height: 20px; accent-color: #c0392b; }
+.wc .summary { border: 1px solid var(--steel-300); padding: 14px 16px; background: #fff; margin-bottom: 14px; font-size: 0.95rem; }
+.wc .summary .res { display: inline-block; margin: 6px 0 10px; padding: 4px 12px; border-radius: 3px; font: 700 1.3rem var(--font-display); }
+.wc .summary .res.nil { background: #e3f1e3; color: #1d5a24; }
+.wc .summary .res.def { background: #fbe3e0; color: #8a1c12; }
+.wc .summary .res.todo { background: var(--steel-200); color: var(--navy-950); }
+.wc .summary ul { margin: 6px 0 0; padding-left: 1.2rem; }
+.wc .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.wc .btn-primary { color: var(--navy-950); }
+.wc .flash { display: block; min-height: 1.2em; font-size: 0.88rem; color: var(--steel-500); margin-top: 8px; }
+.wc .home-steps { margin: 0 0 10px; padding-left: 1.2rem; display: grid; gap: 8px; }
+.wc .foot { font-size: 0.85rem; color: var(--steel-500); max-width: none; }
+@media (max-width: 420px) { .wc .chk-row { flex-direction: column; align-items: stretch; } .wc .chk-btns button { flex: 1; } }
+@media print {
+  header, footer, .page-header, .hazard-stripe, .cta-band, .cookie-banner, #cookie-banner, .wc-note, .wc .actions, .wc .flash, .wc .hint, #allOk, .wc .progress, .skip-link { display: none !important; }
+  body { background: #fff; }
+  .section { padding: 0 !important; }
+  .wc .panel { border: 0; padding: 0; }
+  .wc #h-veh, .wc #h-checks { font-size: 1.1rem; }
+  .wc .chk { padding: 4px 0; break-inside: avoid; }
+  .wc .chk-btns button[aria-pressed="false"] { display: none; }
+  .wc .chk-desc { display: none; }
+}
+.wc .toggle-3 { flex-wrap: wrap; }
+@media (max-width: 420px) { .wc .toggle-3 { display: flex; } .wc .toggle-3 label { flex: 1 1 auto; justify-content: center; padding: 10px 12px; } }
+.wc .learner { display: flex; gap: 10px; align-items: center; margin-top: 4px; padding: 12px 14px; border: 1px dashed var(--steel-300); border-radius: 3px; cursor: pointer; font-weight: 400; }
+.wc .learner input { width: 22px; height: 22px; accent-color: var(--royal-700); flex: none; }
+.wc .chk-why { display: block; margin-top: 6px; padding: 8px 10px; background: #eef3fb; border-left: 3px solid var(--royal-500); font-size: 0.88rem; color: var(--navy-950); }
+.wc .danger-text { color: #8a1c12; }
+.wc .photos { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.wc .ph { position: relative; width: 84px; height: 84px; }
+.wc .ph img { width: 100%; height: 100%; object-fit: cover; border-radius: 3px; border: 1px solid var(--steel-300); }
+.wc .ph-del { position: absolute; top: -8px; right: -8px; width: 28px; height: 28px; border-radius: 50%; border: 0; background: #8a1c12; color: #fff; font-size: 1.1rem; line-height: 1; cursor: pointer; }
+.wc .ph-add { position: relative; overflow: hidden; min-height: 44px; cursor: pointer; }
+.wc .ph-input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.wc .fuel-field { grid-column: 1 / -1; }
+.wc .gauge { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid var(--steel-300); border-radius: 3px; overflow: hidden; max-width: 26rem; }
+.wc .gauge label { position: relative; display: flex; align-items: center; justify-content: center; min-height: 52px; cursor: pointer; background: #fff; font: 700 1.2rem var(--font-display); color: var(--navy-950); }
+.wc .gauge label + label { border-left: 1px solid var(--steel-300); }
+.wc .gauge input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.wc .gauge label:has(input:focus-visible) { outline: 3px solid var(--gold-500); outline-offset: -3px; }
+.wc .gauge label:has(input:checked) { background: var(--royal-800); color: #fff; }
+.wc .gauge label:first-child:has(input:checked) { background: #c0392b; }
+.wc .photo-note { margin: 0 0 14px; padding: 10px 14px; background: #eef3fb; border-left: 4px solid var(--royal-500); font-size: 0.92rem; color: var(--ink); }
+.wc .first-steps h2 { margin: 0 0 6px; font-size: 1.35rem; color: #8a1c12; }
+.wc .first-steps ol { margin: 0 0 8px; padding-left: 1.3rem; display: grid; gap: 4px; }
+.wc details.law summary { cursor: pointer; }
+.wc details.law[open] summary { margin-bottom: 8px; }
+.wc details.law p { margin: 0 0 8px; }
+.wc textarea.tall { min-height: 150px; }
+.wc fieldset.rep { position: relative; border: 1px solid var(--steel-300); border-radius: 4px; padding: 12px 14px 4px; margin: 0 0 12px; min-width: 0; }
+.wc fieldset.rep legend { font-weight: 700; color: var(--navy-950); padding: 0 6px; }
+.wc fieldset.rep .rep-del { position: absolute; top: -14px; right: 10px; }
+.wc .ph-cap { display: grid; gap: 6px; width: 132px; }
+.wc .ph-cap input { min-height: 40px; font-size: 0.9rem; padding: 6px 8px; }
+.wc .photos { align-items: flex-start; }
+.wc select { width: 100%; min-height: 46px; padding: 8px 12px; font: inherit; font-size: 1rem; border: 1px solid var(--steel-300); border-radius: 3px; background: #fff; color: var(--ink); }
+.wc .slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+.wc .slot { border: 1px dashed var(--steel-300); border-radius: 4px; padding: 8px; display: grid; gap: 6px; align-content: start; background: #fff; }
+.wc .slot-h { font-weight: 700; font-size: 0.92rem; color: var(--navy-950); }
+.wc .slot img { width: 100%; height: 110px; object-fit: cover; border-radius: 3px; display: block; }
+.wc .slot .ph-add { width: 100%; justify-content: center; min-height: 44px; padding: 8px; font-size: 0.9rem; }
+.wc .slot input[type=text] { min-height: 38px; font-size: 0.88rem; padding: 6px 8px; }
+.wc .slot .slot-del { justify-self: start; background: none; border: 0; color: var(--royal-600); font-weight: 600; padding: 0; cursor: pointer; font-size: 0.88rem; }
+.wc #f-reg, .wc #h-reg, .wc [data-f="oreg"] { text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Primary">
+    <a class="brand" href="index.html">
+      <picture><source srcset="assets/logo-112.webp" type="image/webp"><img class="brand-logo" src="assets/logo-112.png" alt="AVDT logo" width="56" height="56"></picture>
+      <span class="brand-text">
+        <span class="brand-mark">AVDT</span>
+        <span class="brand-sub">Abbott's Vocational Driver Training</span>
+      </span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu"><span class="nav-toggle-bars" aria-hidden="true"></span>Menu</button>
+    <ul class="nav-links" id="primary-menu">
+      <li><a href="forklift-training.html">Forklift</a></li>
+      <li><a href="telehandler-training.html">Telehandler</a></li>
+      <li><a href="lgv-training.html">LGV &amp; PCV</a></li>
+      <li><a href="lgv-training.html#c1-d1">C1 Ambulance</a></li>
+      <li><a href="d1-minibus-training.html">D1 Minibus</a></li>
+      <li><a href="driver-cpc.html">Driver CPC</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="page-header hero--rays">
+    <div class="container">
+      <div class="section-label" style="color:var(--gold-500);">Free tool</div>
+      <h1>Vehicle handover and return report</h1>
+      <p>Collecting a hire vehicle, returning it, or handing a vehicle to another driver? Record the mileage, fuel, keys and any damage with photos, so nobody can blame you later for something that was already there.</p>
+    </div>
+  </section>
+
+  <div class="hazard-stripe" role="presentation"></div>
+
+  <section class="section section-tight">
+    <div class="container">
+      <div class="wc" id="ho">
+
+        <div class="wc-note">
+          <p><strong>Do it with the other person if you can,</strong> before you drive away or hand over the keys. Your report is saved on this phone as you go, and is only sent to the people you choose. For a full safety check, use the <a href="walkaround-check.html">daily walkaround check</a> as well.</p>
+        </div>
+
+        <section class="panel" aria-labelledby="h-what">
+          <h2 id="h-what">1. What are you doing?</h2>
+          <div class="field">
+            <div class="toggle toggle-wrap" role="radiogroup" aria-label="Handover type">
+              <label><input type="radio" name="mode" value="collect"> Collecting a vehicle</label>
+              <label><input type="radio" name="mode" value="return"> Returning a vehicle</label>
+              <label><input type="radio" name="mode" value="handover"> Handing over to another driver</label>
+            </div>
+          </div>
+          <div class="fields">
+            <div class="field"><label for="h-when">Date and time</label><input id="h-when" data-k="when" type="datetime-local"></div>
+            <div class="field"><label for="h-reg">Vehicle reg / fleet no.</label><input id="h-reg" data-k="reg" type="text" autocapitalize="characters" autocomplete="off"></div>
+            <div class="field"><label for="h-veh">Vehicle (make, model or type)</label><input id="h-veh" data-k="veh" type="text" placeholder="e.g. Ford Transit 17-seat minibus"></div>
+            <div class="field"><label for="h-place">Where</label><input id="h-place" data-k="place" type="text" placeholder="e.g. hire depot, Exeter"></div>
+            <div class="field"><label for="h-me">Your name</label><input id="h-me" data-k="me" type="text" autocomplete="name"></div>
+            <div class="field"><label for="h-for">Working for (company)</label><input id="h-for" data-k="company" type="text"></div>
+            <div class="field"><label for="h-other" id="otherLabel">Collected from</label><input id="h-other" data-k="other" type="text" placeholder="e.g. Chief Rentals, or the person's name"></div>
+            <div class="field"><label for="h-otherref">Their contact, or hire agreement no.</label><input id="h-otherref" data-k="otherref" type="text"></div>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="h-state">
+          <h2 id="h-state">2. Mileage, fuel and keys</h2>
+          <div class="fields">
+            <div class="field"><label for="h-odo">Odometer</label><input id="h-odo" data-k="odo" type="number" inputmode="numeric" min="0"></div>
+            <div class="field">
+              <span class="label-like" id="fuelLvlLabel">Fuel level</span>
+              <div class="gauge" role="radiogroup" aria-labelledby="fuelLvlLabel">
+                <label><input type="radio" name="fuellevel" value="Empty"><span>E</span></label>
+                <label><input type="radio" name="fuellevel" value="1/4"><span>&frac14;</span></label>
+                <label><input type="radio" name="fuellevel" value="1/2"><span>&frac12;</span></label>
+                <label><input type="radio" name="fuellevel" value="3/4"><span>&frac34;</span></label>
+                <label><input type="radio" name="fuellevel" value="Full"><span>Full</span></label>
+              </div>
+            </div>
+            <div class="field"><label for="h-soc">Or battery charge, % (electric)</label><input id="h-soc" data-k="soc" type="number" inputmode="numeric" min="0" max="100"></div>
+            <div class="field"><label for="h-adblue">AdBlue warning showing?</label><select id="h-adblue" data-k="adblue"><option value=""></option><option>No</option><option>Yes</option><option>Not fitted</option></select></div>
+            <div class="field"><label for="h-keys">Keys: how many, and where left or who has them</label><input id="h-keys" data-k="keys" type="text" placeholder="e.g. 2 keys, handed to the depot desk"></div>
+            <div class="field"><label for="h-clean">Inside: clean?</label><select id="h-clean" data-k="clean"><option value=""></option><option>Clean</option><option>Needs a clean</option><option>Dirty</option></select></div>
+          </div>
+          <div class="field"><label for="h-items">Equipment and documents in the vehicle</label><input id="h-items" data-k="items" type="text" placeholder="e.g. first aid kit, fire extinguisher, hire agreement, L plates"></div>
+        </section>
+
+        <section class="panel" aria-labelledby="h-photos">
+          <h2 id="h-photos">3. Walk round and photograph it</h2>
+          <p class="hint">One photo of each side, standing far enough back to get the whole side in, then close-ups of any damage. Include the dashboard to show the mileage, fuel and any warning lights.</p>
+          <div class="slots" id="slots"></div>
+          <div class="field" style="margin-top:14px;">
+            <span class="label-like">Close-ups of damage or anything else</span>
+            <div class="photos" id="photos"></div>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="h-dmg">
+          <h2 id="h-dmg">4. Damage and defects</h2>
+          <div class="field">
+            <span class="label-like" id="dmgLabel">Any damage?</span>
+            <div class="toggle toggle-wrap" role="radiogroup" aria-labelledby="dmgLabel">
+              <label><input type="radio" name="dmg" value="none"> None found</label>
+              <label><input type="radio" name="dmg" value="existing"> Damage already marked on the paperwork</label>
+              <label><input type="radio" name="dmg" value="new"> New damage found</label>
+            </div>
+          </div>
+          <div class="field"><label for="h-dmgtext">Describe the damage and where it is</label><textarea id="h-dmgtext" data-k="dmgtext" placeholder="e.g. 10 cm scratch on the offside rear door; chip in the windscreen, passenger side"></textarea></div>
+          <div class="field"><label for="h-defects">Faults or defects (lights, tyres, warning lights, etc.)</label><textarea id="h-defects" data-k="defects"></textarea></div>
+          <div class="field"><label for="h-notes">Other notes</label><textarea id="h-notes" data-k="notes"></textarea></div>
+          <label class="inline"><input type="checkbox" id="h-seen"> <span id="seenText">The other person has seen this report</span></label>
+        </section>
+
+        <section class="panel" aria-labelledby="h-send">
+          <h2 id="h-send">5. Send it</h2>
+          <div id="summary" class="summary" aria-live="polite"></div>
+          <div class="actions">
+            <button type="button" class="btn btn-primary" id="pdfBtn">Send report (PDF)</button>
+            <button type="button" class="btn btn-outline-dark" id="shareBtn">Send as a message</button>
+            <button type="button" class="btn btn-outline-dark" id="newBtn">Start a new report</button>
+          </div>
+          <span class="flash" id="flash" role="status"></span>
+          <p class="hint">Send the PDF to your company, and to the hire company or the other driver if you like, so everyone has the same dated record. "Start a new report" keeps your name and company and clears the rest, so send it first.</p>
+        </section>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" style="margin-bottom:14px;">
+          <picture><source srcset="assets/logo-112.webp" type="image/webp"><img class="brand-logo" src="assets/logo-112.png" alt="AVDT logo" width="56" height="56"></picture>
+          <span class="brand-mark">AVDT</span>
+        </a>
+        <p style="max-width:36ch; color:var(--steel-300);">Stuart Abbott, trading as Abbott's Vocational Driver Training. On-site forklift and telehandler operator training, LGV (lorry) and PCV (bus and minibus) driver training, and event water safety cover across Devon and Cornwall.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="forklift-training.html">Forklift Training</a>
+        <a href="telehandler-training.html">Telehandler Training</a>
+        <a href="lgv-training.html">LGV &amp; PCV Training</a>
+        <a href="lgv-training.html#c1-d1">C1 Ambulance Training</a>
+        <a href="d1-minibus-training.html">D1 Minibus Training</a>
+        <a href="driver-cpc.html">Driver CPC</a>
+        <a href="https://water.avdt.co.uk/">Water Safety Cover</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="resources.html">Resources</a>
+        <a href="privacy.html">Privacy notice</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:info@avdt.co.uk">info@avdt.co.uk</a>
+        <a href="tel:07807395913">07807 395913</a>
+        <a href="https://g.page/r/CQ6pZFvB53g9EBM/review" target="_blank" rel="noopener">Leave a Google review</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> Abbott's Vocational Driver Training. All rights reserved.</span>
+      <span>ICO registered — ZC212008</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+<script src="assets/nav.js" defer></script>
+<script src="assets/signup.js" defer></script>
+<script src="assets/jspdf/jspdf.umd.min.js"></script>
+<script>
+(function () {
+  // ---- shared helpers for the AVDT report tools ----
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s === undefined || s === null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function flash(t) { var f = $('flash'); if (!f) return; f.textContent = t; clearTimeout(flash.t); flash.t = setTimeout(function () { f.textContent = ''; }, 4000); }
+  function nowLocal() { var d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 16); }
+  function whenText(w) {
+    var d = new Date(w || Date.now()); if (isNaN(d)) d = new Date();
+    return d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }) + ', ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+  }
+  function safe(s) { return String(s || '').replace(/[^A-Za-z0-9]+/g, ''); }
+  function shrink(file, max, cb) {
+    var reader = new FileReader();
+    reader.onload = function () {
+      var img = new Image();
+      img.onload = function () {
+        var w = img.naturalWidth, h = img.naturalHeight, k = Math.min(1, max / Math.max(w, h));
+        var cv = document.createElement('canvas'); cv.width = Math.round(w * k); cv.height = Math.round(h * k);
+        cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+        cb(cv.toDataURL('image/jpeg', 0.6), cv.width, cv.height);
+      };
+      img.onerror = function () { cb(null); };
+      img.src = reader.result;
+    };
+    reader.onerror = function () { cb(null); };
+    reader.readAsDataURL(file);
+  }
+  function pdfDoc() { var J = window.jspdf && window.jspdf.jsPDF; return J ? new J({ unit: 'mm', format: 'a4' }) : null; }
+  function pdfWriter(doc, title, sub) {
+    var y = 0, M = 15, W = 210;
+    doc.setFillColor('#0d1b2c'); doc.rect(0, 0, W, 24, 'F');
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(16); doc.setTextColor('#ffffff'); doc.text(title, M, 12);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.text(sub, M, 18);
+    doc.setTextColor('#c9a15b'); doc.text('avdt.co.uk', W - M, 12, { align: 'right' });
+    y = 34;
+    var w = {
+      get y() { return y; }, set y(v) { y = v; },
+      need: function (h) { if (y + h > 282) { doc.addPage(); y = 18; } },
+      heading: function (t, color) { w.need(14); y += 2; doc.setFont('helvetica', 'bold'); doc.setFontSize(12); doc.setTextColor(color || '#1c3f7a'); doc.text(t, M, y); y += 6.5; },
+      row: function (label, value) {
+        if (value === undefined || value === null || value === '') return;
+        doc.setFontSize(10); var t = doc.splitTextToSize(String(value), 125); w.need(5.4 * t.length + 2);
+        doc.setFont('helvetica', 'bold'); doc.setTextColor('#3d4a58'); doc.text(label, M, y);
+        doc.setFont('helvetica', 'normal'); doc.setTextColor('#16202b'); doc.text(t, 62, y);
+        y += 5.4 * t.length; doc.setDrawColor('#e4e7e6'); doc.line(M, y - 3.6, W - M, y - 3.6); y += 1.2;
+      },
+      para: function (t, size, color, bold) {
+        doc.setFont('helvetica', bold ? 'bold' : 'normal'); doc.setFontSize(size || 10); doc.setTextColor(color || '#16202b');
+        doc.splitTextToSize(String(t), W - 2 * M).forEach(function (pt) { w.need(6); doc.text(pt, M, y); y += (size || 10) * 0.47; });
+        y += 1.5;
+      },
+      photos: function (list, title) {
+        if (!list.length) return;
+        doc.addPage(); y = 18; w.heading(title || 'Photos', '#16202b');
+        var colW = 87, gap = 6, col = 0, rowH = 0;
+        list.forEach(function (p) {
+          var iw = colW, ih = iw * p.h / p.w; if (ih > 95) { ih = 95; iw = ih * p.w / p.h; }
+          var cap = doc.splitTextToSize(p.cap || '', colW); var need = ih + 4 + cap.length * 4.2 + 4;
+          if (col === 0 && y + need > 285) { doc.addPage(); y = 18; }
+          var x = M + col * (colW + gap);
+          try { doc.addImage(p.d, 'JPEG', x, y, iw, ih); } catch (e) {}
+          doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.setTextColor('#3d4a58'); doc.text(cap, x, y + ih + 4);
+          rowH = Math.max(rowH, need);
+          if (col === 1) { y += rowH; rowH = 0; col = 0; } else col = 1;
+        });
+        if (col === 1) y += rowH;
+      },
+      footer: function (t) { var n = doc.getNumberOfPages(); for (var i = 1; i <= n; i++) { doc.setPage(i); doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5); doc.setTextColor('#6b7480'); doc.text(t + '   Page ' + i + ' of ' + n, M, 291); } }
+    };
+    return w;
+  }
+  function deliverBlob(blob, name, type, okText) {
+    var file = null;
+    try { file = new File([blob], name, { type: type }); } catch (e) {}
+    if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator.share({ files: [file], title: name }).catch(function (err) { if (err && err.name !== 'AbortError') flash("Couldn't open the share menu. Try again."); });
+      return;
+    }
+    var url = URL.createObjectURL(blob), a = document.createElement('a');
+    a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 60000);
+    flash(okText + name);
+  }
+  function shareText(title, text) {
+    if (navigator.share) navigator.share({ title: title, text: text }).catch(function () {});
+    else if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { flash('Copied. Paste it into a message or email.'); }, function () { flash("Couldn't copy. Use the PDF instead."); });
+    else flash("Sharing isn't available here. Use the PDF instead.");
+  }
+  function store(key) {
+    return {
+      load: function () { try { return JSON.parse(localStorage.getItem(key) || 'null'); } catch (e) { return null; } },
+      save: function (v) { try { localStorage.setItem(key, JSON.stringify(v)); return true; } catch (e) { return false; } }
+    };
+  }
+
+  var DB = store('avdt-handover-v1');
+  var MODES = { collect: ['Vehicle collection report', 'Collected from', 'Collected'], 'return': ['Vehicle return report', 'Returned to', 'Returned'], handover: ['Vehicle handover report', 'Handed over to', 'Handed over'] };
+  var SLOTS = [['front', 'Front'], ['nearside', 'Nearside (left)'], ['rear', 'Rear'], ['offside', 'Offside (right)'], ['interior', 'Inside'], ['dash', 'Dashboard (mileage, fuel, warnings)']];
+  function blank(keep) { return { mode: keep ? keep.mode : 'collect', f: { when: nowLocal(), me: keep ? keep.f.me : '', company: keep ? keep.f.company : '' }, fuellevel: '', dmg: '', seen: false, slots: {}, photos: [] }; }
+  var st = DB.load(); if (!st || !st.f) st = blank();
+  var warned = false;
+  function save() { if (!DB.save(st) && !warned) { warned = true; flash('This phone is short of space, so photos may not be kept if the page closes. Send the report before you leave this page.'); } }
+  function M() { return MODES[st.mode] || MODES.collect; }
+
+  function modeUI() {
+    $('otherLabel').textContent = M()[1];
+    $('h-other').placeholder = st.mode === 'handover' ? 'The other driver’s name' : 'e.g. the hire company or depot';
+    $('seenText').textContent = st.mode === 'handover' ? 'The other driver has seen this report' : 'The hire company or depot has seen this report';
+  }
+  document.querySelectorAll('input[name="mode"]').forEach(function (r) { r.checked = r.value === st.mode; r.addEventListener('change', function () { st.mode = r.value; modeUI(); summary(); save(); }); });
+  document.querySelectorAll('input[name="fuellevel"]').forEach(function (r) { r.checked = r.value === st.fuellevel; r.addEventListener('change', function () { st.fuellevel = r.value; summary(); save(); }); });
+  document.querySelectorAll('input[name="dmg"]').forEach(function (r) { r.checked = r.value === st.dmg; r.addEventListener('change', function () { st.dmg = r.value; summary(); save(); }); });
+  $('h-seen').checked = !!st.seen; $('h-seen').addEventListener('change', function () { st.seen = this.checked; save(); });
+  document.querySelectorAll('#ho [data-k]').forEach(function (el) {
+    el.value = st.f[el.getAttribute('data-k')] || '';
+    function upd() { var v = el.value; if (el.id === 'h-reg') v = v.toUpperCase(); st.f[el.getAttribute('data-k')] = v; summary(); save(); }
+    el.addEventListener('input', upd); el.addEventListener('change', upd);
+  });
+
+  // walk-round photo slots
+  function renderSlots() {
+    $('slots').innerHTML = SLOTS.map(function (s) {
+      var p = st.slots[s[0]];
+      return '<div class="slot"><span class="slot-h">' + esc(s[1]) + '</span>' + (p
+        ? '<img src="' + p.d + '" alt="' + esc(s[1]) + ' photo"><input type="text" data-slotcap="' + s[0] + '" value="' + esc(p.cap) + '" placeholder="Note (optional)" aria-label="Note for ' + esc(s[1]) + '"><button type="button" class="slot-del" data-slotdel="' + s[0] + '">Retake</button>'
+        : '<label class="btn btn-outline-dark ph-add">Take photo<input type="file" accept="image/*" capture="environment" class="ph-input" data-slot="' + s[0] + '"></label>') + '</div>';
+    }).join('');
+  }
+  $('slots').addEventListener('change', function (e) {
+    var k = e.target.getAttribute('data-slot'); if (!k || !e.target.files || !e.target.files[0]) return;
+    flash('Adding photo…');
+    shrink(e.target.files[0], 1000, function (d, w, h) { if (!d) { flash("That photo couldn't be added. Try again."); return; } st.slots[k] = { d: d, w: w, h: h, cap: '', t: new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) }; renderSlots(); summary(); save(); });
+  });
+  $('slots').addEventListener('input', function (e) { var k = e.target.getAttribute('data-slotcap'); if (k && st.slots[k]) { st.slots[k].cap = e.target.value; save(); } });
+  $('slots').addEventListener('click', function (e) { var k = e.target.getAttribute('data-slotdel'); if (k) { delete st.slots[k]; renderSlots(); summary(); save(); } });
+
+  // extra photos
+  function renderPhotos() {
+    $('photos').innerHTML = st.photos.map(function (p, n) {
+      return '<div class="ph-cap"><span class="ph"><img src="' + p.d + '" alt="Close-up ' + (n + 1) + '"><button type="button" class="ph-del" data-n="' + n + '" aria-label="Remove photo ' + (n + 1) + '">&times;</button></span>' +
+        '<input type="text" data-cap="' + n + '" value="' + esc(p.cap) + '" placeholder="What is this?" aria-label="Note for close-up ' + (n + 1) + '"></div>';
+    }).join('') + (st.photos.length < 8 ? '<label class="btn btn-outline-dark ph-add">' + (st.photos.length ? 'Add another' : 'Add a close-up') + '<input type="file" accept="image/*" capture="environment" class="ph-input"></label>' : '');
+  }
+  $('photos').addEventListener('click', function (e) { var b = e.target.closest('.ph-del'); if (!b) return; st.photos.splice(+b.getAttribute('data-n'), 1); renderPhotos(); summary(); save(); });
+  $('photos').addEventListener('input', function (e) { var n = e.target.getAttribute('data-cap'); if (n !== null) { st.photos[+n].cap = e.target.value; save(); } });
+  $('photos').addEventListener('change', function (e) {
+    if (!e.target.files || !e.target.files[0]) return;
+    flash('Adding photo…');
+    shrink(e.target.files[0], 1000, function (d, w, h) { if (!d) { flash("That photo couldn't be added. Try again."); return; } st.photos.push({ d: d, w: w, h: h, cap: '', t: new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) }); renderPhotos(); summary(); save(); });
+  });
+
+  function allPhotos() {
+    var out = [];
+    SLOTS.forEach(function (s) { var p = st.slots[s[0]]; if (p) out.push({ d: p.d, w: p.w, h: p.h, cap: s[1] + (p.cap ? ': ' + p.cap : '') + (p.t ? ' (' + p.t + ')' : '') }); });
+    st.photos.forEach(function (p, i) { out.push({ d: p.d, w: p.w, h: p.h, cap: 'Close-up ' + (i + 1) + (p.cap ? ': ' + p.cap : '') + (p.t ? ' (' + p.t + ')' : '') }); });
+    return out;
+  }
+  var DMG = { none: 'None found', existing: 'Only damage already marked on the paperwork', 'new': 'NEW DAMAGE FOUND' };
+  function fuelText() { return [st.fuellevel ? 'Fuel ' + st.fuellevel : '', st.f.soc ? 'Battery ' + st.f.soc + '%' : ''].filter(Boolean).join(', '); }
+  function summary() {
+    var f = st.f, miss = [], sides = SLOTS.filter(function (s) { return st.slots[s[0]]; }).length;
+    if (!f.reg) miss.push('vehicle reg'); if (!f.odo) miss.push('odometer'); if (!st.fuellevel && !f.soc) miss.push('fuel level'); if (!st.dmg) miss.push('damage check'); if (sides < 4) miss.push('walk-round photos');
+    $('summary').innerHTML = '<div><strong>' + esc(M()[0]) + '</strong></div><div><strong>' + esc(f.reg || 'Vehicle not entered') + '</strong> · ' + esc(whenText(f.when)) + '</div>' +
+      '<div>' + esc(M()[1]) + ': ' + esc(f.other || '-') + (f.place ? ' · ' + esc(f.place) : '') + '</div>' +
+      '<div>' + (f.odo ? esc(f.odo) + ' miles' : 'Mileage not entered') + (fuelText() ? ' · ' + esc(fuelText()) : '') + '</div>' +
+      '<div>' + sides + ' of 6 walk-round photos, ' + st.photos.length + ' close-up' + (st.photos.length === 1 ? '' : 's') + '</div>' +
+      (st.dmg === 'new' ? '<div class="danger-text"><strong>New damage found</strong></div>' : '') +
+      (miss.length ? '<span class="res todo">Still to add: ' + esc(miss.join(', ')) + '</span>' : '<span class="res nil">Ready to send</span>');
+  }
+  function text() {
+    var f = st.f, L = [M()[0] + (f.company ? ' for ' + f.company : ''), 'Date: ' + whenText(f.when), 'Vehicle: ' + (f.reg || '-') + (f.veh ? ' (' + f.veh + ')' : ''), M()[1] + ': ' + (f.other || '-') + (f.otherref ? ' (' + f.otherref + ')' : ''), 'Where: ' + (f.place || '-'), 'By: ' + (f.me || '-'), 'Odometer: ' + (f.odo || '-'), 'Fuel: ' + (fuelText() || '-')];
+    if (f.adblue) L.push('AdBlue warning: ' + f.adblue);
+    if (f.keys) L.push('Keys: ' + f.keys); if (f.clean) L.push('Inside: ' + f.clean); if (f.items) L.push('In the vehicle: ' + f.items);
+    L.push('Damage: ' + (DMG[st.dmg] || 'not checked') + (f.dmgtext ? '. ' + f.dmgtext : ''));
+    if (f.defects) L.push('Defects: ' + f.defects); if (f.notes) L.push('Notes: ' + f.notes);
+    if (st.seen) L.push((st.mode === 'handover' ? 'The other driver' : 'The hire company or depot') + ' has seen this report.');
+    L.push('Photos: ' + allPhotos().length + ' (in the PDF report)');
+    L.push('Made with the free AVDT vehicle handover report - avdt.co.uk');
+    return L.join('\n');
+  }
+  $('pdfBtn').addEventListener('click', function () {
+    var f = st.f, doc = pdfDoc();
+    if (!doc) { flash("The PDF maker didn't load. Check your signal, reload the page and try again."); return; }
+    var w = pdfWriter(doc, M()[0], (f.company ? 'For ' + f.company + '  -  ' : '') + 'by ' + (f.me || 'driver') + '  -  ' + whenText(f.when));
+    if (st.dmg === 'new') w.para('NEW DAMAGE FOUND', 12, '#8a1c12', true);
+    w.heading('Vehicle');
+    w.row('Date and time', whenText(f.when)); w.row('Vehicle reg', f.reg); w.row('Vehicle', f.veh); w.row('Where', f.place);
+    w.row(M()[1], f.other); w.row('Contact or agreement', f.otherref); w.row('Driver', f.me); w.row('Company', f.company);
+    w.heading('Condition');
+    w.row('Odometer', f.odo); w.row('Fuel', fuelText()); w.row('AdBlue warning', f.adblue); w.row('Keys', f.keys); w.row('Inside', f.clean); w.row('In the vehicle', f.items);
+    w.row('Damage', (DMG[st.dmg] || 'Not checked') + (f.dmgtext ? '. ' + f.dmgtext : '')); w.row('Defects', f.defects); w.row('Notes', f.notes);
+    if (st.seen) w.row('Seen by', st.mode === 'handover' ? 'The other driver has seen this report' : 'The hire company or depot has seen this report');
+    w.photos(allPhotos(), 'Photos');
+    w.footer('Made with the free AVDT vehicle handover report - avdt.co.uk. A record made at the time by the driver.');
+    deliverBlob(doc.output('blob'), st.mode + '-' + safe(f.reg) + '-' + String(f.when || '').slice(0, 10) + '.pdf', 'application/pdf', 'Report saved: ');
+  });
+  $('shareBtn').addEventListener('click', function () { shareText(M()[0], text()); });
+  var confirmNew = false;
+  $('newBtn').addEventListener('click', function () {
+    if (!confirmNew) { confirmNew = true; flash('Tap "Start a new report" again to clear this one. Make sure you’ve sent it first.'); setTimeout(function () { confirmNew = false; }, 5000); return; }
+    st = blank(st); save(); location.reload();
+  });
+  if (!st.f.when) st.f.when = nowLocal();
+  modeUI(); renderSlots(); renderPhotos(); summary();
+})();
+
+</script>
+</body>
+</html>
